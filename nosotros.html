@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosotros | Aurora University</title>
+    <link rel="stylesheet" href="estilos.css">
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: #f3f6fb;
+            color: #52647d;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        .au-top {
+            padding: 11px 5%;
+            display: flex;
+            justify-content: space-between;
+            background: #102849;
+            color: white;
+            font-size: 12px;
+        }
+
+        .au-header {
+            position: relative;
+            z-index: 20;
+            background: white;
+            box-shadow: 0 5px 25px rgba(16,40,73,.08);
+        }
+
+        .au-inner {
+            width: 92%;
+            max-width: 1400px;
+            min-height: 105px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .au-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .au-logo {
+            width: 49px;
+            height: 49px;
+            display: grid;
+            place-items: center;
+            border-radius: 15px;
+            background: #102849;
+            color: #e6ae4c;
+            font-size: 30px;
+        }
+
+        .au-brand h1 {
+            margin: 0;
+            color: #102849;
+            font-size: 21px;
+        }
+
+        .au-brand p {
+            margin: 5px 0 0;
+            color: #8190a6;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+        }
+
+        .au-nav {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .au-nav a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 13px;
+            min-height: 42px;
+            border-radius: 10px;
+            background: transparent !important;
+            color: #102849 !important;
+            text-decoration: none !important;
+            font-size: 13px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .au-nav a:hover,
+        .au-nav a.active {
+            background: #edf2f9 !important;
+        }
+
+        .au-nav a.au-portal {
+            margin-left: 8px;
+            padding: 14px 18px;
+            background: #e6ae4c !important;
+            color: #102849 !important;
+            font-weight: 800;
+        }
+
+        .au-nav a.au-portal:hover {
+            background: #102849 !important;
+            color: white !important;
+        }
+
+        .au-toggle {
+            display: none;
+            padding: 10px 14px;
+            border: 0;
+            border-radius: 9px;
+            background: #102849;
+            color: white;
+            cursor: pointer;
+        }
+
+        .au-hero {
+            min-height: 390px;
+            padding: 85px 7%;
+            display: flex;
+            align-items: center;
+            background:
+                linear-gradient(90deg, rgba(10,29,55,.96), rgba(16,40,73,.72)),
+                radial-gradient(circle at 80% 30%, #526f91, #102849);
+            color: white;
+        }
+
+        .au-hero-content {
+            max-width: 800px;
+        }
+
+        .au-eyebrow {
+            color: #f0bd61;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 3px;
+        }
+
+        .au-hero h2 {
+            margin: 18px 0;
+            color: white;
+            font-size: clamp(38px, 5vw, 58px);
+            line-height: 1.1;
+        }
+
+        .au-hero p {
+            max-width: 700px;
+            color: #e0e8f2;
+            font-size: 17px;
+            line-height: 1.8;
+        }
+
+        .au-container {
+            width: 88%;
+            max-width: 1250px;
+            margin: 75px auto;
+        }
+
+        .au-section-label {
+            display: inline-block;
+            padding: 9px 17px;
+            border: 1px solid #d4a653;
+            border-radius: 30px;
+            color: #a97824;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .au-section-title {
+            margin: 18px 0;
+            color: #102849;
+            font-size: clamp(27px, 3vw, 36px);
+        }
+
+        .au-story {
+            display: grid;
+            grid-template-columns: 1.1fr .9fr;
+            align-items: center;
+            gap: 55px;
+        }
+
+        .au-story p {
+            font-size: 15px;
+            line-height: 1.95;
+        }
+
+
+        .au-visual {
+            min-height: 350px;
+            position: relative;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            border-radius: 28px;
+            background: linear-gradient(145deg, #e9eff7, #d4dfed);
+            box-shadow: 0 20px 45px rgba(16,40,73,.12);
+        }
+
+        .au-orbit {
+            position: absolute;
+            width: 245px;
+            height: 245px;
+            border: 2px solid rgba(212,166,83,.55);
+            border-radius: 50%;
+            animation: girar 16s linear infinite;
+        }
+
+        .au-orbit::before,
+        .au-orbit::after {
+            content: "✦";
+            position: absolute;
+            color: #d4a653;
+            font-size: 25px;
+        }
+
+        .au-orbit::before {
+            top: 15px;
+            left: 35px;
+        }
+
+        .au-orbit::after {
+            right: 15px;
+            bottom: 35px;
+        }
+
+        .au-university-icon {
+            width: 150px;
+            height: 150px;
+            display: grid;
+            place-items: center;
+            border-radius: 40px;
+            background: #102849;
+            color: #e6ae4c;
+            font-size: 75px;
+            box-shadow: 0 20px 35px rgba(16,40,73,.25);
+            animation: flotar 3s ease-in-out infinite;
+        }
+
+        .au-visual-text {
+            position: absolute;
+            bottom: 28px;
+            color: #102849;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        @keyframes flotar {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes girar {
+            to { transform: rotate(360deg); }
+        }
+
+        .au-purpose {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-top: 75px;
+        }
+
+        .au-purpose-card {
+            padding: 35px;
+            border-radius: 20px;
+            background: white;
+            box-shadow: 0 12px 35px rgba(16,40,73,.07);
+            border-top: 4px solid #d4a653;
+        }
+
+        .au-purpose-card .icon {
+            font-size: 37px;
+        }
+
+        .au-purpose-card h3 {
+            color: #102849;
+            font-size: 24px;
+        }
+
+        .au-purpose-card p {
+            line-height: 1.9;
+        }
+
+        .au-values {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .au-value {
+            padding: 27px;
+            border: 1px solid #e4eaf2;
+            border-radius: 16px;
+            background: white;
+            transition: .3s;
+        }
+
+        .au-value:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 15px 30px rgba(16,40,73,.1);
+        }
+
+        .au-value span { font-size: 30px; }
+
+        .au-value h3 {
+            margin-bottom: 10px;
+            color: #102849;
+        }
+
+        .au-value p {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* COMUNIDAD */
+
+        .au-community {
+            padding: 55px;
+            border-radius: 22px;
+            background: #102849;
+            color: white;
+            text-align: center;
+        }
+
+        .au-community h2 {
+            color: white;
+            font-size: 30px;
+        }
+
+        .au-community p {
+            max-width: 850px;
+            margin: 15px auto 0;
+            color: #e1e9f3;
+            line-height: 1.9;
+        }
+
+        .au-footer {
+            padding: 40px 5%;
+            background: #102849;
+            color: white;
+            text-align: center;
+        }
+
+        .au-footer h2 { color: white; }
+
+        .au-footer p {
+            color: #dce5f0;
+            font-size: 13px;
+        }
+
+        @media (max-width: 850px) {
+            .au-story,
+            .au-purpose {
+                grid-template-columns: 1fr;
+            }
+
+            .au-values {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .au-top { flex-direction: column; }
+
+            .au-toggle { display: block; }
+
+            .au-nav {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .au-nav.open { display: flex; }
+
+            .au-nav a { justify-content: flex-start; }
+
+            .au-nav a.au-portal { margin-left: 0; }
+
+            .au-values { grid-template-columns: 1fr; }
+
+            .au-container { width: 90%; }
+
+            .au-community { padding: 35px 22px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="au-top">
+        <span>✦ Aurora University | Conocimiento, innovación y futuro</span>
+        <span>📍 Zona 10, Ciudad de Guatemala</span>
+    </div>
+
+    <header class="au-header">
+        <div class="au-inner">
+
+            <a href="index.html" class="au-brand">
+                <div class="au-logo">✦</div>
+                <div>
+                    <h1>AURORA UNIVERSITY</h1>
+                    <p>CONOCIMIENTO · INNOVACIÓN · FUTURO</p>
+                </div>
+            </a>
+
+            <button class="au-toggle" id="auToggle">☰ Menú</button>
+
+            <nav class="au-nav" id="auNav">
+                <a href="index.html">Inicio</a>
+                <a href="nosotros.html" class="active">Nosotros</a>
+                <a href="facultades.html">Facultades</a>
+                <a href="campus.html">Campus</a>
+                <a href="calendario.html">Calendario</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="login.html" class="au-portal">Portal estudiantil →</a>
+            </nav>
+
+        </div>
+    </header>
+
+    <section class="au-hero">
+        <div class="au-hero-content">
+            <span class="au-eyebrow">CONOCIMIENTO · INNOVACIÓN · FUTURO</span>
+            <h2>Construimos el futuro a través de la educación</h2>
+            <p>
+                Somos una comunidad universitaria que impulsa el talento,
+                la creatividad y el pensamiento crítico. En Aurora University
+                creemos que cada estudiante tiene el potencial de transformar
+                su entorno.
+            </p>
+        </div>
+    </section>
+
+    <main class="au-container">
+
+        <section class="au-story">
+            <div>
+                <span class="au-section-label">NUESTRA HISTORIA</span>
+                <h2 class="au-section-title">Una visión educativa para el futuro</h2>
+
+                <p>
+                    Aurora University nace como una propuesta académica orientada
+                    a representar una universidad moderna, accesible e innovadora.
+                    Su identidad se inspira en la idea de un nuevo comienzo, en el
+                    que cada estudiante pueda descubrir sus talentos y desarrollar
+                    sus capacidades.
+                </p>
+
+                <p>
+                    Nuestra propuesta reúne diferentes áreas de conocimiento,
+                    actividades académicas, herramientas digitales y espacios
+                    de colaboración. Buscamos representar una comunidad en la
+                    que aprender no sea únicamente memorizar información, sino
+                    también investigar, crear, compartir y resolver problemas.
+                </p>
+
+                <p>
+                    Este sitio forma parte de un proyecto académico de desarrollo
+                    web y presenta una experiencia universitaria ficticia con
+                    fines educativos.
+                </p>
+            </div>
+
+            <div class="au-visual">
+                <div class="au-orbit"></div>
+                <div class="au-university-icon">✦</div>
+                <div class="au-visual-text">UN NUEVO HORIZONTE</div>
+            </div>
+        </section>
+
+        <section class="au-purpose">
+
+            <article class="au-purpose-card">
+                <div class="icon">🎯</div>
+                <h3>Nuestra misión</h3>
+                <p>
+                    Ofrecer una experiencia educativa integral que fomente
+                    el conocimiento, la innovación, la responsabilidad social
+                    y el desarrollo de habilidades profesionales. Promovemos
+                    el aprendizaje participativo y el uso de herramientas
+                    tecnológicas para preparar estudiantes capaces de afrontar
+                    los desafíos de la sociedad.
+                </p>
+            </article>
+
+            <article class="au-purpose-card">
+                <div class="icon">🔭</div>
+                <h3>Nuestra visión</h3>
+                <p>
+                    Ser una institución universitaria reconocida por su
+                    propuesta académica innovadora, su compromiso con la
+                    formación humana y su capacidad para impulsar nuevas
+                    ideas. Aspiramos a construir una comunidad que contribuya
+                    al progreso mediante la educación, la investigación
+                    y la creatividad.
+                </p>
+            </article>
+
+        </section>
+
+        <section style="margin-top:75px;">
+            <span class="au-section-label">LO QUE NOS IDENTIFICA</span>
+            <h2 class="au-section-title">Nuestros valores</h2>
+
+            <div class="au-values">
+
+                <article class="au-value">
+                    <span>🤝</span>
+                    <h3>Responsabilidad</h3>
+                    <p>Actuamos con compromiso y asumimos las consecuencias de nuestras decisiones.</p>
+                </article>
+
+                <article class="au-value">
+                    <span>💡</span>
+                    <h3>Innovación</h3>
+                    <p>Impulsamos nuevas ideas y buscamos soluciones creativas a los desafíos.</p>
+                </article>
+
+                <article class="au-value">
+                    <span>⚖️</span>
+                    <h3>Integridad</h3>
+                    <p>Promovemos la honestidad, la transparencia y el respeto en cada actividad.</p>
+                </article>
+
+                <article class="au-value">
+                    <span>🌎</span>
+                    <h3>Compromiso social</h3>
+                    <p>Reconocemos la importancia de contribuir positivamente a nuestra comunidad.</p>
+                </article>
+
+                <article class="au-value">
+                    <span>📖</span>
+                    <h3>Excelencia</h3>
+                    <p>Buscamos mejorar continuamente la calidad de nuestro aprendizaje.</p>
+                </article>
+
+                <article class="au-value">
+                    <span>🌟</span>
+                    <h3>Respeto</h3>
+                    <p>Valoramos la diversidad de ideas, experiencias y capacidades de cada persona.</p>
+                </article>
+
+            </div>
+        </section>
+
+        <section style="margin-top:75px;">
+            <div class="au-community">
+                <span class="au-eyebrow">SOMOS UNA COMUNIDAD</span>
+                <h2>Aprender, compartir y crecer juntos</h2>
+                <p>
+                    Aurora University representa un espacio donde estudiantes,
+                    docentes y colaboradores pueden intercambiar conocimientos,
+                    participar en actividades, desarrollar proyectos y construir
+                    relaciones que fortalezcan su formación académica y personal.
+                    Creemos que el futuro se construye cuando aprendemos en conjunto.
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="au-footer">
+        <h2>AURORA UNIVERSITY</h2>
+        <p>Conocimiento · Innovación · Futuro</p>
+        <p>Zona 10, Ciudad de Guatemala</p>
+    </footer>
+
+    <script>
+        document.getElementById("auToggle").addEventListener("click", function () {
+            document.getElementById("auNav").classList.toggle("open");
+        });
+    </script>
+
+</body>
+</html>

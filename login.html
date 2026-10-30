@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso estudiantil | Aurora University</title>
+    <link rel="stylesheet" href="estilos.css">
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #f1f4f9;
+            font-family: "Segoe UI", Arial, sans-serif;
+            color: #52647d;
+        }
+
+        .login-header {
+            padding: 18px 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #102849;
+            color: white;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .brand-icon {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            border-radius: 14px;
+            background: #e6ae4c;
+            color: #102849;
+            font-size: 27px;
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-size: 19px;
+        }
+
+        .brand small {
+            color: #dce5f0;
+            letter-spacing: 1px;
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .login-layout {
+            width: 92%;
+            max-width: 1100px;
+            margin: 45px auto;
+            display: grid;
+            grid-template-columns: .85fr 1.15fr;
+            gap: 25px;
+            align-items: stretch;
+        }
+
+        .welcome-panel {
+            padding: 40px;
+            border-radius: 20px;
+            background: linear-gradient(145deg, #102849, #294d78);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .welcome-panel .symbol {
+            color: #f0bd61;
+            font-size: 60px;
+        }
+
+        .welcome-panel h2 {
+            color: white;
+            font-size: 32px;
+        }
+
+        .welcome-panel p {
+            color: #e1e9f3;
+            line-height: 1.9;
+        }
+
+        .welcome-panel ul {
+            padding-left: 20px;
+            color: #e1e9f3;
+            line-height: 2.2;
+        }
+
+        .form-panel {
+            padding: 35px;
+            border-radius: 20px;
+            background: white;
+            box-shadow: 0 12px 35px rgba(16,40,73,.08);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            padding: 5px;
+            border-radius: 12px;
+            background: #edf2f9;
+        }
+
+        .tabs button {
+            flex: 1;
+            padding: 13px;
+            border: 0;
+            border-radius: 9px;
+            background: transparent;
+            color: #52647d;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .tabs button.active {
+            background: #102849;
+            color: white;
+        }
+
+        .form-panel h2 {
+            color: #102849;
+            margin: 25px 0 8px;
+        }
+
+        .form-panel .intro {
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 22px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        .field label {
+            color: #102849;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .field input,
+        .field select,
+        .field textarea {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d7e0eb;
+            border-radius: 9px;
+            background: #fbfcfe;
+            color: #102849;
+            font: inherit;
+            font-size: 14px;
+        }
+
+        .field input:focus,
+        .field select:focus,
+        .field textarea:focus {
+            outline: 2px solid #e6ae4c;
+            border-color: #d4a653;
+        }
+
+        .field textarea {
+            min-height: 85px;
+            resize: vertical;
+        }
+
+        .main-button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 15px;
+            border: 0;
+            border-radius: 10px;
+            background: #e6ae4c;
+            color: #102849;
+            font-size: 15px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .main-button:hover {
+            background: #102849;
+            color: white;
+        }
+
+        .message {
+            display: none;
+            margin-top: 17px;
+            padding: 13px;
+            border-radius: 9px;
+            line-height: 1.6;
+            font-size: 13px;
+        }
+
+        .message.error {
+            display: block;
+            background: #ffebee;
+            color: #a32121;
+        }
+
+        .message.success {
+            display: block;
+            background: #e8f5e9;
+            color: #24612b;
+        }
+
+        .hidden { display: none !important; }
+
+        .security-note {
+            margin-top: 20px;
+            color: #7d8da3;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        footer {
+            padding: 25px;
+            background: #102849;
+            color: #dce5f0;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        @media (max-width: 800px) {
+            .login-layout { grid-template-columns: 1fr; }
+            .welcome-panel { padding: 28px; }
+        }
+
+        @media (max-width: 550px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .field.full { grid-column: auto; }
+            .form-panel { padding: 22px; }
+            .login-header { gap: 12px; flex-wrap: wrap; }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="login-header">
+    <a href="index.html" class="brand">
+        <div class="brand-icon">✦</div>
+        <div>
+            <h1>AURORA UNIVERSITY</h1>
+            <small>PORTAL ESTUDIANTIL</small>
+        </div>
+    </a>
+
+    <a href="index.html" class="back-link">← Volver al inicio</a>
+</header>
+
+<main class="login-layout">
+
+    <section class="welcome-panel">
+        <div class="symbol">✦</div>
+        <h2>Tu futuro comienza aquí</h2>
+        <p>
+            Ingresa a la comunidad universitaria de Aurora University.
+            Accede a tus cursos, actividades, calificaciones y servicios
+            estudiantiles desde un solo lugar.
+        </p>
+
+        <ul>
+            <li>Portal académico personalizado</li>
+            <li>Comunidad universitaria</li>
+            <li>Información de tus cursos</li>
+            <li>Servicios estudiantiles</li>
+        </ul>
+    </section>
+
+    <section class="form-panel">
+
+        <div class="tabs">
+            <button type="button" id="tabLogin" class="active">
+                Iniciar sesión
+            </button>
+
+            <button type="button" id="tabRegister">
+                Crear cuenta
+            </button>
+        </div>
+
+        <!-- INICIAR SESIÓN -->
+
+        <div id="loginSection">
+            <h2>Bienvenido nuevamente</h2>
+            <p class="intro">Ingresa tus credenciales para acceder al portal.</p>
+
+            <form id="loginForm">
+
+                <div class="field">
+                    <label for="loginCorreo">Correo electrónico</label>
+                    <input
+                        type="email"
+                        id="loginCorreo"
+                        placeholder="tu@correo.com"
+                        required>
+                </div>
+
+                <br>
+
+                <div class="field">
+                    <label for="loginPassword">Contraseña</label>
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        placeholder="Ingresa tu contraseña"
+                        required>
+                </div>
+
+                <button class="main-button" type="submit">
+                    Ingresar al portal →
+                </button>
+
+            </form>
+        </div>
+
+        <!-- REGISTRO -->
+
+        <div id="registerSection" class="hidden">
+            <h2>Crear cuenta universitaria</h2>
+
+            <p class="intro">
+                Completa tus datos para formar parte de Aurora University.
+            </p>
+
+            <form id="registerForm" class="form-grid">
+
+                <div class="field full">
+                    <label for="nombre">Nombre completo *</label>
+                    <input
+                        type="text"
+                        id="nombre"
+                        placeholder="Nombre y apellidos"
+                        minlength="3"
+                        required>
+                </div>
+
+                <div class="field full">
+                    <label for="correo">Correo electrónico *</label>
+                    <input
+                        type="email"
+                        id="correo"
+                        placeholder="tu@correo.com"
+                        required>
+                </div>
+
+                <div class="field">
+                    <label for="facultad">Facultad *</label>
+                    <select id="facultad" required>
+                        <option value="">Seleccionar</option>
+                        <option>Medicina</option>
+                        <option>Psicología</option>
+                        <option>Humanidades</option>
+                        <option>Ingeniería</option>
+                        <option>Arquitectura</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="carrera">Carrera *</label>
+                    <select id="carrera" required>
+                        <option value="">Primero elige una facultad</option>
+                    </select>
+                </div>
+
+                <div class="field full">
+                    <label for="descripcion">Descripción de tu perfil</label>
+                    <textarea
+                        id="descripcion"
+                        maxlength="300"
+                        placeholder="Cuéntanos algo sobre ti, tus intereses y objetivos..."></textarea>
+                </div>
+
+                <div class="field full">
+                    <label for="password">Contraseña *</label>
+                    <input
+                        type="password"
+                        id="password"
+                        minlength="8"
+                        placeholder="Mínimo 8 caracteres"
+                        required>
+                </div>
+
+                <div class="field full">
+                    <label for="confirmPassword">Confirmar contraseña *</label>
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        minlength="8"
+                        placeholder="Repite tu contraseña"
+                        required>
+                </div>
+
+                <div class="field full">
+                    <button class="main-button" type="submit">
+                        Crear mi cuenta →
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+        <div id="formMessage" class="message" role="status"></div>
+
+        <p class="security-note">
+            Al presionar el botón ingresaras al portal.
+        </p>
+
+    </section>
+
+</main>
+
+<footer>
+    AURORA UNIVERSITY · CONOCIMIENTO · INNOVACIÓN · FUTURO
+</footer>
+
+<script src="app.js"></script>
+
+<script>
+    const tabLogin = document.getElementById("tabLogin");
+    const tabRegister = document.getElementById("tabRegister");
+    const loginSection = document.getElementById("loginSection");
+    const registerSection = document.getElementById("registerSection");
+    const formMessage = document.getElementById("formMessage");
+
+    function mostrarMensaje(texto, tipo) {
+        formMessage.textContent = texto;
+        formMessage.className = "message " + tipo;
+    }
+
+    function limpiarMensaje() {
+        formMessage.textContent = "";
+        formMessage.className = "message";
+    }
+
+    tabLogin.addEventListener("click", () => {
+        loginSection.classList.remove("hidden");
+        registerSection.classList.add("hidden");
+        tabLogin.classList.add("active");
+        tabRegister.classList.remove("active");
+        limpiarMensaje();
+    });
+
+    tabRegister.addEventListener("click", () => {
+        registerSection.classList.remove("hidden");
+        loginSection.classList.add("hidden");
+        tabRegister.classList.add("active");
+        tabLogin.classList.remove("active");
+        limpiarMensaje();
+    });
+
+    const carreras = {
+        "Medicina": [
+            "Medicina General",
+            "Enfermería",
+            "Nutrición",
+            "Odontología",
+            "Fisioterapia"
+        ],
+        "Psicología": [
+            "Psicología Clínica",
+            "Psicología Educativa",
+            "Psicología Organizacional",
+            "Neuropsicología",
+            "Psicología Social"
+        ],
+        "Humanidades": [
+            "Derecho",
+            "Comunicación",
+            "Educación",
+            "Filosofía",
+            "Relaciones Internacionales"
+        ],
+        "Ingeniería": [
+            "Ingeniería en Sistemas",
+            "Ingeniería Civil",
+            "Ingeniería Industrial",
+            "Ingeniería Electrónica",
+            "Ingeniería Ambiental"
+        ],
+        "Arquitectura": [
+            "Arquitectura",
+            "Diseño de Interiores",
+            "Diseño Urbano",
+            "Paisajismo",
+            "Diseño de Espacios"
+        ]
+    };
+
+    const facultadSelect = document.getElementById("facultad");
+    const carreraSelect = document.getElementById("carrera");
+
+    facultadSelect.addEventListener("change", function () {
+        const facultad = this.value;
+
+        carreraSelect.innerHTML = '<option value="">Seleccionar carrera</option>';
+
+        if (carreras[facultad]) {
+            carreras[facultad].forEach(carrera => {
+                const opcion = document.createElement("option");
+                opcion.value = carrera;
+                opcion.textContent = carrera;
+                carreraSelect.appendChild(opcion);
+            });
+        }
+    });
+
+    // REGISTRO DE ESTUDIANTE
+
+    document.getElementById("registerForm").addEventListener("submit", async function (event) {
+        event.preventDefault();
+        limpiarMensaje();
+
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+
+        if (password !== confirmPassword) {
+            mostrarMensaje("Las contraseñas no coinciden.", "error");
+            return;
+        }
+
+        const datos = {
+            nombre: document.getElementById("nombre").value,
+            correo: document.getElementById("correo").value,
+            facultad: facultadSelect.value,
+            carrera: carreraSelect.value,
+            descripcion: document.getElementById("descripcion").value,
+            contrasena: password
+        };
+
+        try {
+            await AuroraDB.inicializar();
+            const usuario = await AuroraDB.registrar(datos);
+
+            mostrarMensaje(
+                "¡Cuenta creada correctamente! Bienvenido/a, " +
+                usuario.nombre + ". Ahora puedes iniciar sesión.",
+                "success"
+            );
+
+            this.reset();
+            carreraSelect.innerHTML =
+                '<option value="">Primero elige una facultad</option>';
+
+            setTimeout(() => {
+                tabLogin.click();
+                document.getElementById("loginCorreo").value = usuario.correo;
+            }, 1600);
+
+        } catch (error) {
+            mostrarMensaje(error.message || "No se pudo crear la cuenta.", "error");
+        }
+    });
+
+    // INICIO DE SESIÓN
+
+    document.getElementById("loginForm").addEventListener("submit", async function (event) {
+        event.preventDefault();
+        limpiarMensaje();
+
+        const correo = document.getElementById("loginCorreo").value;
+        const password = document.getElementById("loginPassword").value;
+
+        try {
+            await AuroraDB.inicializar();
+            const usuario = await AuroraDB.iniciarSesion(correo, password);
+
+            mostrarMensaje("Acceso correcto. Bienvenido/a, " + usuario.nombre, "success");
+
+            setTimeout(() => {
+                if (usuario.rol === "admin") {
+                    window.location.href = "administracion.html";
+                } else {
+                    window.location.href = "portal.html";
+                }
+            }, 700);
+
+        } catch (error) {
+            mostrarMensaje(error.message || "No se pudo iniciar sesión.", "error");
+        }
+    });
+</script>
+
+</body>
+</html>

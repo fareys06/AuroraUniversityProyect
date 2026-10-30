@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facultades | Aurora University</title>
+    <link rel="stylesheet" href="estilos.css">
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: #f3f6fb;
+            color: #52647d;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        .au-top {
+            padding: 11px 5%;
+            display: flex;
+            justify-content: space-between;
+            background: #102849;
+            color: white;
+            font-size: 12px;
+        }
+
+        .au-header {
+            position: relative;
+            z-index: 20;
+            background: white;
+            box-shadow: 0 5px 25px rgba(16,40,73,.08);
+        }
+
+        .au-inner {
+            width: 92%;
+            max-width: 1400px;
+            min-height: 105px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .au-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .au-logo {
+            width: 49px;
+            height: 49px;
+            display: grid;
+            place-items: center;
+            border-radius: 15px;
+            background: #102849;
+            color: #e6ae4c;
+            font-size: 30px;
+        }
+
+        .au-brand h1 {
+            margin: 0;
+            color: #102849;
+            font-size: 21px;
+        }
+
+        .au-brand p {
+            margin: 5px 0 0;
+            color: #8190a6;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+        }
+
+        .au-nav {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .au-nav a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 13px;
+            min-height: 42px;
+            border-radius: 10px;
+            background: transparent !important;
+            color: #102849 !important;
+            text-decoration: none !important;
+            font-size: 13px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .au-nav a:hover,
+        .au-nav a.active {
+            background: #edf2f9 !important;
+        }
+
+        .au-nav a.au-portal {
+            margin-left: 8px;
+            padding: 14px 18px;
+            background: #e6ae4c !important;
+            color: #102849 !important;
+            font-weight: 800;
+        }
+
+        .au-nav a.au-portal:hover {
+            background: #102849 !important;
+            color: white !important;
+        }
+
+        .au-toggle {
+            display: none;
+            padding: 10px 14px;
+            border: 0;
+            border-radius: 9px;
+            background: #102849;
+            color: white;
+            cursor: pointer;
+        }
+
+        .au-hero {
+            padding: 75px 7%;
+            background: linear-gradient(115deg, #102849, #294d78);
+            color: white;
+            text-align: center;
+        }
+
+        .au-hero span {
+            color: #f0bd61;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 3px;
+        }
+
+        .au-hero h2 {
+            margin: 17px 0;
+            color: white;
+            font-size: clamp(35px, 5vw, 51px);
+        }
+
+        .au-hero p {
+            max-width: 780px;
+            margin: auto;
+            color: #e1e9f3;
+            line-height: 1.9;
+        }
+
+        .au-container {
+            width: 90%;
+            max-width: 1250px;
+            margin: 60px auto;
+        }
+
+        .au-heading {
+            margin-bottom: 12px;
+            color: #102849;
+            font-size: 30px;
+        }
+
+        .au-intro {
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .faculty-list {
+            display: grid;
+            gap: 22px;
+        }
+
+        .faculty-card {
+            overflow: hidden;
+            border: 1px solid #e1e8f0;
+            border-radius: 18px;
+            background: white;
+            box-shadow: 0 12px 30px rgba(16,40,73,.06);
+        }
+
+        .faculty-head {
+            width: 100%;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border: 0;
+            background: white;
+            color: #102849;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .faculty-head:hover {
+            background: #f8fafd;
+        }
+
+        .faculty-icon {
+            width: 65px;
+            height: 65px;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            border-radius: 17px;
+            background: #edf2f9;
+            font-size: 34px;
+        }
+
+        .faculty-title {
+            flex: 1;
+        }
+
+        .faculty-title h3 {
+            margin: 0 0 7px;
+            color: #102849;
+            font-size: 21px;
+        }
+
+        .faculty-title p {
+            margin: 0;
+            color: #697c95;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .faculty-arrow {
+            color: #bd8a32;
+            font-size: 25px;
+            transition: transform .25s;
+        }
+
+        .faculty-card.open .faculty-arrow {
+            transform: rotate(180deg);
+        }
+
+        .faculty-content {
+            display: none;
+            padding: 0 25px 28px;
+            border-top: 1px solid #edf1f6;
+        }
+
+        .faculty-card.open .faculty-content {
+            display: block;
+        }
+
+        .career-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .career-button {
+            padding: 16px;
+            border: 1px solid #e1e8f0;
+            border-radius: 12px;
+            background: #f8fafd;
+            color: #102849;
+            text-align: left;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .career-button:hover,
+        .career-button.selected {
+            border-color: #d4a653;
+            background: #fff7e8;
+        }
+
+        .career-detail {
+            display: none;
+            margin-top: 20px;
+            padding: 22px;
+            border-left: 4px solid #d4a653;
+            border-radius: 12px;
+            background: #f2f5fa;
+        }
+
+        .career-detail.show {
+            display: block;
+        }
+
+        .career-detail h4 {
+            margin: 0 0 10px;
+            color: #102849;
+            font-size: 19px;
+        }
+
+        .career-detail p {
+            line-height: 1.8;
+        }
+
+        .career-detail strong {
+            color: #102849;
+        }
+
+        .au-footer {
+            padding: 40px 5%;
+            background: #102849;
+            color: white;
+            text-align: center;
+        }
+
+        .au-footer h2 { color: white; }
+
+        .au-footer p {
+            color: #dce5f0;
+            font-size: 13px;
+        }
+
+        @media (max-width: 800px) {
+            .au-toggle { display: block; }
+
+            .au-nav {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .au-nav.open { display: flex; }
+
+            .au-nav a { justify-content: flex-start; }
+
+            .au-nav a.au-portal { margin-left: 0; }
+        }
+
+        @media (max-width: 600px) {
+            .au-top { flex-direction: column; }
+
+            .career-grid { grid-template-columns: 1fr; }
+
+            .faculty-head { padding: 18px; }
+
+            .faculty-icon {
+                width: 52px;
+                height: 52px;
+                font-size: 27px;
+            }
+
+            .faculty-title h3 { font-size: 17px; }
+
+            .faculty-title p { font-size: 12px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="au-top">
+        <span>✦ Aurora University | Conocimiento, innovación y futuro</span>
+        <span>📍 Zona 10, Ciudad de Guatemala</span>
+    </div>
+
+    <header class="au-header">
+        <div class="au-inner">
+
+            <a href="index.html" class="au-brand">
+                <div class="au-logo">✦</div>
+                <div>
+                    <h1>AURORA UNIVERSITY</h1>
+                    <p>CONOCIMIENTO · INNOVACIÓN · FUTURO</p>
+                </div>
+            </a>
+
+            <button class="au-toggle" id="auToggle">☰ Menú</button>
+
+            <nav class="au-nav" id="auNav">
+                <a href="index.html">Inicio</a>
+                <a href="nosotros.html">Nosotros</a>
+                <a href="facultades.html" class="active">Facultades</a>
+                <a href="campus.html">Campus</a>
+                <a href="calendario.html">Calendario</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="login.html" class="au-portal">Portal estudiantil →</a>
+            </nav>
+
+        </div>
+    </header>
+
+    <section class="au-hero">
+        <span>FORMACIÓN ACADÉMICA</span>
+        <h2>Facultades y carreras</h2>
+        <p>
+            Explora nuestras áreas de conocimiento, descubre las carreras
+            disponibles y conoce las habilidades que podrás desarrollar
+            durante tu formación universitaria.
+        </p>
+    </section>
+
+    <main class="au-container">
+
+        <h2 class="au-heading">Nuestra oferta académica</h2>
+
+        <p class="au-intro">
+            Aurora University reúne cinco facultades con diferentes opciones
+            de formación. Selecciona una facultad para desplegar sus carreras.
+            Después, selecciona una carrera para consultar su descripción,
+            perfil profesional y principales áreas de aprendizaje.
+        </p>
+
+        <section class="faculty-list" id="facultyList">
+
+            <!-- MEDICINA -->
+
+            <article class="faculty-card open">
+                <button class="faculty-head" type="button">
+                    <div class="faculty-icon">🩺</div>
+                    <div class="faculty-title">
+                        <h3>Facultad de Medicina</h3>
+                        <p>Salud, prevención, investigación y bienestar humano.</p>
+                    </div>
+                    <span class="faculty-arrow">⌄</span>
+                </button>
+
+                <div class="faculty-content">
+                    <div class="career-grid">
+                        <button class="career-button" data-career="Medicina General">Medicina General</button>
+                        <button class="career-button" data-career="Enfermería">Enfermería</button>
+                        <button class="career-button" data-career="Nutrición">Nutrición</button>
+                        <button class="career-button" data-career="Fisioterapia">Fisioterapia</button>
+                        <button class="career-button" data-career="Odontología">Odontología</button>
+                    </div>
+                    <div class="career-detail"></div>
+                </div>
+            </article>
+
+            <!-- PSICOLOGÍA -->
+
+            <article class="faculty-card">
+                <button class="faculty-head" type="button">
+                    <div class="faculty-icon">🧠</div>
+                    <div class="faculty-title">
+                        <h3>Facultad de Psicología</h3>
+                        <p>Comprensión del comportamiento y desarrollo humano.</p>
+                    </div>
+                    <span class="faculty-arrow">⌄</span>
+                </button>
+
+                <div class="faculty-content">
+                    <div class="career-grid">
+                        <button class="career-button" data-career="Psicología Clínica">Psicología Clínica</button>
+                        <button class="career-button" data-career="Psicología Educativa">Psicología Educativa</button>
+                        <button class="career-button" data-career="Psicología Organizacional">Psicología Organizacional</button>
+                        <button class="career-button" data-career="Neuropsicología">Neuropsicología</button>
+                        <button class="career-button" data-career="Psicopedagogía">Psicopedagogía</button>
+                    </div>
+                    <div class="career-detail"></div>
+                </div>
+            </article>
+
+            <!-- HUMANIDADES -->
+
+            <article class="faculty-card">
+                <button class="faculty-head" type="button">
+                    <div class="faculty-icon">📚</div>
+                    <div class="faculty-title">
+                        <h3>Facultad de Humanidades</h3>
+                        <p>Educación, comunicación, cultura y sociedad.</p>
+                    </div>
+                    <span class="faculty-arrow">⌄</span>
+                </button>
+
+                <div class="faculty-content">
+                    <div class="career-grid">
+                        <button class="career-button" data-career="Pedagogía">Pedagogía</button>
+                        <button class="career-button" data-career="Comunicación">Comunicación</button>
+                        <button class="career-button" data-career="Idiomas">Idiomas</button>
+                        <button class="career-button" data-career="Historia">Historia</button>
+                        <button class="career-button" data-career="Trabajo Social">Trabajo Social</button>
+                    </div>
+                    <div class="career-detail"></div>
+                </div>
+            </article>
+
+            <!-- INGENIERÍA -->
+
+            <article class="faculty-card">
+                <button class="faculty-head" type="button">
+                    <div class="faculty-icon">💻</div>
+                    <div class="faculty-title">
+                        <h3>Facultad de Ingeniería</h3>
+                        <p>Tecnología, ciencia, diseño y solución de problemas.</p>
+                    </div>
+                    <span class="faculty-arrow">⌄</span>
+                </button>
+
+                <div class="faculty-content">
+                    <div class="career-grid">
+                        <button class="career-button" data-career="Ingeniería en Sistemas">Ingeniería en Sistemas</button>
+                        <button class="career-button" data-career="Ingeniería Industrial">Ingeniería Industrial</button>
+                        <button class="career-button" data-career="Ingeniería Civil">Ingeniería Civil</button>
+                        <button class="career-button" data-career="Ingeniería Electrónica">Ingeniería Electrónica</button>
+                        <button class="career-button" data-career="Ingeniería Mecánica">Ingeniería Mecánica</button>
+                    </div>
+                    <div class="career-detail"></div>
+                </div>
+            </article>
+
+            <!-- ARQUITECTURA -->
+
+            <article class="faculty-card">
+                <button class="faculty-head" type="button">
+                    <div class="faculty-icon">🏛️</div>
+                    <div class="faculty-title">
+                        <h3>Facultad de Arquitectura</h3>
+                        <p>Diseño, construcción, creatividad y planificación.</p>
+                    </div>
+                    <span class="faculty-arrow">⌄</span>
+                </button>
+
+                <div class="faculty-content">
+                    <div class="career-grid">
+                        <button class="career-button" data-career="Arquitectura">Arquitectura</button>
+                        <button class="career-button" data-career="Diseño de Interiores">Diseño de Interiores</button>
+                        <button class="career-button" data-career="Diseño Urbano">Diseño Urbano</button>
+                        <button class="career-button" data-career="Diseño Gráfico">Diseño Gráfico</button>
+                        <button class="career-button" data-career="Diseño Industrial">Diseño Industrial</button>
+                    </div>
+                    <div class="career-detail"></div>
+                </div>
+            </article>
+
+        </section>
+
+    </main>
+
+    <footer class="au-footer">
+        <h2>AURORA UNIVERSITY</h2>
+        <p>Conocimiento · Innovación · Futuro</p>
+        <p>Zona 10, Ciudad de Guatemala</p>
+    </footer>
+
+    <script>
+        document.getElementById("auToggle").addEventListener("click", function () {
+            document.getElementById("auNav").classList.toggle("open");
+        });
+
+
+        document.querySelectorAll(".faculty-head").forEach(function (button) {
+            button.addEventListener("click", function () {
+                button.closest(".faculty-card").classList.toggle("open");
+            });
+        });
+
+        const carreras = {
+            "Medicina General": {
+                descripcion: "Forma profesionales preparados para evaluar, diagnosticar, prevenir y tratar enfermedades, promoviendo la salud individual y colectiva.",
+                perfil: "Profesional con pensamiento científico, vocación de servicio, ética y capacidad para trabajar en equipos de salud.",
+                areas: "Anatomía, fisiología, medicina interna, salud pública y atención clínica."
+            },
+            "Enfermería": {
+                descripcion: "Se enfoca en el cuidado integral de las personas durante las diferentes etapas de la vida y en distintos contextos de atención.",
+                perfil: "Profesional responsable, empático y capacitado para brindar cuidados y educación para la salud.",
+                areas: "Cuidados básicos, salud comunitaria, atención hospitalaria y primeros auxilios."
+            },
+            "Nutrición": {
+                descripcion: "Estudia la alimentación y su relación con la salud, el crecimiento, la prevención de enfermedades y el bienestar.",
+                perfil: "Profesional capaz de orientar hábitos alimenticios y diseñar planes de alimentación.",
+                areas: "Nutrición clínica, alimentación comunitaria, evaluación nutricional y dietética."
+            },
+            "Fisioterapia": {
+                descripcion: "Se dedica a la prevención y rehabilitación de alteraciones del movimiento y la función física.",
+                perfil: "Profesional con conocimientos del movimiento corporal y habilidades de acompañamiento terapéutico.",
+                areas: "Anatomía funcional, rehabilitación, terapia física y ejercicio terapéutico."
+            },
+            "Odontología": {
+                descripcion: "Aborda la prevención, diagnóstico y tratamiento de condiciones relacionadas con la salud bucal.",
+                perfil: "Profesional con destreza manual, criterio clínico y compromiso con la prevención.",
+                areas: "Salud bucal, anatomía dental, prevención y procedimientos odontológicos."
+            },
+            "Psicología Clínica": {
+                descripcion: "Estudia la evaluación y comprensión de las dificultades emocionales y conductuales.",
+                perfil: "Profesional con capacidad de escucha, análisis y acompañamiento psicológico.",
+                areas: "Evaluación psicológica, psicopatología, entrevista y orientación."
+            },
+            "Psicología Educativa": {
+                descripcion: "Aplica conocimientos psicológicos a los procesos de enseñanza, aprendizaje y desarrollo en contextos educativos.",
+                perfil: "Profesional capaz de apoyar a estudiantes, docentes y comunidades educativas.",
+                areas: "Aprendizaje, desarrollo, orientación escolar y evaluación educativa."
+            },
+            "Psicología Organizacional": {
+                descripcion: "Analiza el comportamiento de las personas en el trabajo y contribuye al desarrollo de organizaciones saludables.",
+                perfil: "Profesional con habilidades de comunicación, liderazgo y gestión de personas.",
+                areas: "Recursos humanos, clima laboral, selección y desarrollo organizacional."
+            },
+            "Neuropsicología": {
+                descripcion: "Estudia la relación entre el funcionamiento cerebral, los procesos cognitivos y la conducta.",
+                perfil: "Profesional con capacidad de análisis y comprensión de procesos cognitivos.",
+                areas: "Memoria, atención, funciones ejecutivas y evaluación cognitiva."
+            },
+            "Psicopedagogía": {
+                descripcion: "Integra conocimientos de psicología y educación para comprender y apoyar los procesos de aprendizaje.",
+                perfil: "Profesional capaz de identificar necesidades educativas y diseñar estrategias de apoyo.",
+                areas: "Dificultades de aprendizaje, evaluación, orientación y estrategias educativas."
+            },
+            "Pedagogía": {
+                descripcion: "Estudia los procesos educativos, la planificación de la enseñanza y la formación integral.",
+                perfil: "Profesional con habilidades para diseñar, coordinar y evaluar proyectos educativos.",
+                areas: "Didáctica, currículo, evaluación y gestión educativa."
+            },
+            "Comunicación": {
+                descripcion: "Desarrolla habilidades para crear, analizar y transmitir mensajes en medios y entornos digitales.",
+                perfil: "Profesional creativo con capacidad de expresión y análisis de información.",
+                areas: "Comunicación digital, periodismo, producción audiovisual y relaciones públicas."
+            },
+            "Idiomas": {
+                descripcion: "Promueve el dominio de lenguas y la comprensión intercultural en distintos contextos.",
+                perfil: "Profesional con competencias lingüísticas, comunicativas y culturales.",
+                areas: "Gramática, traducción, conversación y enseñanza de idiomas."
+            },
+            "Historia": {
+                descripcion: "Analiza los procesos históricos y su influencia en la cultura, la sociedad y el presente.",
+                perfil: "Profesional con pensamiento crítico, investigación y análisis documental.",
+                areas: "Historia universal, historia nacional, patrimonio e investigación."
+            },
+            "Trabajo Social": {
+                descripcion: "Busca promover el bienestar social y acompañar a personas y comunidades ante distintas problemáticas.",
+                perfil: "Profesional comprometido con la participación, la inclusión y el desarrollo comunitario.",
+                areas: "Intervención social, políticas públicas, comunidad y derechos humanos."
+            },
+            "Ingeniería en Sistemas": {
+                descripcion: "Diseña, desarrolla y administra sistemas informáticos y soluciones tecnológicas.",
+                perfil: "Profesional analítico con habilidades de programación y resolución de problemas.",
+                areas: "Programación, bases de datos, redes, desarrollo web y seguridad informática."
+            },
+            "Ingeniería Industrial": {
+                descripcion: "Optimiza procesos, recursos y sistemas de producción y servicios.",
+                perfil: "Profesional con capacidad de planificación, análisis y mejora continua.",
+                areas: "Procesos, logística, calidad, producción y administración."
+            },
+            "Ingeniería Civil": {
+                descripcion: "Participa en el diseño, planificación y construcción de infraestructura.",
+                perfil: "Profesional con conocimientos técnicos, matemáticos y capacidad de gestión de obras.",
+                areas: "Estructuras, materiales, hidráulica, construcción y topografía."
+            },
+            "Ingeniería Electrónica": {
+                descripcion: "Desarrolla y mantiene sistemas electrónicos, circuitos y soluciones de automatización.",
+                perfil: "Profesional con pensamiento lógico y capacidad para diseñar sistemas electrónicos.",
+                areas: "Circuitos, control, instrumentación, programación y electrónica digital."
+            },
+            "Ingeniería Mecánica": {
+                descripcion: "Aplica principios científicos al diseño, análisis y mantenimiento de máquinas y sistemas mecánicos.",
+                perfil: "Profesional con habilidades de diseño, cálculo y resolución técnica.",
+                areas: "Mecánica, termodinámica, materiales, diseño y mantenimiento."
+            },
+            "Arquitectura": {
+                descripcion: "Diseña espacios habitables y funcionales que integran estética, seguridad y sostenibilidad.",
+                perfil: "Profesional creativo con capacidad de diseño, representación y planificación espacial.",
+                areas: "Diseño arquitectónico, estructuras, urbanismo y construcción."
+            },
+            "Diseño de Interiores": {
+                descripcion: "Planifica ambientes interiores funcionales, estéticos y adecuados a las necesidades de sus usuarios.",
+                perfil: "Profesional creativo con sensibilidad espacial y capacidad de planificación.",
+                areas: "Iluminación, materiales, mobiliario, ergonomía y composición."
+            },
+            "Diseño Urbano": {
+                descripcion: "Estudia y propone soluciones para organizar espacios públicos y entornos urbanos.",
+                perfil: "Profesional con visión territorial, social y ambiental.",
+                areas: "Espacio público, movilidad, planificación y sostenibilidad."
+            },
+            "Diseño Gráfico": {
+                descripcion: "Comunica ideas mediante recursos visuales, identidad gráfica y medios impresos o digitales.",
+                perfil: "Profesional creativo con dominio de composición y comunicación visual.",
+                areas: "Ilustración, tipografía, identidad visual y diseño digital."
+            },
+            "Diseño Industrial": {
+                descripcion: "Desarrolla productos que combinan utilidad, estética, ergonomía y viabilidad de fabricación.",
+                perfil: "Profesional con capacidad de innovación, diseño y desarrollo de productos.",
+                areas: "Materiales, prototipado, ergonomía, modelado y procesos de fabricación."
+            }
+        };
+
+        document.querySelectorAll(".career-button").forEach(function (button) {
+            button.addEventListener("click", function () {
+                const card = button.closest(".faculty-card");
+                const detail = card.querySelector(".career-detail");
+
+                card.querySelectorAll(".career-button").forEach(function (item) {
+                    item.classList.remove("selected");
+                });
+
+                button.classList.add("selected");
+
+                const info = carreras[button.dataset.career];
+
+                detail.innerHTML = `
+                    <h4>${button.dataset.career}</h4>
+                    <p>${info.descripcion}</p>
+                    <p><strong>Perfil profesional:</strong> ${info.perfil}</p>
+                    <p><strong>Áreas de formación:</strong> ${info.areas}</p>
+                `;
+
+                detail.classList.add("show");
+            });
+        });
+    </script>
+
+</body>
+</html>

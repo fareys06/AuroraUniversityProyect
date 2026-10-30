@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagos Universitarios | Aurora University</title>
+    <link rel="stylesheet" href="estilos.css">
+
+    <style>
+        :root {
+            --azul: #101d3a;
+            --azul2: #243d6a;
+            --dorado: #d8ad52;
+            --fondo: #f3f5fa;
+            --texto: #26334b;
+            --gris: #718098;
+            --verde: #23845a;
+            --rojo: #b43c3c;
+            --borde: #e2e8f1;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--texto);
+            background: var(--fondo);
+        }
+
+        header {
+            padding: 19px 6%;
+            background: linear-gradient(120deg, var(--azul), var(--azul2));
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .marca {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .escudo {
+            width: 47px;
+            height: 47px;
+            background: var(--dorado);
+            color: var(--azul);
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        header h1 {
+            font-size: 21px;
+            margin: 0;
+        }
+
+        header p {
+            font-size: 13px;
+            color: #dce4f3;
+            margin: 5px 0 0;
+        }
+
+        .volver {
+            background: var(--dorado);
+            color: var(--azul);
+            text-decoration: none;
+            font-weight: bold;
+            padding: 12px 16px;
+            border-radius: 9px;
+        }
+
+        .volver:hover {
+            background: white;
+        }
+
+        main {
+            max-width: 1250px;
+            width: 94%;
+            margin: 25px auto;
+        }
+
+        .portada {
+            background: linear-gradient(120deg, #17294d, #405d8b);
+            color: white;
+            border-radius: 17px;
+            padding: 30px;
+            margin-bottom: 22px;
+        }
+
+        .portada h2 {
+            margin: 0 0 10px;
+            font-size: 28px;
+        }
+
+        .portada p {
+            color: #e2eafa;
+            line-height: 1.7;
+            max-width: 750px;
+            margin-bottom: 0;
+        }
+
+        .tarjetas-resumen {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 22px;
+        }
+
+        .resumen {
+            background: white;
+            padding: 21px;
+            border-radius: 14px;
+            border-bottom: 4px solid var(--dorado);
+            box-shadow: 0 4px 15px #101d3a0a;
+        }
+
+        .resumen .icono {
+            font-size: 25px;
+        }
+
+        .resumen h3 {
+            color: var(--azul);
+            font-size: 25px;
+            margin: 12px 0 5px;
+        }
+
+        .resumen p {
+            color: var(--gris);
+            margin: 0;
+            font-size: 13px;
+        }
+
+        .rejilla {
+            display: grid;
+            grid-template-columns: minmax(0, 1.25fr) minmax(300px, .75fr);
+            gap: 22px;
+            align-items: start;
+        }
+
+        .panel {
+            background: white;
+            padding: 23px;
+            border-radius: 15px;
+            margin-bottom: 22px;
+            box-shadow: 0 4px 15px #101d3a0a;
+        }
+
+        .panel h2 {
+            color: var(--azul);
+            margin: 0 0 18px;
+            font-size: 20px;
+        }
+
+        .panel h3 {
+            color: var(--azul);
+        }
+
+        .descripcion {
+            color: var(--gris);
+            line-height: 1.6;
+            font-size: 13px;
+        }
+
+        .tabla-contenedor {
+            overflow-x: auto;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            min-width: 490px;
+            font-size: 13px;
+        }
+
+        th {
+            text-align: left;
+            color: var(--azul);
+            background: #f0f3f9;
+            padding: 13px 10px;
+        }
+
+        td {
+            padding: 14px 10px;
+            border-bottom: 1px solid var(--borde);
+        }
+
+        .estado {
+            display: inline-block;
+            border-radius: 20px;
+            padding: 6px 9px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .pendiente {
+            background: #fff1ce;
+            color: #795800;
+        }
+
+        .pagado {
+            background: #def4e7;
+            color: #176b43;
+        }
+
+        .vencido {
+            background: #ffe3e3;
+            color: #a52b2b;
+        }
+
+        .boton {
+            border: none;
+            border-radius: 8px;
+            padding: 10px 13px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .2s;
+            font-size: 12px;
+        }
+
+        .boton:hover {
+            transform: translateY(-1px);
+        }
+
+        .boton-azul {
+            background: var(--azul);
+            color: white;
+        }
+
+        .boton-dorado {
+            background: var(--dorado);
+            color: var(--azul);
+        }
+
+        .boton-claro {
+            background: #edf1f8;
+            color: var(--azul);
+        }
+
+        .boton-verde {
+            background: #def4e7;
+            color: #176b43;
+        }
+
+        .campo {
+            margin-bottom: 16px;
+        }
+
+        .campo label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--azul);
+            font-size: 13px;
+        }
+
+        input, select {
+            width: 100%;
+            border: 1px solid #d9e0ec;
+            padding: 12px;
+            border-radius: 9px;
+            font-family: inherit;
+            font-size: 14px;
+            background: white;
+        }
+
+        input:focus, select:focus {
+            outline: 2px solid #d8ad5250;
+            border-color: var(--dorado);
+        }
+
+        .metodos {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .metodo {
+            padding: 15px 10px;
+            border: 1px solid var(--borde);
+            border-radius: 11px;
+            background: white;
+            cursor: pointer;
+            text-align: center;
+            transition: .2s;
+        }
+
+        .metodo.seleccionado {
+            border: 2px solid var(--dorado);
+            background: #fffaf0;
+        }
+
+        .metodo .emoji {
+            font-size: 25px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .metodo strong {
+            color: var(--azul);
+            font-size: 13px;
+        }
+
+        .tarjeta-visual {
+            padding: 22px;
+            min-height: 165px;
+            color: white;
+            border-radius: 15px;
+            background: linear-gradient(125deg, #14213e, #405d8b);
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tarjeta-visual::after {
+            content: "";
+            position: absolute;
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            right: -40px;
+            top: -60px;
+            background: #ffffff0b;
+        }
+
+        .tarjeta-visual .banco {
+            color: var(--dorado);
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .numero-visual {
+            margin: 26px 0 18px;
+            font-size: 18px;
+            letter-spacing: 2px;
+        }
+
+        .datos-tarjeta {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 11px;
+            color: #e2eafa;
+            text-transform: uppercase;
+        }
+
+        .alerta {
+            padding: 13px;
+            border-radius: 9px;
+            font-size: 12px;
+            line-height: 1.7;
+            margin: 15px 0;
+        }
+
+        .alerta-info {
+            background: #edf4ff;
+            color: #254c80;
+            border: 1px solid #d2e3fb;
+        }
+
+        .alerta-aviso {
+            background: #fff8e8;
+            color: #73561a;
+            border: 1px solid #f0dfb4;
+        }
+
+        .alerta-exito {
+            background: #e0f6e9;
+            color: #176b43;
+            border: 1px solid #bde8cc;
+        }
+
+        .voucher {
+            display: none;
+            background: white;
+            border: 2px dashed #b9c4d5;
+            border-radius: 12px;
+            padding: 22px;
+            margin-top: 20px;
+        }
+
+        .voucher h3 {
+            text-align: center;
+            margin-top: 0;
+        }
+
+        .voucher-cabecera {
+            text-align: center;
+            border-bottom: 1px dashed #b9c4d5;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .voucher-linea {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 9px 0;
+            border-bottom: 1px solid #edf0f5;
+            font-size: 13px;
+        }
+
+        .voucher-linea strong {
+            text-align: right;
+            overflow-wrap: anywhere;
+        }
+
+        .historial-fila {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--borde);
+            font-size: 13px;
+        }
+
+        .historial-fila:last-child {
+            border-bottom: none;
+        }
+
+        .historial-fila strong {
+            color: var(--azul);
+        }
+
+        .historial-fila small {
+            display: block;
+            color: var(--gris);
+            margin-top: 5px;
+        }
+
+        .monto {
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .sin-registros {
+            color: var(--gris);
+            font-size: 13px;
+            padding: 10px 0;
+        }
+
+        .acciones {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        footer {
+            margin-top: 30px;
+            padding: 24px;
+            text-align: center;
+            color: #dce4f3;
+            background: var(--azul);
+            font-size: 13px;
+        }
+
+        @media (max-width: 900px) {
+            .rejilla {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            main {
+                width: 96%;
+            }
+
+            .portada {
+                padding: 22px;
+            }
+
+            .portada h2 {
+                font-size: 23px;
+            }
+
+            .tarjetas-resumen {
+                gap: 8px;
+            }
+
+            .resumen {
+                padding: 12px;
+            }
+
+            .resumen h3 {
+                font-size: 19px;
+            }
+
+            .panel {
+                padding: 15px;
+            }
+
+            .metodos {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+
+            #comprobante, #comprobante * {
+                visibility: visible;
+            }
+
+            #comprobante {
+                display: block !important;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                border: 1px dashed #555;
+                box-shadow: none;
+            }
+
+            .boton, header, footer {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="marca">
+        <div class="escudo">A</div>
+        <div>
+            <h1>Aurora University</h1>
+            <p>Portal financiero estudiantil</p>
+        </div>
+    </div>
+    <a href="portal.html" class="volver">← Volver al portal</a>
+</header>
+
+<main>
+    <section class="portada">
+        <h2>💳 Pagos universitarios</h2>
+        <p>
+            Consulta tus mensualidades, registra pagos de demostración,
+            genera comprobantes imprimibles y revisa tu historial financiero
+            desde un solo lugar.
+        </p>
+    </section>
+
+    <section class="tarjetas-resumen">
+        <article class="resumen">
+            <span class="icono">💰</span>
+            <h3 id="totalPendiente">Q 0.00</h3>
+            <p>Saldo pendiente</p>
+        </article>
+
+        <article class="resumen">
+            <span class="icono">✅</span>
+            <h3 id="totalPagado">Q 0.00</h3>
+            <p>Total registrado como pagado</p>
+        </article>
+
+        <article class="resumen">
+            <span class="icono">📅</span>
+            <h3 id="cuotasPendientes">0</h3>
+            <p>Mensualidades pendientes</p>
+        </article>
+    </section>
+
+    <div class="rejilla">
+        <section>
+            <div class="panel">
+                <h2>📋 Estado de cuenta</h2>
+                <p class="descripcion">
+                    Consulta las mensualidades de enero a noviembre del año 2026.
+                    Los montos son ilustrativos y pueden modificarse para el proyecto.
+                </p>
+
+                <div class="campo">
+                    <label for="carrera">Carrera de demostración</label>
+                    <select id="carrera">
+                        <option value="Ingeniería en Sistemas">Ingeniería en Sistemas</option>
+                        <option value="Medicina">Medicina</option>
+                        <option value="Psicología">Psicología</option>
+                        <option value="Administración de Empresas">Administración de Empresas</option>
+                        <option value="Arquitectura">Arquitectura</option>
+                    </select>
+                </div>
+
+                <div class="tabla-contenedor">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Mensualidad</th>
+                                <th>Monto</th>
+                                <th>Estado</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaMensualidades"></tbody>
+                    </table>
+                </div>
+
+                <div class="acciones">
+                    <button class="boton boton-claro" id="exportarCSV">
+                        📄 Descargar estado de cuenta CSV
+                    </button>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h2>🧾 Historial de pagos</h2>
+                <div id="historialPagos"></div>
+            </div>
+        </section>
+
+        <aside>
+            <div class="panel">
+                <h2>💰 Registrar pago</h2>
+
+                <div class="alerta alerta-aviso">
+                    <strong>Modo de demostración:</strong> no se realiza ningún
+                    cobro real ni se conecta con bancos.
+                </div>
+
+                <form id="formPago">
+                    <div class="campo">
+                        <label for="mensualidad">Mensualidad por pagar</label>
+                        <select id="mensualidad" required></select>
+                    </div>
+
+                    <div class="campo">
+                        <label for="montoPago">Monto (Q)</label>
+                        <input
+                            type="number"
+                            id="montoPago"
+                            min="0.01"
+                            step="0.01"
+                            required
+                            readonly>
+                    </div>
+
+                    <label style="display:block;color:#101d3a;font-weight:bold;font-size:13px;margin-bottom:10px">
+                        Selecciona un método
+                    </label>
+
+                    <div class="metodos">
+                        <button class="metodo seleccionado" type="button" data-metodo="tarjeta">
+                            <span class="emoji">💳</span>
+                            <strong>Tarjeta</strong>
+                        </button>
+
+                        <button class="metodo" type="button" data-metodo="voucher">
+                            <span class="emoji">🧾</span>
+                            <strong>Boleta</strong>
+                        </button>
+                    </div>
+
+                    <input type="hidden" id="metodoPago" value="tarjeta">
+
+                    <div id="camposTarjeta">
+                        <div class="tarjeta-visual">
+                            <div class="banco">AURORA UNIVERSITY</div>
+                            <div class="numero-visual" id="numeroVisual">
+                                DEMO •••• •••• ••••
+                            </div>
+                            <div class="datos-tarjeta">
+                                <span id="titularVisual">TITULAR DE DEMOSTRACIÓN</span>
+                                <span>DEMO</span>
+                            </div>
+                        </div>
+
+                        <div class="campo">
+                            <label for="titular">Nombre del titular (demostración)</label>
+                            <input
+                                type="text"
+                                id="titular"
+                                maxlength="60"
+                                placeholder="Nombre del titular"
+                                autocomplete="off">
+                        </div>
+
+                        <div class="campo">
+                            <label for="numeroTarjeta">Número de tarjeta ficticio</label>
+                            <input
+                                type="text"
+                                id="numeroTarjeta"
+                                inputmode="numeric"
+                                maxlength="19"
+                                placeholder="1234 5678 9012 3456"
+                                autocomplete="off">
+                        </div>
+
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                            <div class="campo">
+                                <label for="vencimiento">Vencimiento</label>
+                                <input
+                                    type="text"
+                                    id="vencimiento"
+                                    maxlength="5"
+                                    placeholder="MM/AA"
+                                    autocomplete="off">
+                            </div>
+
+                            <div class="campo">
+                                <label for="codigo">Código ficticio</label>
+                                <input
+                                    type="password"
+                                    id="codigo"
+                                    inputmode="numeric"
+                                    maxlength="4"
+                                    placeholder="123"
+                                    autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="alerta alerta-info">
+                            Utiliza datos inventados. No introduzcas números de
+                            tarjetas reales ni información bancaria personal.
+                            Los datos de tarjeta no se guardan en el historial.
+                        </div>
+                    </div>
+
+                    <div id="camposVoucher" style="display:none">
+                        <div class="alerta alerta-info">
+                            Al continuar, se generará una boleta de pago de
+                            demostración para imprimir. No confirma un depósito
+                            bancario real.
+                        </div>
+                    </div>
+
+                    <button type="submit" class="boton boton-azul" style="width:100%;padding:14px">
+                        Generar pago de demostración
+                    </button>
+                </form>
+
+                <div id="mensajePago" class="alerta" style="display:none"></div>
+
+                <div class="voucher" id="comprobante">
+                    <div class="voucher-cabecera">
+                        <div style="font-size:30px">🎓</div>
+                        <h3>AURORA UNIVERSITY</h3>
+                        <p class="descripcion">Comprobante de pago de demostración</p>
+                    </div>
+
+                    <div id="detalleComprobante"></div>
+
+                    <div class="alerta alerta-aviso">
+                        Documento de demostración. No constituye comprobante
+                        fiscal ni acredita un pago bancario real.
+                    </div>
+
+                    <div class="acciones">
+                        <button class="boton boton-dorado" id="imprimirComprobante" type="button">
+                            🖨 Imprimir comprobante
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <div class="alerta alerta-aviso">
+        <strong>Nota:</strong> este módulo es un prototipo educativo. Los pagos
+        se simulan en el navegador y no se procesa dinero real. Para producción,
+        se requiere un backend seguro, una base de datos y un proveedor de pagos.
+    </div>
+</main>
+
+<footer>
+    © 2026 Aurora University · Administración financiera
+    <br><br>
+    Transparencia, responsabilidad y excelencia académica.
+</footer>
+
+<script>
+    // Verificación básica de sesión.
+    const sesionTexto = sessionStorage.getItem("auroraSesion");
+
+    if (!sesionTexto) {
+        window.location.href = "login.html";
+    }
+
+    let usuario = {
+        nombre: "Estudiante Aurora",
+        usuario: "estudiante"
+    };
+
+    try {
+        const sesion = JSON.parse(sesionTexto || "{}");
+        usuario.nombre =
+            sesion.nombre ||
+            sesion.nombreCompleto ||
+            sesion.usuario ||
+            "Estudiante Aurora";
+
+        usuario.usuario = sesion.usuario || usuario.nombre;
+    } catch (error) {
+        // Se mantienen los datos de demostración.
+    }
+
+    const clavePagos = "auroraPagos_" + usuario.usuario.toLowerCase();
+    const meses = [
+        "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+        "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre"
+    ];
+
+    // Monto mensual ilustrativo, modificable para el proyecto.
+    const montoMensual = 850.00;
+
+    let pagos = [];
+
+    try {
+        pagos = JSON.parse(localStorage.getItem(clavePagos) || "[]");
+        if (!Array.isArray(pagos)) pagos = [];
+    } catch (error) {
+        pagos = [];
+    }
+
+    let metodoSeleccionado = "tarjeta";
+    let comprobanteActual = null;
+
+    function dinero(cantidad) {
+        return Number(cantidad).toLocaleString("es-GT", {
+            style: "currency",
+            currency: "GTQ",
+            minimumFractionDigits: 2
+        });
+    }
+
+    function guardarPagos() {
+        try {
+            localStorage.setItem(clavePagos, JSON.stringify(pagos));
+            return true;
+        } catch (error) {
+            alert("No se pudo guardar el historial en el navegador.");
+            return false;
+        }
+    }
+
+    function pagoDeMes(mes) {
+        return pagos.find(pago => pago.mes === mes) || null;
+    }
+
+    function estadoMes(mes) {
+        if (pagoDeMes(mes)) return "Pagado";
+
+        const indice = meses.indexOf(mes);
+        const mesActual = new Date().getMonth();
+
+        if (indice < mesActual && mesActual <= 10) {
+            return "Vencido";
+        }
+
+        return "Pendiente";
+    }
+
+    function construirTabla() {
+        const cuerpo = document.getElementById("tablaMensualidades");
+        cuerpo.replaceChildren();
+
+        meses.forEach(mes => {
+            const fila = document.createElement("tr");
+            const estado = estadoMes(mes);
+            const pago = pagoDeMes(mes);
+
+            const celdaMes = document.createElement("td");
+            celdaMes.textContent = mes + " 2026";
+
+            const celdaMonto = document.createElement("td");
+            celdaMonto.textContent = dinero(pago ? pago.monto : montoMensual);
+
+            const celdaEstado = document.createElement("td");
+            const etiqueta = document.createElement("span");
+            etiqueta.className = "estado " +
+                (estado === "Pagado" ? "pagado" :
+                estado === "Vencido" ? "vencido" : "pendiente");
+            etiqueta.textContent = estado;
+            celdaEstado.appendChild(etiqueta);
+
+            const celdaAccion = document.createElement("td");
+            const boton = document.createElement("button");
+            boton.className = "boton " +
+                (pago ? "boton-verde" : "boton-dorado");
+            boton.type = "button";
+            boton.textContent = pago ? "Ver recibo" : "Seleccionar";
+
+            boton.addEventListener("click", function () {
+                if (pago) {
+                    mostrarComprobante(pago);
+                } else {
+                    document.getElementById("mensualidad").value = mes;
+                    actualizarMonto();
+                    document.getElementById("formPago")
+                        .scrollIntoView({ behavior: "smooth", block: "center" });
+                }
+            });
+
+            celdaAccion.appendChild(boton);
+            fila.append(celdaMes, celdaMonto, celdaEstado, celdaAccion);
+            cuerpo.appendChild(fila);
+        });
+
+        actualizarSelector();
+        actualizarResumen();
+    }
+
+    function actualizarSelector() {
+        const selector = document.getElementById("mensualidad");
+        const seleccionado = selector.value;
+
+        selector.replaceChildren();
+
+        meses.filter(mes => !pagoDeMes(mes)).forEach(mes => {
+            const opcion = document.createElement("option");
+            opcion.value = mes;
+            opcion.textContent = mes + " 2026 — " + dinero(montoMensual);
+            selector.appendChild(opcion);
+        });
+
+        if (meses.includes(seleccionado) && !pagoDeMes(seleccionado)) {
+            selector.value = seleccionado;
+        }
+
+        if (selector.options.length === 0) {
+            const opcion = document.createElement("option");
+            opcion.value = "";
+            opcion.textContent = "Todas las mensualidades están registradas";
+            selector.appendChild(opcion);
+            document.getElementById("formPago").querySelector(
+                'button[type="submit"]'
+            ).disabled = true;
+        } else {
+            document.getElementById("formPago").querySelector(
+                'button[type="submit"]'
+            ).disabled = false;
+        }
+
+        actualizarMonto();
+    }
+
+    function actualizarMonto() {
+        document.getElementById("montoPago").value =
+            document.getElementById("mensualidad").value ? montoMensual.toFixed(2) : "";
+    }
+
+    function actualizarResumen() {
+        const pagado = pagos.reduce((suma, pago) => suma + Number(pago.monto), 0);
+        const pendiente = meses.length * montoMensual - pagado;
+        const pendientes = meses.filter(mes => !pagoDeMes(mes)).length;
+
+        document.getElementById("totalPendiente").textContent =
+            dinero(Math.max(0, pendiente));
+
+        document.getElementById("totalPagado").textContent =
+            dinero(pagado);
+
+        document.getElementById("cuotasPendientes").textContent =
+            pendientes;
+    }
+
+    function renderizarHistorial() {
+        const contenedor = document.getElementById("historialPagos");
+        contenedor.replaceChildren();
+
+        if (pagos.length === 0) {
+            const mensaje = document.createElement("p");
+            mensaje.className = "sin-registros";
+            mensaje.textContent =
+                "Todavía no hay pagos registrados en esta demostración.";
+            contenedor.appendChild(mensaje);
+            return;
+        }
+
+        [...pagos].reverse().forEach(pago => {
+            const fila = document.createElement("div");
+            fila.className = "historial-fila";
+
+            const izquierda = document.createElement("div");
+            const nombre = document.createElement("strong");
+            nombre.textContent = pago.mes + " 2026";
+
+            const detalle = document.createElement("small");
+            detalle.textContent =
+                pago.referencia + " · " + pago.fecha;
+
+            izquierda.append(nombre, detalle);
+
+            const derecha = document.createElement("div");
+            derecha.style.textAlign = "right";
+
+            const monto = document.createElement("div");
+            monto.className = "monto";
+            monto.textContent = dinero(pago.monto);
+
+            const recibo = document.createElement("button");
+            recibo.className = "boton boton-claro";
+            recibo.type = "button";
+            recibo.textContent = "Ver comprobante";
+            recibo.style.marginTop = "7px";
+
+            recibo.addEventListener("click", function () {
+                mostrarComprobante(pago);
+            });
+
+            derecha.append(monto, recibo);
+            fila.append(izquierda, derecha);
+            contenedor.appendChild(fila);
+        });
+    }
+
+    function mostrarComprobante(pago) {
+        comprobanteActual = pago;
+
+        const contenedor = document.getElementById("detalleComprobante");
+        contenedor.replaceChildren();
+
+        const detalles = [
+            ["Referencia", pago.referencia],
+            ["Estudiante", usuario.nombre],
+            ["Carrera", document.getElementById("carrera").value],
+            ["Mensualidad", pago.mes + " 2026"],
+            ["Monto", dinero(pago.monto)],
+            ["Método", pago.metodo],
+            ["Fecha", pago.fecha],
+            ["Estado", "Registrado en demostración"]
+        ];
+
+        detalles.forEach(([etiqueta, valor]) => {
+            const fila = document.createElement("div");
+            fila.className = "voucher-linea";
+
+            const izquierda = document.createElement("span");
+            izquierda.textContent = etiqueta;
+
+            const derecha = document.createElement("strong");
+            derecha.textContent = valor;
+
+            fila.append(izquierda, derecha);
+            contenedor.appendChild(fila);
+        });
+
+        const voucher = document.getElementById("comprobante");
+        voucher.style.display = "block";
+        voucher.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    document.querySelectorAll(".metodo").forEach(boton => {
+        boton.addEventListener("click", function () {
+            metodoSeleccionado = boton.dataset.metodo;
+            document.getElementById("metodoPago").value = metodoSeleccionado;
+
+            document.querySelectorAll(".metodo").forEach(elemento => {
+                elemento.classList.toggle("seleccionado", elemento === boton);
+            });
+
+            document.getElementById("camposTarjeta").style.display =
+                metodoSeleccionado === "tarjeta" ? "block" : "none";
+
+            document.getElementById("camposVoucher").style.display =
+                metodoSeleccionado === "voucher" ? "block" : "none";
+        });
+    });
+
+    document.getElementById("numeroTarjeta").addEventListener("input", function () {
+        let numeros = this.value.replace(/\D/g, "").slice(0, 16);
+        this.value = numeros.replace(/(\d{4})(?=\d)/g, "$1 ");
+
+        const ultimos = numeros.slice(-4);
+        document.getElementById("numeroVisual").textContent =
+            numeros.length ? "DEMO •••• •••• " + ultimos : "DEMO •••• •••• ••••";
+    });
+
+    document.getElementById("titular").addEventListener("input", function () {
+        document.getElementById("titularVisual").textContent =
+            this.value.trim().toUpperCase() || "TITULAR DE DEMOSTRACIÓN";
+    });
+
+    document.getElementById("vencimiento").addEventListener("input", function () {
+        let valor = this.value.replace(/\D/g, "").slice(0, 4);
+
+        if (valor.length >= 3) {
+            valor = valor.slice(0, 2) + "/" + valor.slice(2);
+        }
+
+        this.value = valor;
+    });
+
+    document.getElementById("codigo").addEventListener("input", function () {
+        this.value = this.value.replace(/\D/g, "").slice(0, 4);
+    });
+
+    document.getElementById("mensualidad")
+        .addEventListener("change", actualizarMonto);
+
+    document.getElementById("formPago")
+        .addEventListener("submit", function (evento) {
+            evento.preventDefault();
+
+            const mes = document.getElementById("mensualidad").value;
+            const monto = Number(document.getElementById("montoPago").value);
+            const mensaje = document.getElementById("mensajePago");
+
+            if (!mes || !Number.isFinite(monto) || monto <= 0) {
+                alert("Selecciona una mensualidad pendiente.");
+                return;
+            }
+
+            if (pagoDeMes(mes)) {
+                alert("Esta mensualidad ya está registrada como pagada.");
+                construirTabla();
+                renderizarHistorial();
+                return;
+            }
+
+            if (metodoSeleccionado === "tarjeta") {
+                const titular = document.getElementById("titular").value.trim();
+                const numero = document.getElementById("numeroTarjeta").value.replace(/\D/g, "");
+                const vencimiento = document.getElementById("vencimiento").value.trim();
+                const codigo = document.getElementById("codigo").value.trim();
+
+                if (!titular || !/^\d{16}$/.test(numero) ||
+                    !/^(0[1-9]|1[0-2])\/\d{2}$/.test(vencimiento) ||
+                    !/^\d{3,4}$/.test(codigo)) {
+                    alert(
+                        "Completa los campos de demostración con datos ficticios. " +
+                        "Usa 16 dígitos para el número, MM/AA para el vencimiento " +
+                        "y 3 o 4 dígitos para el código."
+                    );
+                    return;
+                }
+            }
+
+            const pago = {
+                referencia: "AUR-" + Date.now().toString().slice(-9),
+                mes: mes,
+                monto: monto,
+                metodo: metodoSeleccionado === "tarjeta"
+                    ? "Tarjeta de demostración"
+                    : "Boleta de demostración",
+                fecha: new Date().toLocaleString("es-GT"),
+                carrera: document.getElementById("carrera").value
+            };
+
+            pagos.push(pago);
+
+            if (!guardarPagos()) {
+                pagos.pop();
+                return;
+            }
+
+            construirTabla();
+            renderizarHistorial();
+            mostrarComprobante(pago);
+
+            mensaje.className = "alerta alerta-exito";
+            mensaje.textContent =
+                "Pago de demostración registrado. Se ha actualizado el estado de cuenta.";
+            mensaje.style.display = "block";
+
+            // Limpia los campos de la tarjeta después del proceso.
+            document.getElementById("titular").value = "";
+            document.getElementById("numeroTarjeta").value = "";
+            document.getElementById("vencimiento").value = "";
+            document.getElementById("codigo").value = "";
+            document.getElementById("numeroVisual").textContent =
+                "DEMO •••• •••• ••••";
+            document.getElementById("titularVisual").textContent =
+                "TITULAR DE DEMOSTRACIÓN";
+        });
+
+    document.getElementById("imprimirComprobante")
+        .addEventListener("click", function () {
+            if (comprobanteActual) {
+                window.print();
+            }
+        });
+
+    document.getElementById("exportarCSV")
+        .addEventListener("click", function () {
+            const filas = [
+                ["Mensualidad", "Año", "Monto (Q)", "Estado", "Referencia", "Fecha"]
+            ];
+
+            meses.forEach(mes => {
+                const pago = pagoDeMes(mes);
+
+                filas.push([
+                    mes,
+                    "2026",
+                    (pago ? pago.monto : montoMensual).toFixed(2),
+                    estadoMes(mes),
+                    pago ? pago.referencia : "",
+                    pago ? pago.fecha : ""
+                ]);
+            });
+
+            const csv = filas.map(fila =>
+                fila.map(valor =>
+                    '"' + String(valor).replace(/"/g, '""') + '"'
+                ).join(",")
+            ).join("\r\n");
+
+            const archivo = new Blob(
+                ["\uFEFF" + csv],
+                { type: "text/csv;charset=utf-8;" }
+            );
+
+            const url = URL.createObjectURL(archivo);
+            const enlace = document.createElement("a");
+
+            enlace.href = url;
+            enlace.download = "Estado_de_cuenta_Aurora_2026.csv";
+            enlace.click();
+
+            URL.revokeObjectURL(url);
+        });
+
+    construirTabla();
+    renderizarHistorial();
+</script>
+
+</body>
+</html>

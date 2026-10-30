@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunidad Universitaria | Aurora University</title>
+    <link rel="stylesheet" href="estilos.css">
+
+    <style>
+        :root {
+            --azul: #101d3a;
+            --azul2: #243d6a;
+            --dorado: #d8ad52;
+            --fondo: #f3f5fa;
+            --texto: #26334b;
+            --gris: #718098;
+            --verde: #21875a;
+            --borde: #e4e9f2;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--fondo);
+            color: var(--texto);
+        }
+
+        header {
+            background: linear-gradient(120deg, var(--azul), var(--azul2));
+            color: white;
+            padding: 19px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 4px 15px #101d3a20;
+        }
+
+        .marca {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .escudo {
+            width: 47px;
+            height: 47px;
+            background: var(--dorado);
+            color: var(--azul);
+            border-radius: 13px;
+            display: grid;
+            place-items: center;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 21px;
+        }
+
+        header p {
+            margin: 5px 0 0;
+            color: #dce4f3;
+            font-size: 13px;
+        }
+
+        .volver {
+            background: var(--dorado);
+            color: var(--azul);
+            padding: 12px 16px;
+            border-radius: 9px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .volver:hover {
+            background: white;
+        }
+
+        main {
+            width: 94%;
+            max-width: 1250px;
+            margin: 25px auto;
+        }
+
+        .portada {
+            padding: 34px;
+            border-radius: 18px;
+            color: white;
+            background: linear-gradient(120deg, #17294d, #405d8b);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 23px;
+        }
+
+        .portada::after {
+            content: "✦";
+            position: absolute;
+            right: 35px;
+            top: -42px;
+            font-size: 190px;
+            color: #ffffff12;
+        }
+
+        .portada h2 {
+            margin: 0 0 12px;
+            font-size: 30px;
+        }
+
+        .portada p {
+            max-width: 680px;
+            line-height: 1.7;
+            color: #e2eafa;
+        }
+
+        .estadisticas {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 24px;
+        }
+
+        .estadistica {
+            background: white;
+            padding: 19px;
+            border-radius: 14px;
+            border-bottom: 4px solid var(--dorado);
+            box-shadow: 0 4px 14px #101d3a09;
+        }
+
+        .estadistica .icono {
+            font-size: 24px;
+        }
+
+        .estadistica h3 {
+            color: var(--azul);
+            font-size: 27px;
+            margin: 10px 0 5px;
+        }
+
+        .estadistica p {
+            margin: 0;
+            color: var(--gris);
+            font-size: 13px;
+        }
+
+        .columnas {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 290px;
+            gap: 22px;
+            align-items: start;
+        }
+
+        .panel {
+            background: white;
+            padding: 23px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px #101d3a0b;
+            margin-bottom: 20px;
+        }
+
+        .panel h2, .panel h3 {
+            color: var(--azul);
+            margin-top: 0;
+        }
+
+        .perfil-mini {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .avatar {
+            width: 45px;
+            height: 45px;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: #e2e9f7;
+            color: var(--azul);
+            font-weight: bold;
+        }
+
+        .avatar.dorado {
+            background: #fff0cc;
+            color: #765400;
+        }
+
+        .avatar.verde {
+            background: #dff4e8;
+            color: #176b43;
+        }
+
+        .perfil-mini strong {
+            color: var(--azul);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .perfil-mini small {
+            color: var(--gris);
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d9e0ec;
+            border-radius: 9px;
+            background: white;
+            color: var(--texto);
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: 2px solid #d8ad5260;
+            border-color: var(--dorado);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 115px;
+            line-height: 1.6;
+        }
+
+        .campo {
+            margin-bottom: 15px;
+        }
+
+        .campo label {
+            display: block;
+            font-size: 13px;
+            font-weight: bold;
+            color: var(--azul);
+            margin-bottom: 8px;
+        }
+
+        .fila-botones {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .boton {
+            border: none;
+            border-radius: 9px;
+            padding: 11px 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .boton:hover {
+            transform: translateY(-2px);
+        }
+
+        .boton-principal {
+            background: var(--azul);
+            color: white;
+        }
+
+        .boton-dorado {
+            background: var(--dorado);
+            color: var(--azul);
+        }
+
+        .boton-claro {
+            background: #edf1f8;
+            color: var(--azul);
+        }
+
+        .boton-rojo {
+            background: #ffe5e5;
+            color: #a52b2b;
+        }
+
+        .filtros {
+            display: grid;
+            grid-template-columns: 1fr 190px;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .publicacion {
+            background: white;
+            border-radius: 15px;
+            padding: 23px;
+            margin-bottom: 18px;
+            box-shadow: 0 4px 15px #101d3a0b;
+            border: 1px solid #e9edf4;
+            animation: aparecer .25s ease;
+        }
+
+        .publicacion-cabecera {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .autor {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .autor strong {
+            color: var(--azul);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .autor small {
+            color: var(--gris);
+            font-size: 12px;
+        }
+
+        .categoria {
+            display: inline-block;
+            background: #fff0cc;
+            color: #765400;
+            border-radius: 20px;
+            padding: 7px 10px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .texto-publicacion {
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            line-height: 1.75;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        .imagen-publicacion {
+            width: 100%;
+            max-height: 390px;
+            object-fit: contain;
+            background: #f4f6fa;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+
+        .reacciones {
+            display: flex;
+            gap: 16px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--borde);
+            border-top: 1px solid var(--borde);
+            color: var(--gris);
+            font-size: 13px;
+            flex-wrap: wrap;
+        }
+
+        .acciones-publicacion {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .boton-reaccion {
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 12px;
+            color: #566680;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .boton-reaccion:hover {
+            background: #f0f3fa;
+        }
+
+        .boton-reaccion.gustado {
+            background: #fff0cc;
+            color: #765400;
+        }
+
+        .comentarios {
+            margin-top: 18px;
+            padding-top: 5px;
+        }
+
+        .comentario {
+            display: flex;
+            gap: 10px;
+            margin: 14px 0;
+        }
+
+        .comentario .avatar {
+            width: 34px;
+            height: 34px;
+            font-size: 12px;
+        }
+
+        .burbuja-comentario {
+            flex: 1;
+            min-width: 0;
+            background: #f2f5fa;
+            padding: 11px 13px;
+            border-radius: 12px;
+            font-size: 13px;
+            line-height: 1.6;
+            overflow-wrap: anywhere;
+        }
+
+        .burbuja-comentario strong {
+            color: var(--azul);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .form-comentario {
+            display: flex;
+            gap: 8px;
+            margin-top: 13px;
+        }
+
+        .form-comentario input {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .vacio {
+            display: none;
+            background: white;
+            padding: 35px;
+            text-align: center;
+            border-radius: 15px;
+            color: var(--gris);
+        }
+
+        .grupo {
+            padding: 13px 0;
+            border-bottom: 1px solid var(--borde);
+        }
+
+        .grupo:last-child {
+            border-bottom: none;
+        }
+
+        .grupo strong {
+            color: var(--azul);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .grupo p {
+            color: var(--gris);
+            font-size: 12px;
+            line-height: 1.6;
+            margin: 0 0 9px;
+        }
+
+        .grupo button {
+            font-size: 12px;
+            padding: 8px 11px;
+        }
+
+        .aviso {
+            color: #73561a;
+            background: #fff8e8;
+            border: 1px solid #f0dfb4;
+            border-radius: 10px;
+            padding: 13px;
+            font-size: 12px;
+            line-height: 1.6;
+            margin-top: 18px;
+        }
+
+        .mensaje-estado {
+            display: none;
+            padding: 12px;
+            border-radius: 9px;
+            background: #e0f6e9;
+            color: #176b43;
+            font-size: 13px;
+            margin-bottom: 14px;
+        }
+
+        footer {
+            margin-top: 35px;
+            background: var(--azul);
+            color: #dce4f3;
+            text-align: center;
+            padding: 24px;
+            font-size: 13px;
+        }
+
+        @keyframes aparecer {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 900px) {
+            .columnas {
+                grid-template-columns: 1fr;
+            }
+
+            .barra-lateral {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            main { width: 96%; }
+            .portada { padding: 23px; }
+            .portada h2 { font-size: 24px; }
+            .estadisticas { gap: 8px; }
+            .estadistica { padding: 13px; }
+            .estadistica h3 { font-size: 23px; }
+            .panel, .publicacion { padding: 16px; }
+            .barra-lateral { display: block; }
+            .filtros { grid-template-columns: 1fr; }
+            .form-comentario { flex-wrap: wrap; }
+            .form-comentario input { flex-basis: 100%; }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="marca">
+        <div class="escudo">A</div>
+        <div>
+            <h1>Aurora University</h1>
+            <p>Red social · Comunidad universitaria</p>
+        </div>
+    </div>
+    <a href="portal.html" class="volver">← Volver al portal</a>
+</header>
+
+<main>
+    <section class="portada">
+        <h2>Comunidad Aurora 🌟</h2>
+        <p>
+            Un espacio para conectar, aprender y compartir. Publica tus ideas,
+            comparte actividades universitarias, ayuda a tus compañeros y
+            participa en la vida académica de nuestra universidad.
+        </p>
+    </section>
+
+    <section class="estadisticas">
+        <article class="estadistica">
+            <span class="icono">📝</span>
+            <h3 id="totalPublicaciones">0</h3>
+            <p>Publicaciones visibles</p>
+        </article>
+        <article class="estadistica">
+            <span class="icono">❤️</span>
+            <h3 id="totalMeGusta">0</h3>
+            <p>Reacciones</p>
+        </article>
+        <article class="estadistica">
+            <span class="icono">💬</span>
+            <h3 id="totalComentarios">0</h3>
+            <p>Comentarios</p>
+        </article>
+    </section>
+
+    <div class="columnas">
+        <section class="contenido-principal">
+
+            <section class="panel">
+                <h2>✍️ Crear una publicación</h2>
+
+                <div class="perfil-mini">
+                    <div class="avatar dorado" id="avatarUsuario">AU</div>
+                    <div>
+                        <strong id="nombreUsuario">Estudiante Aurora</strong>
+                        <small>Comparte algo con la comunidad</small>
+                    </div>
+                </div>
+
+                <div class="mensaje-estado" id="mensajeEstado"></div>
+
+                <form id="formPublicacion">
+                    <div class="campo">
+                        <label for="categoria">Categoría</label>
+                        <select id="categoria" required>
+                            <option value="General">🌟 General</option>
+                            <option value="Académico">📚 Académico</option>
+                            <option value="Evento">🎉 Eventos</option>
+                            <option value="Pregunta">❓ Preguntas</option>
+                            <option value="Proyecto">💡 Proyectos</option>
+                            <option value="Deportes">⚽ Deportes</option>
+                        </select>
+                    </div>
+
+                    <div class="campo">
+                        <label for="textoPublicacion">¿Qué deseas compartir?</label>
+                        <textarea
+                            id="textoPublicacion"
+                            maxlength="2000"
+                            placeholder="Escribe una idea, pregunta, anuncio o experiencia universitaria..."
+                            required></textarea>
+                        <small id="contadorTexto" style="color:#718098">
+                            0 / 2000 caracteres
+                        </small>
+                    </div>
+
+                    <div class="campo">
+                        <label for="imagen">Agregar una imagen (opcional)</label>
+                        <input type="file" id="imagen" accept="image/png,image/jpeg,image/webp">
+                        <small style="display:block;color:#718098;margin-top:7px">
+                            Formatos permitidos: JPG, PNG o WEBP. Máximo 2 MB.
+                        </small>
+                        <div id="vistaPrevia" style="margin-top:10px"></div>
+                    </div>
+
+                    <div class="fila-botones">
+                        <button type="submit" class="boton boton-principal">
+                            Publicar 🚀
+                        </button>
+                        <button type="reset" class="boton boton-claro">
+                            Limpiar
+                        </button>
+                    </div>
+                </form>
+
+                <div class="aviso">
+                    Las publicaciones se guardan en el
+                    navegador. No son visibles automáticamente para otros
+                    usuarios de la universidad.
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>🌐 Publicaciones de la comunidad</h2>
+
+                <div class="filtros">
+                    <input
+                        type="search"
+                        id="buscarPublicacion"
+                        placeholder="Buscar publicaciones..."
+                        aria-label="Buscar publicaciones">
+
+                    <select id="filtroCategoria" aria-label="Filtrar categoría">
+                        <option value="">Todas las categorías</option>
+                        <option value="General">General</option>
+                        <option value="Académico">Académico</option>
+                        <option value="Evento">Eventos</option>
+                        <option value="Pregunta">Preguntas</option>
+                        <option value="Proyecto">Proyectos</option>
+                        <option value="Deportes">Deportes</option>
+                    </select>
+                </div>
+
+                <div id="listaPublicaciones"></div>
+
+                <div class="vacio" id="sinPublicaciones">
+                    <h3>🔎 No hay publicaciones</h3>
+                    <p>Prueba otro filtro o crea la primera publicación.</p>
+                </div>
+            </section>
+        </section>
+
+        <aside class="barra-lateral">
+            <section class="panel">
+                <h3>🎓 Grupos universitarios</h3>
+
+                <div class="grupo">
+                    <strong>💻 Club de Programación</strong>
+                    <p>Comparte código, resuelve dudas y conoce nuevos proyectos.</p>
+                    <button class="boton boton-claro unirse" data-grupo="Club de Programación">
+                        Unirme al grupo
+                    </button>
+                </div>
+
+                <div class="grupo">
+                    <strong>📐 Comunidad de Matemática</strong>
+                    <p>Ejercicios, procedimientos y sesiones de estudio.</p>
+                    <button class="boton boton-claro unirse" data-grupo="Comunidad de Matemática">
+                        Unirme al grupo
+                    </button>
+                </div>
+
+                <div class="grupo">
+                    <strong>🎨 Arte y Cultura</strong>
+                    <p>Exposiciones, fotografía, música y actividades creativas.</p>
+                    <button class="boton boton-claro unirse" data-grupo="Arte y Cultura">
+                        Unirme al grupo
+                    </button>
+                </div>
+
+                <div class="grupo">
+                    <strong>⚽ Deportes Aurora</strong>
+                    <p>Organiza encuentros y comparte información deportiva.</p>
+                    <button class="boton boton-claro unirse" data-grupo="Deportes Aurora">
+                        Unirme al grupo
+                    </button>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h3>👥 Mis grupos</h3>
+                <div id="misGrupos">
+                    <p style="color:#718098;font-size:13px">
+                        Todavía no te has unido a ningún grupo.
+                    </p>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h3>💡 Reglas de convivencia</h3>
+                <p style="font-size:13px;line-height:1.8;color:#596780">
+                    🤝 Respeta las opiniones de los demás.<br>
+                    📚 Comparte información útil y verificada.<br>
+                    🔒 No publiques datos personales privados.<br>
+                    💬 Mantén comentarios constructivos.<br>
+                    🚫 Evita contenido ofensivo o spam.
+                </p>
+            </section>
+        </aside>
+    </div>
+</main>
+
+<footer>
+    © 2026 Aurora University · Comunidad universitaria
+    <br><br>
+    Conectando ideas, personas y oportunidades.
+</footer>
+
+<script>
+    // Acceso de demostración: requiere iniciar sesión primero.
+    const sesionTexto = sessionStorage.getItem("auroraSesion");
+
+    if (!sesionTexto) {
+        window.location.href = "login.html";
+    }
+
+    let usuario = {
+        nombre: "Estudiante Aurora",
+        usuario: "estudiante"
+    };
+
+    try {
+        const datosSesion = JSON.parse(sesionTexto || "{}");
+        usuario.nombre =
+            datosSesion.nombre ||
+            datosSesion.nombreCompleto ||
+            datosSesion.usuario ||
+            "Estudiante Aurora";
+
+        usuario.usuario =
+            datosSesion.usuario ||
+            usuario.nombre;
+    } catch (error) {
+        // Se conservan los datos de demostración.
+    }
+
+    const clavePublicaciones = "auroraComunidadPublicaciones";
+    const claveGrupos = "auroraComunidadGrupos";
+
+    const nombreUsuario = document.getElementById("nombreUsuario");
+    const avatarUsuario = document.getElementById("avatarUsuario");
+    const formulario = document.getElementById("formPublicacion");
+    const textoPublicacion = document.getElementById("textoPublicacion");
+    const imagenInput = document.getElementById("imagen");
+    const vistaPrevia = document.getElementById("vistaPrevia");
+    const listaPublicaciones = document.getElementById("listaPublicaciones");
+
+    nombreUsuario.textContent = usuario.nombre;
+    avatarUsuario.textContent = usuario.nombre
+        .trim()
+        .split(/\s+/)
+        .slice(0, 2)
+        .map(palabra => palabra[0])
+        .join("")
+        .toUpperCase();
+
+    let publicaciones = [];
+    let gruposUnidos = [];
+
+    try {
+        publicaciones = JSON.parse(
+            localStorage.getItem(clavePublicaciones) || "[]"
+        );
+
+        if (!Array.isArray(publicaciones)) publicaciones = [];
+    } catch (error) {
+        publicaciones = [];
+    }
+
+    try {
+        gruposUnidos = JSON.parse(
+            localStorage.getItem(claveGrupos) || "[]"
+        );
+
+        if (!Array.isArray(gruposUnidos)) gruposUnidos = [];
+    } catch (error) {
+        gruposUnidos = [];
+    }
+
+    // Las publicaciones iniciales solo se crean la primera vez.
+    if (localStorage.getItem(clavePublicaciones) === null) {
+        publicaciones = [
+            {
+                id: "ejemplo1",
+                autor: "Andrea López",
+                propietario: "demo-andrea",
+                categoria: "Académico",
+                texto: "¡Hola, comunidad Aurora! 📚 ¿Alguien quiere formar un grupo de estudio para repasar programación esta semana?",
+                fecha: "28/10/2026, 10:30",
+                imagen: "",
+                likes: [],
+                comentarios: [
+                    {
+                        autor: "Carlos Méndez",
+                        propietario: "demo-carlos",
+                        texto: "¡Me apunto! Podemos repasar arreglos y funciones."
+                    }
+                ]
+            },
+            {
+                id: "ejemplo2",
+                autor: "José Morales",
+                propietario: "demo-jose",
+                categoria: "Evento",
+                texto: "🎉 Recordatorio: organicemos nuestras ideas para las próximas actividades universitarias. ¡Participemos y hagamos crecer nuestra comunidad!",
+                fecha: "27/10/2026, 15:00",
+                imagen: "",
+                likes: ["demo-1", "demo-2"],
+                comentarios: []
+            }
+        ];
+
+        try {
+            localStorage.setItem(
+                clavePublicaciones,
+                JSON.stringify(publicaciones)
+            );
+        } catch (error) {
+            // La página puede continuar funcionando durante la sesión.
+        }
+    }
+
+    // Identificador local del usuario para las reacciones de esta demo.
+    const identidad = "usuario-" + usuario.usuario.toLowerCase();
+
+    function guardarPublicaciones() {
+        try {
+            localStorage.setItem(
+                clavePublicaciones,
+                JSON.stringify(publicaciones)
+            );
+            return true;
+        } catch (error) {
+            alert(
+                "No se pudieron guardar los cambios. " +
+                "Puede que el almacenamiento del navegador esté lleno."
+            );
+            return false;
+        }
+    }
+
+    function escaparFecha() {
+        return new Date().toLocaleString("es-GT", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+        });
+    }
+
+    function mostrarAviso(texto) {
+        const aviso = document.getElementById("mensajeEstado");
+        aviso.textContent = texto;
+        aviso.style.display = "block";
+
+        setTimeout(() => {
+            aviso.style.display = "none";
+        }, 3500);
+    }
+
+    textoPublicacion.addEventListener("input", function () {
+        document.getElementById("contadorTexto").textContent =
+            this.value.length + " / 2000 caracteres";
+    });
+
+    let imagenSeleccionada = "";
+
+    imagenInput.addEventListener("change", function () {
+        vistaPrevia.replaceChildren();
+        imagenSeleccionada = "";
+
+        const archivo = this.files[0];
+        if (!archivo) return;
+
+        if (!["image/jpeg", "image/png", "image/webp"].includes(archivo.type)) {
+            alert("Selecciona una imagen JPG, PNG o WEBP.");
+            this.value = "";
+            return;
+        }
+
+        if (archivo.size > 2 * 1024 * 1024) {
+            alert("La imagen no debe superar los 2 MB.");
+            this.value = "";
+            return;
+        }
+
+        const lector = new FileReader();
+
+        lector.onload = function () {
+            imagenSeleccionada = lector.result;
+
+            const img = document.createElement("img");
+            img.src = imagenSeleccionada;
+            img.alt = "Vista previa de la publicación";
+            img.style.maxWidth = "100%";
+            img.style.maxHeight = "240px";
+            img.style.borderRadius = "10px";
+
+            vistaPrevia.replaceChildren(img);
+        };
+
+        lector.onerror = function () {
+            alert("No fue posible leer la imagen.");
+            imagenInput.value = "";
+        };
+
+        lector.readAsDataURL(archivo);
+    });
+
+    formulario.addEventListener("submit", function (evento) {
+        evento.preventDefault();
+
+        const texto = textoPublicacion.value.trim();
+        const categoria = document.getElementById("categoria").value;
+
+        if (!texto) {
+            alert("Escribe algo antes de publicar.");
+            textoPublicacion.focus();
+            return;
+        }
+
+        const nuevaPublicacion = {
+            id: "pub-" + Date.now() + "-" + Math.random().toString(36).slice(2, 8),
+            autor: usuario.nombre,
+            propietario: identidad,
+            categoria: categoria,
+            texto: texto,
+            fecha: escaparFecha(),
+            imagen: imagenSeleccionada,
+            likes: [],
+            comentarios: []
+        };
+
+        publicaciones.unshift(nuevaPublicacion);
+
+        if (!guardarPublicaciones()) {
+            publicaciones.shift();
+            return;
+        }
+
+        formulario.reset();
+        imagenSeleccionada = "";
+        vistaPrevia.replaceChildren();
+
+        document.getElementById("contadorTexto").textContent =
+            "0 / 2000 caracteres";
+
+        renderizarPublicaciones();
+        mostrarAviso("¡Tu publicación se ha guardado correctamente!");
+    });
+
+    function crearElemento(tag, clase, texto) {
+        const elemento = document.createElement(tag);
+
+        if (clase) elemento.className = clase;
+        if (texto !== undefined) elemento.textContent = texto;
+
+        return elemento;
+    }
+
+    function crearPublicacion(pub) {
+        const articulo = crearElemento("article", "publicacion");
+
+        const cabecera = crearElemento("div", "publicacion-cabecera");
+        const autor = crearElemento("div", "autor");
+
+        const avatar = crearElemento(
+            "div",
+            "avatar",
+            pub.autor.trim().split(/\s+/).slice(0, 2)
+                .map(p => p[0]).join("").toUpperCase()
+        );
+
+        const datosAutor = document.createElement("div");
+        datosAutor.appendChild(
+            crearElemento("strong", "", pub.autor)
+        );
+        datosAutor.appendChild(
+            crearElemento("small", "", pub.fecha)
+        );
+
+        autor.appendChild(avatar);
+        autor.appendChild(datosAutor);
+
+        const categoria = crearElemento("span", "categoria", pub.categoria);
+
+        cabecera.appendChild(autor);
+        cabecera.appendChild(categoria);
+        articulo.appendChild(cabecera);
+
+        articulo.appendChild(
+            crearElemento("p", "texto-publicacion", pub.texto)
+        );
+
+        if (pub.imagen) {
+            const img = document.createElement("img");
+            img.className = "imagen-publicacion";
+            img.src = pub.imagen;
+            img.alt = "Imagen compartida por " + pub.autor;
+            img.loading = "lazy";
+            articulo.appendChild(img);
+        }
+
+        const totalLikes = pub.likes.length;
+        const reacciones = crearElemento("div", "reacciones");
+
+        reacciones.appendChild(
+            crearElemento("span", "", "❤️ " + totalLikes + " Me gusta")
+        );
+
+        reacciones.appendChild(
+            crearElemento(
+                "span",
+                "",
+                "💬 " + pub.comentarios.length + " comentarios"
+            )
+        );
+
+        articulo.appendChild(reacciones);
+
+        const acciones = crearElemento("div", "acciones-publicacion");
+
+        const meGusta = crearElemento(
+            "button",
+            "boton-reaccion",
+            pub.likes.includes(identidad) ? "❤️ Te gusta" : "🤍 Me gusta"
+        );
+
+        meGusta.type = "button";
+        meGusta.classList.toggle("gustado", pub.likes.includes(identidad));
+
+        meGusta.addEventListener("click", function () {
+            const anterior = [...pub.likes];
+
+            if (pub.likes.includes(identidad)) {
+                pub.likes = pub.likes.filter(id => id !== identidad);
+            } else {
+                pub.likes.push(identidad);
+            }
+
+            if (!guardarPublicaciones()) {
+                pub.likes = anterior;
+                return;
+            }
+
+            renderizarPublicaciones();
+        });
+
+        const botonComentar = crearElemento(
+            "button",
+            "boton-reaccion",
+            "💬 Comentar"
+        );
+
+        botonComentar.type = "button";
+        botonComentar.addEventListener("click", function () {
+            const entrada = articulo.querySelector(".entrada-comentario");
+            if (entrada) entrada.focus();
+        });
+
+        acciones.appendChild(meGusta);
+        acciones.appendChild(botonComentar);
+
+        if (pub.propietario === identidad) {
+            const eliminar = crearElemento(
+                "button",
+                "boton-reaccion",
+                "🗑 Eliminar"
+            );
+
+            eliminar.type = "button";
+
+            eliminar.addEventListener("click", function () {
+                if (!confirm("¿Deseas eliminar tu publicación?")) return;
+
+                const indice = publicaciones.findIndex(p => p.id === pub.id);
+                if (indice === -1) return;
+
+                const eliminada = publicaciones.splice(indice, 1)[0];
+
+                if (!guardarPublicaciones()) {
+                    publicaciones.splice(indice, 0, eliminada);
+                    return;
+                }
+
+                renderizarPublicaciones();
+                mostrarAviso("Publicación eliminada.");
+            });
+
+            acciones.appendChild(eliminar);
+        }
+
+        articulo.appendChild(acciones);
+
+        const seccionComentarios = crearElemento("div", "comentarios");
+        seccionComentarios.appendChild(
+            crearElemento("strong", "", "Comentarios")
+        );
+
+        pub.comentarios.forEach(comentario => {
+            const fila = crearElemento("div", "comentario");
+
+            const avatarComentario = crearElemento(
+                "div",
+                "avatar",
+                comentario.autor.trim().split(/\s+/).slice(0, 2)
+                    .map(p => p[0]).join("").toUpperCase()
+            );
+
+            const burbuja = crearElemento("div", "burbuja-comentario");
+
+            burbuja.appendChild(
+                crearElemento("strong", "", comentario.autor)
+            );
+            burbuja.appendChild(
+                crearElemento("span", "", comentario.texto)
+            );
+
+            fila.appendChild(avatarComentario);
+            fila.appendChild(burbuja);
+            seccionComentarios.appendChild(fila);
+        });
+
+        const formularioComentario = crearElemento("form", "form-comentario");
+
+        const entradaComentario = document.createElement("input");
+        entradaComentario.type = "text";
+        entradaComentario.className = "entrada-comentario";
+        entradaComentario.placeholder = "Escribe un comentario...";
+        entradaComentario.maxLength = 500;
+        entradaComentario.required = true;
+        entradaComentario.setAttribute("aria-label", "Escribe un comentario");
+
+        const enviarComentario = crearElemento(
+            "button",
+            "boton boton-dorado",
+            "Enviar"
+        );
+        enviarComentario.type = "submit";
+
+        formularioComentario.appendChild(entradaComentario);
+        formularioComentario.appendChild(enviarComentario);
+
+        formularioComentario.addEventListener("submit", function (evento) {
+            evento.preventDefault();
+
+            const texto = entradaComentario.value.trim();
+            if (!texto) return;
+
+            const comentario = {
+                autor: usuario.nombre,
+                propietario: identidad,
+                texto: texto
+            };
+
+            pub.comentarios.push(comentario);
+
+            if (!guardarPublicaciones()) {
+                pub.comentarios.pop();
+                return;
+            }
+
+            renderizarPublicaciones();
+            mostrarAviso("Comentario agregado.");
+        });
+
+        seccionComentarios.appendChild(formularioComentario);
+        articulo.appendChild(seccionComentarios);
+
+        return articulo;
+    }
+
+    function renderizarPublicaciones() {
+        listaPublicaciones.replaceChildren();
+
+        const busqueda = document.getElementById("buscarPublicacion")
+            .value.trim().toLowerCase();
+
+        const categoria = document.getElementById("filtroCategoria").value;
+
+        const filtradas = publicaciones.filter(pub => {
+            const coincideTexto = (
+                pub.texto + " " + pub.autor + " " + pub.categoria
+            ).toLowerCase().includes(busqueda);
+
+            const coincideCategoria = !categoria || pub.categoria === categoria;
+
+            return coincideTexto && coincideCategoria;
+        });
+
+        filtradas.forEach(pub => {
+            listaPublicaciones.appendChild(crearPublicacion(pub));
+        });
+
+        document.getElementById("sinPublicaciones").style.display =
+            filtradas.length ? "none" : "block";
+
+        document.getElementById("totalPublicaciones").textContent =
+            publicaciones.length;
+
+        document.getElementById("totalMeGusta").textContent =
+            publicaciones.reduce((total, pub) => total + pub.likes.length, 0);
+
+        document.getElementById("totalComentarios").textContent =
+            publicaciones.reduce(
+                (total, pub) => total + pub.comentarios.length,
+                0
+            );
+    }
+
+    function guardarGrupos() {
+        try {
+            localStorage.setItem(claveGrupos, JSON.stringify(gruposUnidos));
+            return true;
+        } catch (error) {
+            alert("No se pudo guardar tu lista de grupos.");
+            return false;
+        }
+    }
+
+    function renderizarGrupos() {
+        const contenedor = document.getElementById("misGrupos");
+        contenedor.replaceChildren();
+
+        if (gruposUnidos.length === 0) {
+            contenedor.appendChild(
+                crearElemento(
+                    "p",
+                    "",
+                    "Todavía no te has unido a ningún grupo."
+                )
+            );
+            contenedor.lastChild.style.color = "#718098";
+            contenedor.lastChild.style.fontSize = "13px";
+        }
+
+        gruposUnidos.forEach(nombre => {
+            const elemento = crearElemento("div", "grupo");
+            elemento.appendChild(crearElemento("strong", "", "✓ " + nombre));
+
+            const salir = crearElemento(
+                "button",
+                "boton boton-claro",
+                "Abandonar grupo"
+            );
+            salir.type = "button";
+
+            salir.addEventListener("click", function () {
+                const anterior = [...gruposUnidos];
+                gruposUnidos = gruposUnidos.filter(g => g !== nombre);
+
+                if (!guardarGrupos()) {
+                    gruposUnidos = anterior;
+                    return;
+                }
+
+                renderizarGrupos();
+                actualizarBotonesGrupos();
+            });
+
+            elemento.appendChild(salir);
+            contenedor.appendChild(elemento);
+        });
+
+        actualizarBotonesGrupos();
+    }
+
+    function actualizarBotonesGrupos() {
+        document.querySelectorAll(".unirse").forEach(boton => {
+            const unido = gruposUnidos.includes(boton.dataset.grupo);
+            boton.textContent = unido ? "✓ Unido" : "Unirme al grupo";
+            boton.disabled = unido;
+            boton.style.opacity = unido ? "0.65" : "1";
+        });
+    }
+
+    document.querySelectorAll(".unirse").forEach(boton => {
+        boton.addEventListener("click", function () {
+            const nombre = boton.dataset.grupo;
+
+            if (gruposUnidos.includes(nombre)) return;
+
+            gruposUnidos.push(nombre);
+
+            if (!guardarGrupos()) {
+                gruposUnidos.pop();
+                return;
+            }
+
+            renderizarGrupos();
+            mostrarAviso("Te has unido a " + nombre + ".");
+        });
+    });
+
+    document.getElementById("buscarPublicacion")
+        .addEventListener("input", renderizarPublicaciones);
+
+    document.getElementById("filtroCategoria")
+        .addEventListener("change", renderizarPublicaciones);
+
+    renderizarPublicaciones();
+    renderizarGrupos();
+</script>
+
+</body>
+</html>

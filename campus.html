@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus | Aurora University</title>
+    <link rel="stylesheet" href="estilos.css">
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: #f3f6fb;
+            color: #52647d;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        .au-top {
+            padding: 11px 5%;
+            display: flex;
+            justify-content: space-between;
+            background: #102849;
+            color: white;
+            font-size: 12px;
+        }
+
+        .au-header {
+            position: relative;
+            z-index: 20;
+            background: white;
+            box-shadow: 0 5px 25px rgba(16,40,73,.08);
+        }
+
+        .au-inner {
+            width: 92%;
+            max-width: 1400px;
+            min-height: 105px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .au-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .au-logo {
+            width: 49px;
+            height: 49px;
+            display: grid;
+            place-items: center;
+            border-radius: 15px;
+            background: #102849;
+            color: #e6ae4c;
+            font-size: 30px;
+        }
+
+        .au-brand h1 {
+            margin: 0;
+            color: #102849;
+            font-size: 21px;
+        }
+
+        .au-brand p {
+            margin: 5px 0 0;
+            color: #8190a6;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+        }
+
+        .au-nav {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .au-nav a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 13px;
+            min-height: 42px;
+            border-radius: 10px;
+            background: transparent !important;
+            color: #102849 !important;
+            text-decoration: none !important;
+            font-size: 13px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .au-nav a:hover,
+        .au-nav a.active {
+            background: #edf2f9 !important;
+        }
+
+        .au-nav a.au-portal {
+            margin-left: 8px;
+            padding: 14px 18px;
+            background: #e6ae4c !important;
+            color: #102849 !important;
+            font-weight: 800;
+        }
+
+        .au-nav a.au-portal:hover {
+            background: #102849 !important;
+            color: white !important;
+        }
+
+        .au-toggle {
+            display: none;
+            padding: 10px 14px;
+            border: 0;
+            border-radius: 9px;
+            background: #102849;
+            color: white;
+            cursor: pointer;
+        }
+
+        .au-hero {
+            padding: 75px 7%;
+            background: linear-gradient(115deg, #102849, #294d78);
+            color: white;
+            text-align: center;
+        }
+
+        .au-hero span {
+            color: #f0bd61;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 3px;
+        }
+
+        .au-hero h2 {
+            margin: 17px 0;
+            color: white;
+            font-size: clamp(35px, 5vw, 51px);
+        }
+
+        .au-hero p {
+            max-width: 800px;
+            margin: auto;
+            color: #e1e9f3;
+            line-height: 1.9;
+        }
+
+        .au-container {
+            width: 92%;
+            max-width: 1300px;
+            margin: 55px auto;
+        }
+
+        .section-title {
+            color: #102849;
+            font-size: 29px;
+        }
+
+        .section-description {
+            line-height: 1.8;
+        }
+
+        /* CONTENEDOR DEL CROQUIS */
+
+        .map-layout {
+            display: grid;
+            grid-template-columns: 1.5fr .8fr;
+            gap: 25px;
+            align-items: stretch;
+            margin-top: 28px;
+        }
+
+        .map-board {
+            position: relative;
+            min-height: 650px;
+            overflow: hidden;
+            padding: 25px;
+            border: 8px solid white;
+            border-radius: 22px;
+            background: #dcebdc;
+            box-shadow: 0 15px 40px rgba(16,40,73,.10);
+        }
+
+        .map-board::before {
+            content: "AURORA UNIVERSITY";
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(16,40,73,.30);
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 3px;
+        }
+
+        .map-road {
+            position: absolute;
+            background: #d2d6dc;
+            border: 5px solid #f6f7f8;
+            border-radius: 25px;
+        }
+
+        .road-horizontal {
+            top: 47%;
+            left: 0;
+            width: 100%;
+            height: 75px;
+        }
+
+        .road-vertical {
+            top: 0;
+            left: 48%;
+            width: 75px;
+            height: 100%;
+        }
+
+        .map-green {
+            position: absolute;
+            border-radius: 50%;
+            background: #b9d7b5;
+            opacity: .9;
+        }
+
+        .green-one {
+            width: 125px;
+            height: 100px;
+            top: 10%;
+            left: 5%;
+        }
+
+        .green-two {
+            width: 150px;
+            height: 100px;
+            right: 5%;
+            bottom: 7%;
+        }
+
+        .green-three {
+            width: 100px;
+            height: 100px;
+            right: 8%;
+            top: 10%;
+        }
+
+        .map-place {
+            position: absolute;
+            z-index: 3;
+            width: 145px;
+            min-height: 90px;
+            padding: 12px 8px;
+            border: 2px solid rgba(16,40,73,.12);
+            border-radius: 13px;
+            background: white;
+            color: #102849;
+            box-shadow: 0 7px 16px rgba(16,40,73,.12);
+            text-align: center;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .map-place span {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 27px;
+        }
+
+        .map-place:hover,
+        .map-place.selected {
+            z-index: 5;
+            border-color: #d4a653;
+            background: #fff5df;
+            transform: scale(1.06);
+        }
+
+        .place-main { top: 13%; left: 35%; }
+        .place-library { top: 13%; left: 5%; }
+        .place-labs { top: 13%; right: 5%; }
+        .place-cafeteria { top: 57%; left: 5%; }
+        .place-auditorium { top: 57%; left: 35%; }
+        .place-sports { top: 57%; right: 5%; }
+        .place-parking { bottom: 4%; left: 35%; }
+        .place-gardens { bottom: 4%; right: 5%; }
+
+        .map-entrance {
+            position: absolute;
+            z-index: 4;
+            bottom: 8px;
+            left: 8px;
+            padding: 9px 13px;
+            border-radius: 8px;
+            background: #102849;
+            color: white;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+
+        .map-info {
+            padding: 30px;
+            border-radius: 20px;
+            background: white;
+            box-shadow: 0 15px 40px rgba(16,40,73,.08);
+        }
+
+        .map-info-icon {
+            width: 75px;
+            height: 75px;
+            display: grid;
+            place-items: center;
+            border-radius: 20px;
+            background: #fff2d6;
+            font-size: 40px;
+        }
+
+        .map-info h3 {
+            margin: 20px 0 10px;
+            color: #102849;
+            font-size: 24px;
+        }
+
+        .map-info p {
+            line-height: 1.8;
+        }
+
+        .map-info h4 {
+            margin-bottom: 8px;
+            color: #102849;
+        }
+
+        .map-info ul {
+            padding-left: 20px;
+            line-height: 1.9;
+        }
+
+        .map-hint {
+            margin-top: 25px;
+            padding: 16px;
+            border-radius: 12px;
+            background: #edf2f9;
+            color: #425875;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .map-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+            font-size: 13px;
+        }
+
+        .campus-extra {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .campus-extra article {
+            padding: 25px;
+            border-radius: 16px;
+            background: white;
+            box-shadow: 0 8px 25px rgba(16,40,73,.06);
+        }
+
+        .campus-extra span { font-size: 30px; }
+
+        .campus-extra h3 {
+            color: #102849;
+        }
+
+        .campus-extra p {
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .au-footer {
+            padding: 40px 5%;
+            background: #102849;
+            color: white;
+            text-align: center;
+        }
+
+        .au-footer h2 { color: white; }
+
+        .au-footer p {
+            color: #dce5f0;
+            font-size: 13px;
+        }
+
+        @media (max-width: 950px) {
+            .map-layout { grid-template-columns: 1fr; }
+
+            .campus-extra { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 800px) {
+            .au-toggle { display: block; }
+
+            .au-nav {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .au-nav.open { display: flex; }
+
+            .au-nav a { justify-content: flex-start; }
+
+            .au-nav a.au-portal { margin-left: 0; }
+        }
+
+        @media (max-width: 600px) {
+            .au-top { flex-direction: column; }
+
+            .map-board {
+                min-height: 900px;
+                padding: 15px;
+            }
+
+            .map-road { display: none; }
+
+            .map-place {
+                left: 50% !important;
+                right: auto !important;
+                width: 80%;
+                transform: translateX(-50%);
+            }
+
+            .map-place:hover,
+            .map-place.selected {
+                transform: translateX(-50%) scale(1.03);
+            }
+
+            .place-library { top: 5%; }
+            .place-main { top: 17%; }
+            .place-labs { top: 29%; }
+            .place-cafeteria { top: 41%; }
+            .place-auditorium { top: 53%; }
+            .place-sports { top: 65%; }
+            .place-parking { top: 77%; bottom: auto; }
+            .place-gardens { top: 89%; bottom: auto; }
+
+            .map-entrance { display: none; }
+
+            .campus-extra { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="au-top">
+        <span>✦ Aurora University | Conocimiento, innovación y futuro</span>
+        <span>📍 Zona 10, Ciudad de Guatemala</span>
+    </div>
+
+    <header class="au-header">
+        <div class="au-inner">
+
+            <a href="index.html" class="au-brand">
+                <div class="au-logo">✦</div>
+                <div>
+                    <h1>AURORA UNIVERSITY</h1>
+                    <p>CONOCIMIENTO · INNOVACIÓN · FUTURO</p>
+                </div>
+            </a>
+
+            <button class="au-toggle" id="auToggle">☰ Menú</button>
+
+            <nav class="au-nav" id="auNav">
+                <a href="index.html">Inicio</a>
+                <a href="nosotros.html">Nosotros</a>
+                <a href="facultades.html">Facultades</a>
+                <a href="campus.html" class="active">Campus</a>
+                <a href="calendario.html">Calendario</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="login.html" class="au-portal">Portal estudiantil →</a>
+            </nav>
+
+        </div>
+    </header>
+
+    <section class="au-hero">
+        <span>CONOCE NUESTRAS INSTALACIONES</span>
+        <h2>Explora nuestro campus</h2>
+        <p>
+            Recorre los espacios de Aurora University mediante nuestro croquis
+            interactivo. Selecciona cada edificio o área para conocer su
+            función, servicios y características.
+        </p>
+    </section>
+
+    <main class="au-container">
+
+        <h2 class="section-title">Croquis general del campus</h2>
+
+        <p class="section-description">
+            El plano representa la distribución ilustrativa de las instalaciones
+            universitarias. Haz clic en los edificios para consultar su información.
+        </p>
+
+        <section class="map-layout">
+
+            <div class="map-board">
+
+                <div class="map-road road-horizontal"></div>
+                <div class="map-road road-vertical"></div>
+
+                <div class="map-green green-one"></div>
+                <div class="map-green green-two"></div>
+                <div class="map-green green-three"></div>
+
+                <button class="map-place place-library"
+                    data-place="Biblioteca"
+                    data-icon="📚"
+                    data-description="La biblioteca es un espacio dedicado a la lectura, consulta de libros, investigación y estudio. Cuenta con zonas individuales y espacios para trabajos en grupo."
+                    data-services="Préstamo de libros|Consulta de material académico|Mesas de estudio|Acceso a recursos digitales">
+                    <span>📚</span>
+                    Biblioteca
+                </button>
+
+                <button class="map-place place-main selected"
+                    data-place="Edificio principal"
+                    data-icon="🏛️"
+                    data-description="Es el edificio central de Aurora University. Aquí se ubican las oficinas administrativas, recepción, dirección académica y servicios de atención a estudiantes."
+                    data-services="Recepción e información|Dirección académica|Secretaría|Atención estudiantil">
+                    <span>🏛️</span>
+                    Edificio principal
+                </button>
+
+                <button class="map-place place-labs"
+                    data-place="Laboratorios"
+                    data-icon="🔬"
+                    data-description="Área destinada a prácticas y experimentación. Sus espacios permiten realizar actividades científicas, tecnológicas y académicas."
+                    data-services="Laboratorio de ciencias|Laboratorio de informática|Equipos de práctica|Área de experimentación">
+                    <span>🔬</span>
+                    Laboratorios
+                </button>
+
+                <button class="map-place place-cafeteria"
+                    data-place="Cafetería"
+                    data-icon="☕"
+                    data-description="Zona de alimentación y convivencia universitaria. Es un lugar para descansar, compartir y adquirir alimentos durante la jornada."
+                    data-services="Área de mesas|Servicio de alimentos|Zona de descanso|Espacio de convivencia">
+                    <span>☕</span>
+                    Cafetería
+                </button>
+
+                <button class="map-place place-auditorium"
+                    data-place="Auditorio"
+                    data-icon="🎤"
+                    data-description="Espacio destinado a conferencias, exposiciones, presentaciones de proyectos, actividades culturales y eventos institucionales."
+                    data-services="Conferencias|Presentaciones académicas|Eventos culturales|Actividades institucionales">
+                    <span>🎤</span>
+                    Auditorio
+                </button>
+
+                <button class="map-place place-sports"
+                    data-place="Área deportiva"
+                    data-icon="⚽"
+                    data-description="Zona recreativa destinada a promover la actividad física, el deporte, la salud y la integración entre estudiantes."
+                    data-services="Cancha deportiva|Actividades recreativas|Entrenamientos|Eventos deportivos">
+                    <span>⚽</span>
+                    Área deportiva
+                </button>
+
+                <button class="map-place place-parking"
+                    data-place="Parqueo"
+                    data-icon="🚗"
+                    data-description="Área destinada al estacionamiento de vehículos de estudiantes, docentes y visitantes, con acceso controlado."
+                    data-services="Estacionamiento|Acceso vehicular|Área para visitantes|Señalización">
+                    <span>🚗</span>
+                    Parqueo
+                </button>
+
+                <button class="map-place place-gardens"
+                    data-place="Áreas verdes"
+                    data-icon="🌳"
+                    data-description="Espacios abiertos con vegetación para el descanso, la convivencia y el contacto con la naturaleza dentro del campus."
+                    data-services="Jardines|Bancas de descanso|Zonas peatonales|Espacios de convivencia">
+                    <span>🌳</span>
+                    Áreas verdes
+                </button>
+
+                <div class="map-entrance">⬅ ENTRADA PRINCIPAL</div>
+
+            </div>
+
+            <aside class="map-info" aria-live="polite">
+
+                <div class="map-info-icon" id="mapIcon">🏛️</div>
+
+                <h3 id="mapTitle">Edificio principal</h3>
+
+                <p id="mapDescription">
+                    Es el edificio central de Aurora University. Aquí se ubican
+                    las oficinas administrativas, recepción, dirección académica
+                    y servicios de atención a estudiantes.
+                </p>
+
+                <h4>Servicios disponibles</h4>
+
+                <ul id="mapServices">
+                    <li>Recepción e información</li>
+                    <li>Dirección académica</li>
+                    <li>Secretaría</li>
+                    <li>Atención estudiantil</li>
+                </ul>
+
+                <div class="map-hint">
+                    <strong>¿Cómo utilizar el croquis?</strong>
+                    <br>
+                    Selecciona cualquier edificio o espacio del plano.
+                    La información de la derecha cambiará automáticamente.
+                </div>
+
+            </aside>
+
+        </section>
+
+        <div class="map-legend">
+            <span>🏛️ Edificios académicos</span>
+            <span>🌳 Espacios verdes</span>
+            <span>🚗 Servicios y accesos</span>
+        </div>
+
+        <section class="campus-extra">
+
+            <article>
+                <span>🎓</span>
+                <h3>Espacios académicos</h3>
+                <p>
+                    Aulas y laboratorios diseñados para apoyar las clases,
+                    las prácticas y el aprendizaje colaborativo.
+                </p>
+            </article>
+
+            <article>
+                <span>📖</span>
+                <h3>Recursos de aprendizaje</h3>
+                <p>
+                    Biblioteca y áreas de consulta para reforzar los contenidos
+                    de las diferentes carreras universitarias.
+                </p>
+            </article>
+
+            <article>
+                <span>🌿</span>
+                <h3>Bienestar estudiantil</h3>
+                <p>
+                    Zonas de descanso y convivencia que promueven una experiencia
+                    universitaria equilibrada.
+                </p>
+            </article>
+
+        </section>
+
+    </main>
+
+    <footer class="au-footer">
+        <h2>AURORA UNIVERSITY</h2>
+        <p>Conocimiento · Innovación · Futuro</p>
+        <p>Zona 10, Ciudad de Guatemala</p>
+    </footer>
+
+    <script>
+        document.getElementById("auToggle").addEventListener("click", function () {
+            document.getElementById("auNav").classList.toggle("open");
+        });
+
+        const mapPlaces = document.querySelectorAll(".map-place");
+        const mapIcon = document.getElementById("mapIcon");
+        const mapTitle = document.getElementById("mapTitle");
+        const mapDescription = document.getElementById("mapDescription");
+        const mapServices = document.getElementById("mapServices");
+
+        mapPlaces.forEach(function (place) {
+            place.addEventListener("click", function () {
+
+                mapPlaces.forEach(function (item) {
+                    item.classList.remove("selected");
+                });
+
+                place.classList.add("selected");
+
+                mapIcon.textContent = place.dataset.icon;
+                mapTitle.textContent = place.dataset.place;
+                mapDescription.textContent = place.dataset.description;
+
+                mapServices.innerHTML = "";
+
+                place.dataset.services.split("|").forEach(function (service) {
+                    const li = document.createElement("li");
+                    li.textContent = service;
+                    mapServices.appendChild(li);
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

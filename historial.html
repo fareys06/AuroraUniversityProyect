@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial Académico | Aurora University</title>
+    <link rel="stylesheet" href="estilos.css">
+
+    <style>
+        :root {
+            --azul: #101d3a;
+            --azul2: #294875;
+            --dorado: #d8ad52;
+            --fondo: #f3f5fa;
+            --texto: #28344b;
+            --gris: #748198;
+            --verde: #218357;
+            --rojo: #b83a3a;
+            --borde: #e3e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--fondo);
+            color: var(--texto);
+        }
+
+        header {
+            background: linear-gradient(120deg, var(--azul), var(--azul2));
+            color: white;
+            padding: 18px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .marca {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .escudo {
+            background: var(--dorado);
+            color: var(--azul);
+            border-radius: 12px;
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            font-weight: bold;
+            font-size: 25px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 21px;
+        }
+
+        header p {
+            margin: 5px 0 0;
+            font-size: 13px;
+            color: #dce5f5;
+        }
+
+        .volver {
+            background: var(--dorado);
+            color: var(--azul);
+            padding: 12px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        main {
+            max-width: 1200px;
+            width: 94%;
+            margin: 25px auto;
+        }
+
+        .portada {
+            background: linear-gradient(120deg, #17294d, #405d8b);
+            color: white;
+            padding: 30px;
+            border-radius: 17px;
+            margin-bottom: 22px;
+        }
+
+        .portada h2 {
+            font-size: 28px;
+            margin: 0 0 10px;
+        }
+
+        .portada p {
+            color: #e1e9f6;
+            line-height: 1.7;
+            max-width: 780px;
+            margin-bottom: 0;
+        }
+
+        .tarjetas {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 22px;
+        }
+
+        .tarjeta {
+            background: white;
+            border-radius: 13px;
+            padding: 20px;
+            border-bottom: 4px solid var(--dorado);
+            box-shadow: 0 4px 14px #101d3a0a;
+        }
+
+        .tarjeta .icono {
+            font-size: 25px;
+        }
+
+        .tarjeta h3 {
+            color: var(--azul);
+            font-size: 25px;
+            margin: 12px 0 6px;
+        }
+
+        .tarjeta p {
+            color: var(--gris);
+            font-size: 12px;
+            margin: 0;
+        }
+
+        .panel {
+            background: white;
+            padding: 23px;
+            border-radius: 15px;
+            margin-bottom: 22px;
+            box-shadow: 0 4px 14px #101d3a0a;
+        }
+
+        .panel h2 {
+            color: var(--azul);
+            margin: 0 0 17px;
+            font-size: 20px;
+        }
+
+        .panel p {
+            line-height: 1.6;
+        }
+
+        .datos-estudiante {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .dato {
+            padding: 15px;
+            border-radius: 10px;
+            background: #f5f7fb;
+            border: 1px solid var(--borde);
+        }
+
+        .dato span {
+            display: block;
+            color: var(--gris);
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .dato strong {
+            color: var(--azul);
+            overflow-wrap: anywhere;
+        }
+
+        .filtros {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 13px;
+            margin-bottom: 18px;
+        }
+
+        .campo label {
+            display: block;
+            margin-bottom: 7px;
+            color: var(--azul);
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d7dfeb;
+            border-radius: 8px;
+            background: white;
+            font-size: 14px;
+        }
+
+        input:focus, select:focus {
+            outline: 2px solid #d8ad5250;
+            border-color: var(--dorado);
+        }
+
+        .tabla-contenedor {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 670px;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        th {
+            background: #eff3f9;
+            color: var(--azul);
+            text-align: left;
+            padding: 14px 11px;
+        }
+
+        td {
+            padding: 14px 11px;
+            border-bottom: 1px solid var(--borde);
+        }
+
+        tbody tr:hover {
+            background: #fafbfd;
+        }
+
+        .estado {
+            padding: 6px 9px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .aprobado {
+            background: #def4e7;
+            color: #176b43;
+        }
+
+        .curso {
+            background: #e2edff;
+            color: #27508b;
+        }
+
+        .reprobado {
+            background: #ffe4e4;
+            color: #a72e2e;
+        }
+
+        .boton {
+            padding: 11px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+            transition: .2s;
+        }
+
+        .boton:hover {
+            transform: translateY(-1px);
+        }
+
+        .boton-azul {
+            background: var(--azul);
+            color: white;
+        }
+
+        .boton-dorado {
+            background: var(--dorado);
+            color: var(--azul);
+        }
+
+        .boton-claro {
+            background: #edf1f8;
+            color: var(--azul);
+        }
+
+        .acciones {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+
+        .barra-fondo {
+            height: 12px;
+            width: 100%;
+            background: #e8edf5;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 13px 0;
+        }
+
+        .barra-progreso {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--azul2), var(--dorado));
+            border-radius: 20px;
+            transition: width .5s ease;
+        }
+
+        .progreso-texto {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            font-size: 13px;
+        }
+
+        .progreso-texto strong {
+            color: var(--azul);
+        }
+
+        .grafica {
+            display: flex;
+            align-items: end;
+            justify-content: space-around;
+            gap: 15px;
+            min-height: 210px;
+            padding: 20px 10px 0;
+            border-bottom: 1px solid var(--borde);
+        }
+
+        .columna-grafica {
+            flex: 1;
+            max-width: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: end;
+            height: 185px;
+            gap: 8px;
+        }
+
+        .columna-grafica .valor {
+            font-size: 12px;
+            font-weight: bold;
+            color: var(--azul);
+        }
+
+        .barra {
+            width: 65%;
+            max-width: 48px;
+            min-height: 4px;
+            background: linear-gradient(180deg, var(--dorado), var(--azul2));
+            border-radius: 7px 7px 0 0;
+            transition: height .4s ease;
+        }
+
+        .columna-grafica .etiqueta {
+            color: var(--gris);
+            font-size: 11px;
+            text-align: center;
+        }
+
+        .mensaje-vacio {
+            padding: 25px;
+            text-align: center;
+            color: var(--gris);
+        }
+
+        .nota {
+            background: #fff7e5;
+            border: 1px solid #f0dfb4;
+            color: #72551b;
+            padding: 14px;
+            border-radius: 9px;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        footer {
+            text-align: center;
+            padding: 24px;
+            background: var(--azul);
+            color: #dce5f5;
+            font-size: 13px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 850px) {
+            .tarjetas {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .datos-estudiante {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 550px) {
+            .portada {
+                padding: 22px;
+            }
+
+            .portada h2 {
+                font-size: 23px;
+            }
+
+            .panel {
+                padding: 15px;
+            }
+
+            .datos-estudiante,
+            .filtros {
+                grid-template-columns: 1fr;
+            }
+
+            .tarjeta {
+                padding: 14px;
+            }
+
+            .tarjeta h3 {
+                font-size: 21px;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            header .volver,
+            .filtros,
+            .acciones,
+            footer {
+                display: none !important;
+            }
+
+            main {
+                width: 100%;
+                margin: 0;
+            }
+
+            .panel, .tarjeta, .portada {
+                box-shadow: none;
+                break-inside: avoid;
+            }
+
+            .portada {
+                background: white;
+                color: black;
+                border: 1px solid #bbb;
+            }
+
+            .portada p {
+                color: black;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="marca">
+        <div class="escudo">A</div>
+        <div>
+            <h1>Aurora University</h1>
+            <p>Historial académico estudiantil</p>
+        </div>
+    </div>
+    <a class="volver" href="portal.html">← Volver al portal</a>
+</header>
+
+<main>
+    <section class="portada">
+        <h2>🎓 Mi historial académico</h2>
+        <p>
+            Consulta tus cursos, calificaciones y créditos académicos.
+            Revisa tu progreso universitario y genera un reporte para
+            llevar un control de tu desempeño.
+        </p>
+    </section>
+
+    <section class="tarjetas">
+        <article class="tarjeta">
+            <span class="icono">📚</span>
+            <h3 id="totalCursos">0</h3>
+            <p>Cursos registrados</p>
+        </article>
+
+        <article class="tarjeta">
+            <span class="icono">⭐</span>
+            <h3 id="promedio">0.00</h3>
+            <p>Promedio de cursos calificados</p>
+        </article>
+
+        <article class="tarjeta">
+            <span class="icono">✅</span>
+            <h3 id="cursosAprobados">0</h3>
+            <p>Cursos aprobados</p>
+        </article>
+
+        <article class="tarjeta">
+            <span class="icono">🏅</span>
+            <h3 id="creditos">0</h3>
+            <p>Créditos aprobados</p>
+        </article>
+    </section>
+
+    <section class="panel">
+        <h2>👤 Información del estudiante</h2>
+
+        <div class="datos-estudiante">
+            <div class="dato">
+                <span>Nombre del estudiante</span>
+                <strong id="nombreEstudiante">Estudiante Aurora</strong>
+            </div>
+
+            <div class="dato">
+                <span>Usuario</span>
+                <strong id="usuarioEstudiante">estudiante</strong>
+            </div>
+
+            <div class="dato">
+                <span>Institución</span>
+                <strong>Aurora University</strong>
+            </div>
+
+            <div class="dato">
+                <span>Período académico</span>
+                <strong>2026</strong>
+            </div>
+
+            <div class="dato">
+                <span>Programa académico</span>
+                <strong id="carreraEstudiante">Por definir</strong>
+            </div>
+
+            <div class="dato">
+                <span>Estado académico</span>
+                <strong id="estadoEstudiante">En seguimiento</strong>
+            </div>
+        </div>
+    </section>
+
+    <section class="panel">
+        <h2>📈 Progreso académico</h2>
+
+        <div class="progreso-texto">
+            <span>Créditos aprobados</span>
+            <strong id="porcentajeTexto">0%</strong>
+        </div>
+
+        <div class="barra-fondo">
+            <div class="barra-progreso" id="barraProgreso"></div>
+        </div>
+
+        <p class="descripcion">
+            El progreso se calcula utilizando los créditos de los cursos
+            aprobados respecto de los créditos de los cursos que aparecen
+            en este historial.
+        </p>
+    </section>
+
+    <section class="panel">
+        <h2>📊 Rendimiento por curso</h2>
+        <p class="descripcion">
+            La gráfica presenta las calificaciones registradas para los
+            cursos que tienen una nota numérica.
+        </p>
+        <div class="grafica" id="graficaNotas"></div>
+    </section>
+
+    <section class="panel">
+        <h2>📖 Detalle de cursos</h2>
+
+        <div class="filtros">
+            <div class="campo">
+                <label for="buscarCurso">Buscar curso</label>
+                <input
+                    type="text"
+                    id="buscarCurso"
+                    placeholder="Escribe el nombre del curso...">
+            </div>
+
+            <div class="campo">
+                <label for="filtroEstado">Filtrar por estado</label>
+                <select id="filtroEstado">
+                    <option value="todos">Todos los cursos</option>
+                    <option value="Aprobado">Aprobados</option>
+                    <option value="En curso">En curso</option>
+                    <option value="Reprobado">Reprobados</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="tabla-contenedor">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Curso</th>
+                        <th>Período</th>
+                        <th>Créditos</th>
+                        <th>Nota</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaHistorial"></tbody>
+            </table>
+        </div>
+
+        <div id="sinResultados" class="mensaje-vacio" style="display:none">
+            No se encontraron cursos que coincidan con tu búsqueda.
+        </div>
+
+        <div class="acciones">
+            <button class="boton boton-azul" id="descargarCSV">
+                📥 Descargar historial CSV
+            </button>
+
+            <button class="boton boton-dorado" id="imprimirHistorial">
+                🖨 Imprimir historial
+            </button>
+
+            <button class="boton boton-claro" id="restablecer">
+                ↻ Restablecer demostración
+            </button>
+        </div>
+    </section>
+</main>
+
+<footer>
+    © 2026 Aurora University · Historial académico
+    <br><br>
+    Tu esfuerzo construye tu futuro.
+</footer>
+
+<script>
+    // Solo permite consultar la página si existe una sesión.
+    const sesionTexto = sessionStorage.getItem("auroraSesion");
+
+    if (!sesionTexto) {
+        window.location.href = "login.html";
+    }
+
+    let sesion = {};
+
+    try {
+        sesion = JSON.parse(sesionTexto || "{}");
+    } catch (error) {
+        sesion = {};
+    }
+
+    const nombre = sesion.nombre ||
+                   sesion.nombreCompleto ||
+                   sesion.usuario ||
+                   "Estudiante Aurora";
+
+    const usuario = sesion.usuario || nombre;
+
+    document.getElementById("nombreEstudiante").textContent = nombre;
+    document.getElementById("usuarioEstudiante").textContent = usuario;
+
+    // Datos iniciales ficticios para demostrar el funcionamiento.
+    const cursosIniciales = [
+        {
+            codigo: "MAT101",
+            nombre: "Matemática Básica",
+            periodo: "Primer semestre",
+            creditos: 4,
+            nota: 88,
+            estado: "Aprobado"
+        },
+        {
+            codigo: "PRO101",
+            nombre: "Introducción a la Programación",
+            periodo: "Primer semestre",
+            creditos: 5,
+            nota: 94,
+            estado: "Aprobado"
+        },
+        {
+            codigo: "ING101",
+            nombre: "Inglés I",
+            periodo: "Primer semestre",
+            creditos: 3,
+            nota: 82,
+            estado: "Aprobado"
+        },
+        {
+            codigo: "FIS101",
+            nombre: "Física General",
+            periodo: "Primer semestre",
+            creditos: 4,
+            nota: 76,
+            estado: "Aprobado"
+        },
+        {
+            codigo: "BD101",
+            nombre: "Fundamentos de Bases de Datos",
+            periodo: "Segundo semestre",
+            creditos: 4,
+            nota: null,
+            estado: "En curso"
+        },
+        {
+            codigo: "PRO202",
+            nombre: "Programación Orientada a Objetos",
+            periodo: "Segundo semestre",
+            creditos: 5,
+            nota: null,
+            estado: "En curso"
+        },
+        {
+            codigo: "EST101",
+            nombre: "Estadística",
+            periodo: "Segundo semestre",
+            creditos: 3,
+            nota: 58,
+            estado: "Reprobado"
+        }
+    ];
+
+    const claveHistorial = "auroraHistorial_" + usuario.toLowerCase();
+
+    let cursos = [];
+
+    function cargarCursos() {
+        try {
+            const guardados = localStorage.getItem(claveHistorial);
+            cursos = guardados ? JSON.parse(guardados) : null;
+
+            if (!Array.isArray(cursos)) {
+                cursos = JSON.parse(JSON.stringify(cursosIniciales));
+                guardarCursos();
+            }
+        } catch (error) {
+            cursos = JSON.parse(JSON.stringify(cursosIniciales));
+        }
+    }
+
+    function guardarCursos() {
+        try {
+            localStorage.setItem(claveHistorial, JSON.stringify(cursos));
+        } catch (error) {
+            console.error("No se pudo guardar el historial local.");
+        }
+    }
+
+    function calcularPromedio() {
+        const calificados = cursos.filter(curso =>
+            typeof curso.nota === "number" && Number.isFinite(curso.nota)
+        );
+
+        if (calificados.length === 0) return 0;
+
+        return calificados.reduce((suma, curso) =>
+            suma + curso.nota, 0
+        ) / calificados.length;
+    }
+
+    function calcularCreditosAprobados() {
+        return cursos
+            .filter(curso => curso.estado === "Aprobado")
+            .reduce((suma, curso) => suma + Number(curso.creditos || 0), 0);
+    }
+
+    function actualizarResumen() {
+        const aprobados = cursos.filter(
+            curso => curso.estado === "Aprobado"
+        ).length;
+
+        const promedio = calcularPromedio();
+        const creditosAprobados = calcularCreditosAprobados();
+        const creditosTotales = cursos.reduce(
+            (suma, curso) => suma + Number(curso.creditos || 0), 0
+        );
+
+        const porcentaje = creditosTotales > 0
+            ? Math.round(creditosAprobados / creditosTotales * 100)
+            : 0;
+
+        document.getElementById("totalCursos").textContent = cursos.length;
+        document.getElementById("promedio").textContent = promedio.toFixed(2);
+        document.getElementById("cursosAprobados").textContent = aprobados;
+        document.getElementById("creditos").textContent = creditosAprobados;
+        document.getElementById("porcentajeTexto").textContent = porcentaje + "%";
+        document.getElementById("barraProgreso").style.width = porcentaje + "%";
+
+        const estado = document.getElementById("estadoEstudiante");
+
+        if (cursos.length === 0) {
+            estado.textContent = "Sin cursos registrados";
+        } else if (promedio >= 61) {
+            estado.textContent = "En seguimiento";
+        } else {
+            estado.textContent = "Requiere revisión";
+        }
+
+        document.getElementById("carreraEstudiante").textContent =
+            sesion.carrera || sesion.facultad || "Programa de demostración";
+    }
+
+    function crearCelda(texto) {
+        const celda = document.createElement("td");
+        celda.textContent = texto;
+        return celda;
+    }
+
+    function renderizarTabla() {
+        const cuerpo = document.getElementById("tablaHistorial");
+        const busqueda = document.getElementById("buscarCurso")
+            .value.trim().toLowerCase();
+        const filtro = document.getElementById("filtroEstado").value;
+
+        cuerpo.replaceChildren();
+
+        const filtrados = cursos.filter(curso => {
+            const coincideNombre = curso.nombre.toLowerCase().includes(busqueda) ||
+                curso.codigo.toLowerCase().includes(busqueda);
+
+            const coincideEstado = filtro === "todos" ||
+                curso.estado === filtro;
+
+            return coincideNombre && coincideEstado;
+        });
+
+        filtrados.forEach(curso => {
+            const fila = document.createElement("tr");
+
+            fila.appendChild(crearCelda(curso.codigo));
+            fila.appendChild(crearCelda(curso.nombre));
+            fila.appendChild(crearCelda(curso.periodo));
+            fila.appendChild(crearCelda(String(curso.creditos)));
+
+            fila.appendChild(crearCelda(
+                typeof curso.nota === "number" ? curso.nota + "/100" : "Pendiente"
+            ));
+
+            const celdaEstado = document.createElement("td");
+            const etiqueta = document.createElement("span");
+            etiqueta.className = "estado " +
+                (curso.estado === "Aprobado" ? "aprobado" :
+                curso.estado === "Reprobado" ? "reprobado" : "curso");
+            etiqueta.textContent = curso.estado;
+            celdaEstado.appendChild(etiqueta);
+            fila.appendChild(celdaEstado);
+
+            cuerpo.appendChild(fila);
+        });
+
+        document.getElementById("sinResultados").style.display =
+            filtrados.length === 0 ? "block" : "none";
+    }
+
+    function renderizarGrafica() {
+        const contenedor = document.getElementById("graficaNotas");
+        contenedor.replaceChildren();
+
+        const calificados = cursos.filter(curso =>
+            typeof curso.nota === "number" && Number.isFinite(curso.nota)
+        );
+
+        if (calificados.length === 0) {
+            const mensaje = document.createElement("p");
+            mensaje.className = "mensaje-vacio";
+            mensaje.textContent = "No hay calificaciones para graficar.";
+            contenedor.appendChild(mensaje);
+            return;
+        }
+
+        calificados.forEach(curso => {
+            const columna = document.createElement("div");
+            columna.className = "columna-grafica";
+
+            const valor = document.createElement("span");
+            valor.className = "valor";
+            valor.textContent = curso.nota;
+
+            const barra = document.createElement("div");
+            barra.className = "barra";
+            barra.style.height = Math.max(4, curso.nota * 1.35) + "px";
+            barra.title = curso.nombre + ": " + curso.nota + "/100";
+
+            const etiqueta = document.createElement("span");
+            etiqueta.className = "etiqueta";
+            etiqueta.textContent = curso.codigo;
+
+            columna.append(valor, barra, etiqueta);
+            contenedor.appendChild(columna);
+        });
+    }
+
+    function renderizarTodo() {
+        actualizarResumen();
+        renderizarTabla();
+        renderizarGrafica();
+    }
+
+    document.getElementById("buscarCurso").addEventListener(
+        "input", renderizarTabla
+    );
+
+    document.getElementById("filtroEstado").addEventListener(
+        "change", renderizarTabla
+    );
+
+    document.getElementById("descargarCSV").addEventListener("click", function () {
+        const filas = [
+            ["Código", "Curso", "Período", "Créditos", "Nota", "Estado"]
+        ];
+
+        cursos.forEach(curso => {
+            filas.push([
+                curso.codigo,
+                curso.nombre,
+                curso.periodo,
+                curso.creditos,
+                curso.nota === null ? "Pendiente" : curso.nota,
+                curso.estado
+            ]);
+        });
+
+        const contenido = filas.map(fila =>
+            fila.map(valor =>
+                '"' + String(valor).replace(/"/g, '""') + '"'
+            ).join(",")
+        ).join("\r\n");
+
+        const archivo = new Blob(
+            ["\uFEFF" + contenido],
+            { type: "text/csv;charset=utf-8;" }
+        );
+
+        const url = URL.createObjectURL(archivo);
+        const enlace = document.createElement("a");
+
+        enlace.href = url;
+        enlace.download = "Historial_Academico_Aurora.csv";
+        enlace.click();
+
+        URL.revokeObjectURL(url);
+    });
+
+    document.getElementById("imprimirHistorial").addEventListener(
+        "click", function () {
+            window.print();
+        }
+    );
+
+    document.getElementById("restablecer").addEventListener(
+        "click", function () {
+            const confirmar = confirm(
+                "¿Quieres restablecer los cursos y las notas ficticias de demostración?"
+            );
+
+            if (!confirmar) return;
+
+            cursos = JSON.parse(JSON.stringify(cursosIniciales));
+            guardarCursos();
+            renderizarTodo();
+
+            document.getElementById("buscarCurso").value = "";
+            document.getElementById("filtroEstado").value = "todos";
+            renderizarTabla();
+        }
+    );
+
+    cargarCursos();
+    renderizarTodo();
+</script>
+
+</body>
+</html>

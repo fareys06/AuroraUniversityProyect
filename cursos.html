@@ -1,0 +1,881 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis cursos | Aurora University</title>
+    <link rel="stylesheet" href="estilos.css">
+
+    <style>
+        :root {
+            --azul: #101d3a;
+            --azul2: #253e6b;
+            --dorado: #d8ad55;
+            --fondo: #f3f5fa;
+            --texto: #29364e;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            color: var(--texto);
+            background: var(--fondo);
+        }
+
+        header {
+            background: var(--azul);
+            color: white;
+            padding: 16px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 20px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo span { color: var(--dorado); }
+
+        nav {
+            display: flex;
+            gap: 17px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            font-size: 13px;
+            text-decoration: none;
+        }
+
+        nav a:hover { color: var(--dorado); }
+
+        .hero {
+            background: linear-gradient(120deg, #101d3a, #304a7b);
+            padding: 43px 5%;
+            color: white;
+        }
+
+        .hero small {
+            color: var(--dorado);
+            letter-spacing: 2px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: clamp(29px, 4vw, 40px);
+            margin: 12px 0;
+        }
+
+        .hero p {
+            color: #e0e7f5;
+            max-width: 650px;
+            line-height: 1.7;
+        }
+
+        main {
+            max-width: 1200px;
+            width: 92%;
+            margin: 30px auto 60px;
+        }
+
+        .resumen {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 27px;
+        }
+
+        .resumen-card {
+            background: white;
+            padding: 19px;
+            border-radius: 14px;
+            border: 1px solid #e6eaf2;
+        }
+
+        .resumen-card strong {
+            display: block;
+            color: var(--azul);
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .resumen-card span {
+            color: #788399;
+            font-size: 13px;
+        }
+
+        .panel-filtros {
+            background: white;
+            border: 1px solid #e6eaf2;
+            padding: 20px;
+            border-radius: 15px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 13px;
+            margin-bottom: 25px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d8dfeb;
+            border-radius: 9px;
+            background: white;
+            font: inherit;
+            color: var(--texto);
+        }
+
+        input:focus, select:focus {
+            outline: 2px solid #d8ad5555;
+            border-color: var(--dorado);
+        }
+
+        .titulo-listado {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 25px 0 17px;
+        }
+
+        .titulo-listado h2 {
+            color: var(--azul);
+            margin: 0;
+        }
+
+        .titulo-listado p {
+            margin: 5px 0 0;
+            color: #788399;
+            font-size: 13px;
+        }
+
+        .cursos-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 19px;
+        }
+
+        .curso {
+            background: white;
+            border: 1px solid #e5eaf2;
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform .2s, box-shadow .2s;
+        }
+
+        .curso:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px #14254812;
+        }
+
+        .curso-portada {
+            min-height: 125px;
+            padding: 19px;
+            background: linear-gradient(135deg, #17294c, #426296);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .curso-portada .emoji { font-size: 35px; }
+
+        .etiqueta {
+            display: inline-block;
+            border-radius: 30px;
+            padding: 6px 10px;
+            font-size: 11px;
+            font-weight: 700;
+            background: #ffffff20;
+            color: white;
+        }
+
+        .curso-contenido {
+            padding: 19px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .codigo {
+            color: #9a762e;
+            font-weight: 800;
+            font-size: 11px;
+            letter-spacing: 1px;
+        }
+
+        .curso h3 {
+            color: var(--azul);
+            margin: 9px 0;
+            font-size: 19px;
+        }
+
+        .descripcion {
+            color: #788399;
+            line-height: 1.6;
+            font-size: 13px;
+            flex: 1;
+        }
+
+        .metadatos {
+            display: grid;
+            gap: 9px;
+            border-top: 1px solid #edf0f5;
+            margin-top: 15px;
+            padding-top: 15px;
+            color: #59667e;
+            font-size: 12px;
+        }
+
+        .metadatos span { display: block; }
+
+        .barra-progreso {
+            height: 7px;
+            background: #e9edf5;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 7px;
+        }
+
+        .barra-progreso div {
+            height: 100%;
+            background: var(--dorado);
+            border-radius: 10px;
+        }
+
+        .botones {
+            display: flex;
+            gap: 9px;
+            margin-top: 17px;
+            flex-wrap: wrap;
+        }
+
+        .boton {
+            border: none;
+            border-radius: 9px;
+            padding: 11px 13px;
+            background: var(--azul);
+            color: white;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 12px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .boton:hover { background: var(--azul2); }
+
+        .boton.secundario {
+            background: #edf1f8;
+            color: var(--azul);
+        }
+
+        .boton.dorado {
+            background: var(--dorado);
+            color: var(--azul);
+        }
+
+        .sin-resultados {
+            display: none;
+            text-align: center;
+            padding: 45px 20px;
+            background: white;
+            border-radius: 15px;
+            color: #788399;
+        }
+
+        .sin-resultados strong {
+            display: block;
+            color: var(--azul);
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: #071126b8;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 18px;
+        }
+
+        .modal.abierto { display: flex; }
+
+        .modal-contenido {
+            background: white;
+            width: min(600px, 100%);
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 17px;
+            padding: 25px;
+            animation: aparecer .2s ease;
+        }
+
+        @keyframes aparecer {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-cabecera {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .cerrar-modal {
+            border: none;
+            background: #edf1f8;
+            border-radius: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+
+        .modal-contenido h2 { color: var(--azul); }
+
+        .detalle-linea {
+            padding: 12px 0;
+            border-bottom: 1px solid #edf0f5;
+            line-height: 1.6;
+        }
+
+        .detalle-linea strong {
+            display: block;
+            color: var(--azul);
+        }
+
+        .aviso {
+            background: #fff8e9;
+            border-left: 4px solid var(--dorado);
+            padding: 14px 16px;
+            border-radius: 9px;
+            color: #66532b;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-top: 25px;
+        }
+
+        footer {
+            background: var(--azul);
+            color: #dce3f0;
+            padding: 25px;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        @media (max-width: 900px) {
+            .cursos-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .panel-filtros { grid-template-columns: 1fr 1fr; }
+            .panel-filtros input { grid-column: 1 / -1; }
+        }
+
+        @media (max-width: 600px) {
+            header { justify-content: center; }
+            nav { justify-content: center; }
+            .cursos-grid, .resumen { grid-template-columns: 1fr; }
+            .panel-filtros { grid-template-columns: 1fr; }
+            .panel-filtros input { grid-column: auto; }
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <a class="logo" href="index.html">AURORA <span>UNIVERSITY</span></a>
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="nosotros.html">Nosotros</a>
+        <a href="facultades.html">Facultades</a>
+        <a href="campus.html">Campus</a>
+        <a href="calendario.html">Calendario</a>
+        <a href="portal.html">Portal</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <small>Formación académica</small>
+    <h1>Mis cursos 📚</h1>
+    <p>
+        Explora las materias disponibles, consulta sus descripciones y organiza
+        tu experiencia de aprendizaje en Aurora University.
+    </p>
+</section>
+
+<main>
+    <section class="resumen">
+        <div class="resumen-card">
+            <strong id="cantidadCursos">0</strong>
+            <span>Cursos disponibles en este catálogo</span>
+        </div>
+        <div class="resumen-card">
+            <strong id="cantidadInscritos">0</strong>
+            <span>Cursos seleccionados en este navegador</span>
+        </div>
+        <div class="resumen-card">
+            <strong id="cantidadFacultades">5</strong>
+            <span>Facultades representadas</span>
+        </div>
+    </section>
+
+    <section class="panel-filtros">
+        <input type="search" id="busqueda"
+               placeholder="🔎 Buscar por curso, código o docente..."
+               aria-label="Buscar cursos">
+
+        <select id="filtroFacultad" aria-label="Filtrar por facultad">
+            <option value="">Todas las facultades</option>
+            <option value="Medicina">Medicina</option>
+            <option value="Psicología">Psicología</option>
+            <option value="Humanidades">Humanidades</option>
+            <option value="Ingeniería">Ingeniería</option>
+            <option value="Arquitectura">Arquitectura</option>
+        </select>
+
+        <select id="filtroEstado" aria-label="Filtrar por estado">
+            <option value="">Todos los estados</option>
+            <option value="disponible">Disponibles</option>
+            <option value="inscrito">Seleccionados</option>
+        </select>
+    </section>
+
+    <div class="titulo-listado">
+        <div>
+            <h2>Catálogo de materias</h2>
+            <p id="textoResultados">Consulta los cursos disponibles.</p>
+        </div>
+        <button class="boton secundario" id="limpiarFiltros" type="button">
+            Limpiar filtros
+        </button>
+    </div>
+
+    <section class="cursos-grid" id="contenedorCursos"></section>
+
+    <div class="sin-resultados" id="sinResultados">
+        <strong>No encontramos cursos</strong>
+        Prueba con otra búsqueda o cambia los filtros.
+    </div>
+</main>
+
+<!-- VENTANA DE DETALLES -->
+<div class="modal" id="modalCurso" role="dialog"
+     aria-modal="true" aria-labelledby="modalTitulo">
+    <div class="modal-contenido">
+        <div class="modal-cabecera">
+            <div>
+                <span class="codigo" id="modalCodigo"></span>
+                <h2 id="modalTitulo"></h2>
+            </div>
+            <button class="cerrar-modal" id="cerrarModal" type="button"
+                    aria-label="Cerrar">✕</button>
+        </div>
+
+        <div id="modalDetalles"></div>
+
+        <div class="botones">
+            <button class="boton dorado" id="modalInscribir" type="button">
+                Seleccionar curso
+            </button>
+            <button class="boton secundario" id="modalCerrarAbajo" type="button">
+                Cerrar
+            </button>
+        </div>
+    </div>
+</div>
+
+<footer>
+    © <span id="anio"></span> Aurora University · INNOVACIÓN 
+</footer>
+
+<script>
+    const cursos = [
+        {
+            id: "MED101",
+            nombre: "Fundamentos de Medicina",
+            facultad: "Medicina",
+            docente: "Dra. Andrea Morales",
+            creditos: 4,
+            horario: "Lunes y miércoles · 08:00–10:00",
+            modalidad: "Presencial",
+            descripcion: "Introducción a los principios científicos, éticos y académicos de la formación médica.",
+            emoji: "🩺",
+            progreso: 25
+        },
+        {
+            id: "MED102",
+            nombre: "Anatomía Humana",
+            facultad: "Medicina",
+            docente: "Dr. Carlos Méndez",
+            creditos: 5,
+            horario: "Martes y jueves · 09:00–11:00",
+            modalidad: "Presencial",
+            descripcion: "Estudio introductorio de la estructura y organización del cuerpo humano.",
+            emoji: "🫀",
+            progreso: 40
+        },
+        {
+            id: "PSI101",
+            nombre: "Introducción a la Psicología",
+            facultad: "Psicología",
+            docente: "Lic. Sofía Herrera",
+            creditos: 4,
+            horario: "Lunes y viernes · 10:00–12:00",
+            modalidad: "Híbrida",
+            descripcion: "Conceptos básicos del comportamiento humano y de los procesos mentales.",
+            emoji: "🧠",
+            progreso: 30
+        },
+        {
+            id: "PSI102",
+            nombre: "Psicología del Desarrollo",
+            facultad: "Psicología",
+            docente: "Lic. Daniel Castillo",
+            creditos: 3,
+            horario: "Miércoles · 13:00–16:00",
+            modalidad: "Presencial",
+            descripcion: "Análisis de las etapas del desarrollo humano a lo largo de la vida.",
+            emoji: "🌱",
+            progreso: 20
+        },
+        {
+            id: "HUM101",
+            nombre: "Comunicación Académica",
+            facultad: "Humanidades",
+            docente: "Mtra. Elena López",
+            creditos: 3,
+            horario: "Martes y jueves · 08:00–09:30",
+            modalidad: "Virtual",
+            descripcion: "Estrategias de lectura, escritura, exposición y argumentación académica.",
+            emoji: "✍️",
+            progreso: 60
+        },
+        {
+            id: "HUM102",
+            nombre: "Historia y Cultura",
+            facultad: "Humanidades",
+            docente: "Mtro. Luis Ramírez",
+            creditos: 3,
+            horario: "Viernes · 08:00–11:00",
+            modalidad: "Presencial",
+            descripcion: "Exploración de acontecimientos históricos y expresiones culturales.",
+            emoji: "🏛️",
+            progreso: 15
+        },
+        {
+            id: "ING101",
+            nombre: "Programación I",
+            facultad: "Ingeniería",
+            docente: "Ing. Miguel Fuentes",
+            creditos: 5,
+            horario: "Lunes y miércoles · 14:00–16:00",
+            modalidad: "Laboratorio",
+            descripcion: "Algoritmos, variables, estructuras de control y resolución de problemas.",
+            emoji: "💻",
+            progreso: 50
+        },
+        {
+            id: "ING102",
+            nombre: "Matemática para Ingeniería",
+            facultad: "Ingeniería",
+            docente: "Ing. Valeria Soto",
+            creditos: 5,
+            horario: "Martes y jueves · 13:00–15:00",
+            modalidad: "Presencial",
+            descripcion: "Herramientas matemáticas fundamentales para el análisis de problemas de ingeniería.",
+            emoji: "📐",
+            progreso: 35
+        },
+        {
+            id: "ARQ101",
+            nombre: "Diseño Arquitectónico",
+            facultad: "Arquitectura",
+            docente: "Arq. Gabriela Torres",
+            creditos: 4,
+            horario: "Lunes y jueves · 09:00–11:00",
+            modalidad: "Taller",
+            descripcion: "Principios de composición, espacio, funcionalidad y representación de ideas.",
+            emoji: "🏛️",
+            progreso: 45
+        },
+        {
+            id: "ARQ102",
+            nombre: "Dibujo Técnico",
+            facultad: "Arquitectura",
+            docente: "Arq. Andrés Molina",
+            creditos: 3,
+            horario: "Miércoles y viernes · 13:00–14:30",
+            modalidad: "Taller",
+            descripcion: "Técnicas básicas de representación gráfica y lectura de planos.",
+            emoji: "📏",
+            progreso: 20
+        }
+    ];
+
+    const $ = id => document.getElementById(id);
+    let cursoModalActual = null;
+
+    function leerInscritos() {
+        try {
+            return JSON.parse(localStorage.getItem("auroraCursosSeleccionados") || "[]");
+        } catch (error) {
+            return [];
+        }
+    }
+
+    function guardarInscritos(lista) {
+        localStorage.setItem("auroraCursosSeleccionados", JSON.stringify(lista));
+    }
+
+    function normalizar(texto) {
+        return String(texto || "")
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase();
+    }
+
+    function obtenerCursosFiltrados() {
+        const busqueda = normalizar($("busqueda").value.trim());
+        const facultad = $("filtroFacultad").value;
+        const estado = $("filtroEstado").value;
+        const inscritos = leerInscritos();
+
+        return cursos.filter(curso => {
+            const textoCurso = normalizar(
+                curso.nombre + " " + curso.id + " " +
+                curso.docente + " " + curso.facultad
+            );
+
+            const coincideBusqueda = textoCurso.includes(busqueda);
+            const coincideFacultad = !facultad || curso.facultad === facultad;
+            const estaInscrito = inscritos.includes(curso.id);
+            const coincideEstado =
+                !estado ||
+                (estado === "inscrito" && estaInscrito) ||
+                (estado === "disponible" && !estaInscrito);
+
+            return coincideBusqueda && coincideFacultad && coincideEstado;
+        });
+    }
+
+    function crearCurso(curso) {
+        const inscritos = leerInscritos();
+        const seleccionado = inscritos.includes(curso.id);
+
+        const tarjeta = document.createElement("article");
+        tarjeta.className = "curso";
+
+        const portada = document.createElement("div");
+        portada.className = "curso-portada";
+
+        const emoji = document.createElement("span");
+        emoji.className = "emoji";
+        emoji.textContent = curso.emoji;
+
+        const etiqueta = document.createElement("span");
+        etiqueta.className = "etiqueta";
+        etiqueta.textContent = seleccionado ? "✓ Seleccionado" : curso.facultad;
+
+        portada.append(emoji, etiqueta);
+
+        const contenido = document.createElement("div");
+        contenido.className = "curso-contenido";
+
+        const codigo = document.createElement("span");
+        codigo.className = "codigo";
+        codigo.textContent = curso.id;
+
+        const titulo = document.createElement("h3");
+        titulo.textContent = curso.nombre;
+
+        const descripcion = document.createElement("p");
+        descripcion.className = "descripcion";
+        descripcion.textContent = curso.descripcion;
+
+        const meta = document.createElement("div");
+        meta.className = "metadatos";
+
+        const docente = document.createElement("span");
+        docente.textContent = "👩‍🏫 Docente: " + curso.docente;
+
+        const creditos = document.createElement("span");
+        creditos.textContent = "🎓 Créditos: " + curso.creditos;
+
+        const modalidad = document.createElement("span");
+        modalidad.textContent = "📍 Modalidad: " + curso.modalidad;
+
+        const progresoTexto = document.createElement("span");
+        progresoTexto.textContent = "Progreso: " + curso.progreso + "%";
+
+        const barra = document.createElement("div");
+        barra.className = "barra-progreso";
+
+        const barraInterna = document.createElement("div");
+        barraInterna.style.width = curso.progreso + "%";
+        barra.appendChild(barraInterna);
+
+        meta.append(docente, creditos, modalidad, progresoTexto, barra);
+
+        const botones = document.createElement("div");
+        botones.className = "botones";
+
+        const detalle = document.createElement("button");
+        detalle.type = "button";
+        detalle.className = "boton secundario";
+        detalle.textContent = "Ver detalles";
+        detalle.addEventListener("click", () => abrirDetalles(curso.id));
+
+        const inscribir = document.createElement("button");
+        inscribir.type = "button";
+        inscribir.className = "boton " + (seleccionado ? "secundario" : "dorado");
+        inscribir.textContent = seleccionado ? "Quitar selección" : "Seleccionar";
+        inscribir.addEventListener("click", () => cambiarSeleccion(curso.id));
+
+        botones.append(detalle, inscribir);
+        contenido.append(codigo, titulo, descripcion, meta, botones);
+        tarjeta.append(portada, contenido);
+
+        return tarjeta;
+    }
+
+    function renderizarCursos() {
+        const contenedor = $("contenedorCursos");
+        const filtrados = obtenerCursosFiltrados();
+
+        contenedor.replaceChildren();
+
+        filtrados.forEach(curso => {
+            contenedor.appendChild(crearCurso(curso));
+        });
+
+        $("sinResultados").style.display = filtrados.length ? "none" : "block";
+        $("textoResultados").textContent =
+            filtrados.length + (filtrados.length === 1
+                ? " curso encontrado"
+                : " cursos encontrados");
+
+        $("cantidadCursos").textContent = cursos.length;
+        $("cantidadInscritos").textContent = leerInscritos().length;
+    }
+
+    function cambiarSeleccion(id) {
+        const curso = cursos.find(c => c.id === id);
+        if (!curso) return;
+
+        let inscritos = leerInscritos();
+
+        if (inscritos.includes(id)) {
+            inscritos = inscritos.filter(codigo => codigo !== id);
+            guardarInscritos(inscritos);
+            alert("Se quitó la selección de " + curso.nombre + ".");
+        } else {
+            inscritos.push(id);
+            guardarInscritos(inscritos);
+            alert("Seleccionaste " + curso.nombre + " para esta demostración.");
+        }
+
+        renderizarCursos();
+
+        if ($("modalCurso").classList.contains("abierto")) {
+            actualizarBotonModal(id);
+        }
+    }
+
+    function abrirDetalles(id) {
+        const curso = cursos.find(c => c.id === id);
+        if (!curso) return;
+
+        cursoModalActual = id;
+
+        $("modalCodigo").textContent = curso.id;
+        $("modalTitulo").textContent = curso.nombre;
+
+        const contenedor = $("modalDetalles");
+        contenedor.replaceChildren();
+
+        const detalles = [
+            ["Facultad", curso.facultad],
+            ["Docente", curso.docente],
+            ["Créditos académicos", String(curso.creditos)],
+            ["Horario ilustrativo", curso.horario],
+            ["Modalidad", curso.modalidad],
+            ["Descripción", curso.descripcion]
+        ];
+
+        detalles.forEach(([etiqueta, valor]) => {
+            const linea = document.createElement("div");
+            linea.className = "detalle-linea";
+
+            const strong = document.createElement("strong");
+            strong.textContent = etiqueta;
+
+            const texto = document.createElement("span");
+            texto.textContent = valor;
+
+            linea.append(strong, texto);
+            contenedor.appendChild(linea);
+        });
+
+        actualizarBotonModal(id);
+        $("modalCurso").classList.add("abierto");
+        $("cerrarModal").focus();
+    }
+
+    function actualizarBotonModal(id) {
+        const seleccionado = leerInscritos().includes(id);
+        $("modalInscribir").textContent =
+            seleccionado ? "Quitar selección" : "Seleccionar curso";
+    }
+
+    function cerrarModal() {
+        $("modalCurso").classList.remove("abierto");
+        cursoModalActual = null;
+    }
+
+    $("modalInscribir").addEventListener("click", function () {
+        if (cursoModalActual) cambiarSeleccion(cursoModalActual);
+    });
+
+    $("cerrarModal").addEventListener("click", cerrarModal);
+    $("modalCerrarAbajo").addEventListener("click", cerrarModal);
+
+    $("modalCurso").addEventListener("click", function (evento) {
+        if (evento.target === this) cerrarModal();
+    });
+
+    document.addEventListener("keydown", function (evento) {
+        if (evento.key === "Escape") cerrarModal();
+    });
+
+    $("busqueda").addEventListener("input", renderizarCursos);
+    $("filtroFacultad").addEventListener("change", renderizarCursos);
+    $("filtroEstado").addEventListener("change", renderizarCursos);
+
+    $("limpiarFiltros").addEventListener("click", function () {
+        $("busqueda").value = "";
+        $("filtroFacultad").value = "";
+        $("filtroEstado").value = "";
+        renderizarCursos();
+    });
+
+    $("anio").textContent = new Date().getFullYear();
+    renderizarCursos();
+</script>
+</body>
+</html>

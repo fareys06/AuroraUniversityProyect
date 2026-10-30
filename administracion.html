@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración | Aurora University</title>
+    <link rel="stylesheet" href="estilos.css">
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: #f3f6fb;
+            color: #52647d;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        .topbar {
+            padding: 17px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+            background: #102849;
+            color: white;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+            text-decoration: none;
+        }
+
+        .brand-icon {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            border-radius: 13px;
+            background: #e6ae4c;
+            color: #102849;
+            font-size: 28px;
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-size: 19px;
+        }
+
+        .brand small {
+            color: #dce5f0;
+            letter-spacing: 1px;
+        }
+
+        .logout {
+            padding: 11px 16px;
+            border: 0;
+            border-radius: 8px;
+            background: #e6ae4c;
+            color: #102849;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .hero {
+            padding: 45px 6%;
+            background: linear-gradient(115deg, #102849, #294d78);
+            color: white;
+        }
+
+        .hero h2 {
+            margin: 0 0 10px;
+            color: white;
+            font-size: 34px;
+        }
+
+        .hero p {
+            margin: 0;
+            color: #e1e9f3;
+            line-height: 1.8;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1300px;
+            margin: 35px auto;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .stat-card {
+            padding: 25px;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 8px 25px rgba(16,40,73,.06);
+        }
+
+        .stat-card span {
+            font-size: 30px;
+        }
+
+        .stat-card p {
+            margin: 15px 0 5px;
+            font-size: 13px;
+        }
+
+        .stat-card h3 {
+            margin: 0;
+            color: #102849;
+            font-size: 30px;
+        }
+
+        .table-panel {
+            margin-top: 30px;
+            padding: 27px;
+            border-radius: 17px;
+            background: white;
+            box-shadow: 0 8px 25px rgba(16,40,73,.06);
+        }
+
+        .table-panel h2 {
+            margin-top: 0;
+            color: #102849;
+        }
+
+        .toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .toolbar input,
+        .toolbar select {
+            min-width: 200px;
+            padding: 12px;
+            border: 1px solid #d7e0eb;
+            border-radius: 9px;
+            background: #fbfcfe;
+            color: #102849;
+            font: inherit;
+        }
+
+        .refresh {
+            padding: 12px 16px;
+            border: 0;
+            border-radius: 9px;
+            background: #102849;
+            color: white;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 850px;
+            border-collapse: collapse;
+        }
+
+        th {
+            padding: 15px 12px;
+            background: #102849;
+            color: white;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        td {
+            padding: 14px 12px;
+            border-bottom: 1px solid #e8edf3;
+            color: #52647d;
+            font-size: 13px;
+        }
+
+        tr:hover td {
+            background: #f8fafd;
+        }
+
+        .role {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background: #e8f5e9;
+            color: #286334;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .role.admin {
+            background: #fff2d6;
+            color: #8d641d;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 7px;
+        }
+
+        .action-buttons button {
+            padding: 8px 10px;
+            border: 0;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 11px;
+        }
+
+        .view-button {
+            background: #eaf1fa;
+            color: #102849;
+        }
+
+        .delete-button {
+            background: #ffebee;
+            color: #a32121;
+        }
+
+        .empty {
+            padding: 30px;
+            text-align: center;
+            color: #8190a6;
+        }
+
+        .notice {
+            margin-top: 22px;
+            padding: 16px;
+            border-radius: 10px;
+            background: #fff4df;
+            color: #77551e;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            padding: 20px;
+            background: rgba(10,25,45,.65);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.open { display: flex; }
+
+        .modal-content {
+            width: 100%;
+            max-width: 500px;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 28px;
+            border-radius: 17px;
+            background: white;
+        }
+
+        .modal-content h2 {
+            margin-top: 0;
+            color: #102849;
+        }
+
+        .detail {
+            padding: 12px 0;
+            border-bottom: 1px solid #e8edf3;
+            line-height: 1.7;
+            overflow-wrap: anywhere;
+        }
+
+        .detail strong {
+            color: #102849;
+        }
+
+        .close-modal {
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+            border: 0;
+            border-radius: 9px;
+            background: #102849;
+            color: white;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        footer {
+            margin-top: 55px;
+            padding: 30px;
+            background: #102849;
+            color: #dce5f0;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        @media (max-width: 750px) {
+            .stats { grid-template-columns: 1fr; }
+            .toolbar { align-items: stretch; }
+            .toolbar input,
+            .toolbar select { width: 100%; }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <a href="index.html" class="brand">
+        <div class="brand-icon">✦</div>
+        <div>
+            <h1>AURORA UNIVERSITY</h1>
+            <small>ADMINISTRACIÓN UNIVERSITARIA</small>
+        </div>
+    </a>
+
+    <button class="logout" onclick="AuroraDB.cerrarSesion()">
+        Cerrar sesión ↗
+    </button>
+
+</header>
+
+<section class="hero">
+    <h2>Panel de administración</h2>
+    <p>
+        Consulta y administra las cuentas registradas en Aurora University.
+    </p>
+</section>
+
+<main class="container">
+
+    <section class="stats">
+
+        <article class="stat-card">
+            <span>👥</span>
+            <p>Total de cuentas</p>
+            <h3 id="totalUsers">0</h3>
+        </article>
+
+        <article class="stat-card">
+            <span>🎓</span>
+            <p>Estudiantes registrados</p>
+            <h3 id="totalStudents">0</h3>
+        </article>
+
+        <article class="stat-card">
+            <span>🏛️</span>
+            <p>Facultades representadas</p>
+            <h3 id="totalFaculties">0</h3>
+        </article>
+
+    </section>
+
+    <section class="table-panel">
+
+        <h2>Base de datos de usuarios</h2>
+
+        <p>
+            Aquí aparecen las cuentas registradas desde el formulario
+            de creación de cuenta.
+        </p>
+
+        <div class="toolbar">
+
+            <input
+                type="search"
+                id="searchInput"
+                placeholder="Buscar por nombre o correo...">
+
+            <select id="facultyFilter">
+                <option value="">Todas las facultades</option>
+                <option>Medicina</option>
+                <option>Psicología</option>
+                <option>Humanidades</option>
+                <option>Ingeniería</option>
+                <option>Arquitectura</option>
+            </select>
+
+            <button class="refresh" id="refreshButton">
+                ↻ Actualizar
+            </button>
+
+        </div>
+
+        <div class="table-wrapper">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Correo electrónico</th>
+                        <th>Facultad</th>
+                        <th>Carrera</th>
+                        <th>Rol</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody id="usersTable">
+                    <tr>
+                        <td colspan="7" class="empty">
+                            Cargando registros...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <div class="notice">
+            <strong>Base de datos local:</strong>
+            Los registros se guardan en IndexedDB del navegador.
+            Eliminar una cuenta desde esta tabla también la elimina
+            de la base de datos local.
+        </div>
+
+    </section>
+
+</main>
+
+<!-- VENTANA DE DETALLES -->
+
+<div class="modal" id="userModal">
+    <div class="modal-content">
+        <h2>Información del usuario</h2>
+        <div id="userDetails"></div>
+        <button class="close-modal" id="closeModal">
+            Cerrar
+        </button>
+    </div>
+</div>
+
+<footer>
+    AURORA UNIVERSITY · SISTEMA DE ADMINISTRACIÓN
+</footer>
+
+<script src="app.js"></script>
+
+<script>
+    let usuariosActuales = [];
+
+    async function verificarAdministrador() {
+        await AuroraDB.inicializar();
+
+        const sesion = AuroraDB.obtenerSesion();
+
+        if (!sesion || sesion.rol !== "admin") {
+            alert("No tienes autorización para ingresar al panel.");
+            window.location.href = "login.html";
+            return false;
+        }
+
+        return true;
+    }
+
+    async function cargarUsuarios() {
+        usuariosActuales = await AuroraDB.obtenerUsuarios();
+
+        actualizarEstadisticas(usuariosActuales);
+        aplicarFiltros();
+    }
+
+    function actualizarEstadisticas(usuarios) {
+        const estudiantes = usuarios.filter(
+            usuario => usuario.rol === "estudiante"
+        );
+
+        const facultades = new Set(
+            estudiantes.map(usuario => usuario.facultad)
+        );
+
+        document.getElementById("totalUsers").textContent =
+            usuarios.length;
+
+        document.getElementById("totalStudents").textContent =
+            estudiantes.length;
+
+        document.getElementById("totalFaculties").textContent =
+            facultades.size;
+    }
+
+    function aplicarFiltros() {
+        const busqueda = document.getElementById("searchInput")
+            .value.toLowerCase().trim();
+
+        const facultad = document.getElementById("facultyFilter").value;
+
+        const filtrados = usuariosActuales.filter(usuario => {
+            const coincideTexto =
+                usuario.nombre.toLowerCase().includes(busqueda) ||
+                usuario.correo.toLowerCase().includes(busqueda);
+
+            const coincideFacultad =
+                !facultad || usuario.facultad === facultad;
+
+            return coincideTexto && coincideFacultad;
+        });
+
+        mostrarUsuarios(filtrados);
+    }
+
+    function crearCelda(texto) {
+        const td = document.createElement("td");
+        td.textContent = texto || "—";
+        return td;
+    }
+
+    function mostrarUsuarios(usuarios) {
+        const tabla = document.getElementById("usersTable");
+        tabla.innerHTML = "";
+
+        if (usuarios.length === 0) {
+            const fila = document.createElement("tr");
+            const celda = document.createElement("td");
+
+            celda.colSpan = 7;
+            celda.className = "empty";
+            celda.textContent = "No se encontraron cuentas registradas.";
+
+            fila.appendChild(celda);
+            tabla.appendChild(fila);
+            return;
+        }
+
+        usuarios.forEach(usuario => {
+            const fila = document.createElement("tr");
+
+            fila.appendChild(crearCelda(usuario.id));
+            fila.appendChild(crearCelda(usuario.nombre));
+            fila.appendChild(crearCelda(usuario.correo));
+            fila.appendChild(crearCelda(usuario.facultad));
+            fila.appendChild(crearCelda(usuario.carrera));
+
+            const celdaRol = document.createElement("td");
+            const etiqueta = document.createElement("span");
+
+            etiqueta.className = usuario.rol === "admin"
+                ? "role admin"
+                : "role";
+
+            etiqueta.textContent = usuario.rol === "admin"
+                ? "Administrador"
+                : "Estudiante";
+
+            celdaRol.appendChild(etiqueta);
+            fila.appendChild(celdaRol);
+
+            const celdaAcciones = document.createElement("td");
+            const botones = document.createElement("div");
+            botones.className = "action-buttons";
+
+            const ver = document.createElement("button");
+            ver.className = "view-button";
+            ver.textContent = "Ver";
+            ver.addEventListener("click", () => verDetalles(usuario.id));
+
+            botones.appendChild(ver);
+
+            if (usuario.rol !== "admin") {
+                const eliminar = document.createElement("button");
+                eliminar.className = "delete-button";
+                eliminar.textContent = "Eliminar";
+                eliminar.addEventListener("click", () => eliminarCuenta(usuario.id));
+
+                botones.appendChild(eliminar);
+            }
+
+            celdaAcciones.appendChild(botones);
+            fila.appendChild(celdaAcciones);
+
+            tabla.appendChild(fila);
+        });
+    }
+
+    function verDetalles(id) {
+        const usuario = usuariosActuales.find(
+            elemento => elemento.id === id
+        );
+
+        if (!usuario) return;
+
+        const detalles = document.getElementById("userDetails");
+        detalles.innerHTML = "";
+
+        const campos = [
+            ["ID", usuario.id],
+            ["Nombre", usuario.nombre],
+            ["Correo", usuario.correo],
+            ["Facultad", usuario.facultad],
+            ["Carrera", usuario.carrera],
+            ["Descripción", usuario.descripcion || "Sin descripción"],
+            ["Rol", usuario.rol],
+            [
+                "Fecha de registro",
+                new Date(usuario.fechaRegistro).toLocaleString("es-GT")
+            ],
+            ["Estado", usuario.activo ? "Activo" : "Inactivo"]
+        ];
+
+        campos.forEach(([titulo, valor]) => {
+            const div = document.createElement("div");
+            div.className = "detail";
+
+            const strong = document.createElement("strong");
+            strong.textContent = titulo + ": ";
+
+            const span = document.createElement("span");
+            span.textContent = valor;
+
+            div.appendChild(strong);
+            div.appendChild(span);
+            detalles.appendChild(div);
+        });
+
+        document.getElementById("userModal").classList.add("open");
+    }
+
+    async function eliminarCuenta(id) {
+        const usuario = usuariosActuales.find(
+            elemento => elemento.id === id
+        );
+
+        if (!usuario || usuario.rol === "admin") return;
+
+        const confirmar = confirm(
+            "¿Estás seguro de eliminar la cuenta de " +
+            usuario.nombre + "?\nEsta acción no se puede deshacer."
+        );
+
+        if (!confirmar) return;
+
+        try {
+            await AuroraDB.eliminarUsuario(id);
+            await cargarUsuarios();
+            alert("La cuenta fue eliminada correctamente.");
+        } catch (error) {
+            alert("No se pudo eliminar la cuenta.");
+            console.error(error);
+        }
+    }
+
+    document.getElementById("searchInput")
+        .addEventListener("input", aplicarFiltros);
+
+    document.getElementById("facultyFilter")
+        .addEventListener("change", aplicarFiltros);
+
+    document.getElementById("refreshButton")
+        .addEventListener("click", cargarUsuarios);
+
+    document.getElementById("closeModal")
+        .addEventListener("click", function () {
+            document.getElementById("userModal").classList.remove("open");
+        });
+
+    document.getElementById("userModal")
+        .addEventListener("click", function (event) {
+            if (event.target === this) {
+                this.classList.remove("open");
+            }
+        });
+
+    async function iniciarPanel() {
+        const autorizado = await verificarAdministrador();
+
+        if (autorizado) {
+            await cargarUsuarios();
+        }
+    }
+
+    iniciarPanel().catch(error => {
+        console.error(error);
+        alert("Ocurrió un error al cargar la base de datos.");
+    });
+</script>
+
+</body>
+</html>

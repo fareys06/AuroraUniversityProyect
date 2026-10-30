@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Aurora University | Inicio</title>
+
+    <link rel="stylesheet" href="estilos.css">
+
+    <style>
+        :root {
+            --azul: #14294b;
+            --azul-hover: #243d6a;
+            --dorado: #e6ae4c;
+            --fondo: #f3f6fb;
+            --texto: #405571;
+            --blanco: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--fondo);
+            color: var(--texto);
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        /* barra */
+
+        .barra-superior {
+            width: 100%;
+            padding: 12px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            background: var(--azul);
+            color: var(--blanco);
+            font-size: 12px;
+        }
+
+        .barra-superior p {
+            margin: 0;
+            color: var(--blanco);
+        }
+
+        .encabezado {
+            position: relative;
+            z-index: 100;
+            width: 100%;
+            background: var(--blanco);
+            box-shadow: 0 5px 20px rgba(20, 41, 75, 0.08);
+        }
+
+        .contenedor-encabezado {
+            width: 92%;
+            max-width: 1400px;
+            min-height: 105px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .marca {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+            text-decoration: none;
+        }
+
+        .logo {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 14px;
+            background: var(--azul);
+            color: var(--dorado);
+            font-size: 30px;
+        }
+
+        .marca-texto h1 {
+            margin: 0;
+            color: var(--azul);
+            font-size: 21px;
+            font-weight: 800;
+        }
+
+        .marca-texto p {
+            margin: 5px 0 0;
+            color: #78879e;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+        }
+
+        nav.navegacion-principal {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 4px;
+            background: transparent;
+        }
+
+        nav.navegacion-principal a {
+            display: inline-flex !important;
+            align-items: center;
+            justify-content: center;
+
+            min-height: 42px;
+            padding: 10px 12px;
+
+            border: 1px solid transparent;
+            border-radius: 9px;
+
+            background: transparent;
+            color: var(--azul) !important;
+
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 1.3;
+            text-decoration: none !important;
+            white-space: nowrap;
+
+            opacity: 1 !important;
+            visibility: visible !important;
+
+            transition:
+                background-color 0.25s,
+                color 0.25s,
+                border-color 0.25s;
+        }
+
+        nav.navegacion-principal a:hover {
+            background: #fff3d9 !important;
+            border-color: var(--dorado);
+            color: var(--azul) !important;
+        }
+
+        nav.navegacion-principal a.enlace-activo {
+            background: #eef2f8 !important;
+            color: var(--azul) !important;
+        }
+
+        nav.navegacion-principal a.boton-portal {
+            display: inline-flex !important;
+            min-width: 165px;
+            min-height: 46px;
+            margin-left: 8px;
+            padding: 12px 16px;
+
+            border: 2px solid var(--dorado);
+            border-radius: 10px;
+
+            background: var(--dorado) !important;
+            color: var(--azul) !important;
+
+            font-size: 13px;
+            font-weight: 800;
+            text-align: center;
+        }
+
+        nav.navegacion-principal a.boton-portal:hover {
+            background: var(--azul) !important;
+            border-color: var(--azul);
+            color: var(--blanco) !important;
+        }
+
+        .boton-menu {
+            display: none;
+            padding: 10px 14px;
+            border: none;
+            border-radius: 8px;
+            background: var(--azul);
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .portada {
+            position: relative;
+            overflow: hidden;
+            min-height: 440px;
+            display: flex;
+            align-items: center;
+            background:
+                linear-gradient(
+                    110deg,
+                    rgba(15, 35, 65, 0.96),
+                    rgba(28, 54, 91, 0.88)
+                );
+            border-radius: 0 0 20px 20px;
+        }
+
+        .portada::before,
+        .portada::after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(230, 174, 76, 0.22);
+            pointer-events: none;
+        }
+
+        .portada::before {
+            width: 420px;
+            height: 420px;
+            right: -100px;
+            top: -160px;
+        }
+
+        .portada::after {
+            width: 300px;
+            height: 300px;
+            right: 50px;
+            bottom: -200px;
+        }
+
+        .contenido-portada {
+            position: relative;
+            z-index: 1;
+            width: 92%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 70px 0;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            align-items: center;
+            gap: 45px;
+        }
+
+        .etiqueta {
+            display: inline-block;
+            padding: 9px 14px;
+            border: 1px solid rgba(230, 174, 76, 0.8);
+            border-radius: 25px;
+            color: #ffdc91;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .texto-portada h2 {
+            margin: 22px 0 18px;
+            color: #ffffff;
+            font-size: clamp(34px, 4vw, 52px);
+            line-height: 1.15;
+        }
+
+        .texto-portada h2 span {
+            color: #ffcf70;
+        }
+
+        .texto-portada p {
+            max-width: 620px;
+            margin: 0;
+            color: #e3eaf5;
+            font-size: 16px;
+            line-height: 1.9;
+        }
+
+        .botones-portada {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .boton-principal,
+        .boton-secundario {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 46px;
+            padding: 13px 19px;
+            border-radius: 9px;
+            font-size: 14px;
+            font-weight: 800;
+            text-decoration: none;
+            transition: 0.25s;
+        }
+
+        .boton-principal {
+            border: 2px solid var(--dorado);
+            background: var(--dorado);
+            color: var(--azul);
+        }
+
+        .boton-principal:hover {
+            background: #f4c96f;
+            border-color: #f4c96f;
+            transform: translateY(-2px);
+        }
+
+        .boton-secundario {
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            background: transparent;
+            color: white;
+        }
+
+        .boton-secundario:hover {
+            background: white;
+            color: var(--azul);
+        }
+
+        .visual-portada {
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .orbita {
+            position: absolute;
+            border: 1px solid rgba(255, 207, 112, 0.4);
+            border-radius: 50%;
+        }
+
+        .orbita-1 {
+            width: 280px;
+            height: 280px;
+            animation: girar 20s linear infinite;
+        }
+
+        .orbita-2 {
+            width: 220px;
+            height: 220px;
+            border-style: dashed;
+            animation: girar-inverso 24s linear infinite;
+        }
+
+        .estrella-central {
+            width: 155px;
+            height: 155px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--dorado);
+            border-radius: 50%;
+            background: linear-gradient(145deg, #243e68, #10213c);
+            color: #ffcf70;
+            font-size: 100px;
+            box-shadow: 0 0 45px rgba(230, 174, 76, 0.25);
+            animation: flotar 4s ease-in-out infinite;
+        }
+
+        .punto-luz {
+            position: absolute;
+            width: 13px;
+            height: 13px;
+            border: 2px solid white;
+            border-radius: 50%;
+            background: var(--dorado);
+            box-shadow: 0 0 15px var(--dorado);
+            animation: flotar 3s ease-in-out infinite;
+        }
+
+        .punto-luz-1 {
+            top: 30px;
+            right: 75px;
+        }
+
+        .punto-luz-2 {
+            bottom: 35px;
+            left: 65px;
+            animation-delay: 1s;
+        }
+
+        @keyframes girar {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes girar-inverso {
+            from { transform: rotate(360deg); }
+            to { transform: rotate(0deg); }
+        }
+
+        @keyframes flotar {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .seccion {
+            width: 92%;
+            max-width: 1200px;
+            margin: 55px auto;
+        }
+
+        .encabezado-seccion {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .encabezado-seccion h2 {
+            margin: 0 0 12px;
+            color: var(--azul);
+            font-size: 30px;
+        }
+
+        .encabezado-seccion p {
+            max-width: 750px;
+            margin: auto;
+            color: #667992;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .rejilla-accesos {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .tarjeta-acceso {
+            display: block;
+            padding: 25px;
+            border: 1px solid #e1e7f0;
+            border-radius: 15px;
+            background: #ffffff;
+            color: var(--texto);
+            text-decoration: none;
+            box-shadow: 0 8px 24px rgba(20, 41, 75, 0.05);
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .tarjeta-acceso:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(20, 41, 75, 0.12);
+        }
+
+        .icono-acceso {
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 13px;
+            background: #fff2d6;
+            font-size: 26px;
+        }
+
+        .tarjeta-acceso h3 {
+            margin: 17px 0 9px;
+            color: var(--azul);
+            font-size: 19px;
+        }
+
+        .tarjeta-acceso p {
+            margin: 0;
+            color: #667992;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .enlace-tarjeta {
+            display: inline-block;
+            margin-top: 17px;
+            color: #9a701c;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .seccion-costos {
+            width: 92%;
+            max-width: 1200px;
+            margin: 55px auto;
+            padding: 32px;
+            border-radius: 20px;
+            background: var(--azul);
+        }
+
+        .seccion-costos h2 {
+            margin: 0 0 12px;
+            color: #ffffff;
+            font-size: 27px;
+        }
+
+        .seccion-costos > p {
+            margin: 0 0 24px;
+            color: #e3eaf5;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .tabla-contenedor {
+            overflow-x: auto;
+            border-radius: 10px;
+            background: #ffffff;
+        }
+
+        .tabla-costos {
+            width: 100%;
+            border-collapse: collapse;
+            background: #ffffff;
+            color: var(--azul);
+        }
+
+        .tabla-costos th,
+        .tabla-costos td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e8edf5;
+        }
+
+        .tabla-costos th {
+            background: #edf2f9;
+            color: #8b6419;
+            font-size: 13px;
+        }
+
+        .tabla-costos td {
+            color: #405571;
+            font-size: 14px;
+        }
+
+        .tabla-costos tr:last-child td {
+            border-bottom: none;
+        }
+
+        .precio {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            background: #fff2d6;
+            color: #8b6419;
+            font-weight: 800;
+        }
+
+        .nota-costos {
+            margin-top: 18px !important;
+            font-size: 12px !important;
+        }
+
+        .boton-costos {
+            display: inline-flex;
+            margin-top: 10px;
+            padding: 13px 20px;
+            border-radius: 9px;
+            background: var(--dorado);
+            color: var(--azul);
+            font-size: 14px;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .boton-costos:hover {
+            background: #f4c96f;
+        }
+
+        .boton-chat {
+            position: fixed;
+            z-index: 200;
+            right: 24px;
+            bottom: 24px;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            border-radius: 50%;
+            background: var(--dorado);
+            color: var(--azul);
+            font-size: 27px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(20, 41, 75, 0.2);
+            transition: transform 0.25s;
+        }
+
+        .boton-chat:hover {
+            transform: scale(1.08);
+        }
+
+        .ventana-chat {
+            position: fixed;
+            z-index: 199;
+            right: 24px;
+            bottom: 95px;
+            width: 330px;
+            max-width: calc(100vw - 32px);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid #dce3ed;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 15px 45px rgba(20, 41, 75, 0.2);
+        }
+
+        .ventana-chat.abierto {
+            display: flex;
+        }
+
+        .chat-cabecera {
+            padding: 17px;
+            background: var(--azul);
+            color: white;
+        }
+
+        .chat-cabecera h3 {
+            margin: 0 0 5px;
+            color: white;
+            font-size: 16px;
+        }
+
+        .chat-cabecera p {
+            margin: 0;
+            color: #e3eaf5;
+            font-size: 12px;
+        }
+
+        .chat-mensajes {
+            min-height: 170px;
+            max-height: 250px;
+            overflow-y: auto;
+            padding: 15px;
+            background: #f7f9fc;
+        }
+
+        .mensaje-chat {
+            width: fit-content;
+            max-width: 95%;
+            margin-bottom: 10px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            background: #e7edf6;
+            color: var(--azul);
+            font-size: 13px;
+            line-height: 1.6;
+            overflow-wrap: anywhere;
+        }
+
+        .chat-formulario {
+            display: flex;
+            gap: 8px;
+            padding: 12px;
+            border-top: 1px solid #e4eaf2;
+        }
+
+        .chat-formulario input {
+            width: 100%;
+            min-width: 0;
+            padding: 11px;
+            border: 1px solid #cbd5e3;
+            border-radius: 8px;
+            color: var(--azul);
+            background: white;
+            font-size: 13px;
+        }
+
+        .chat-formulario button {
+            padding: 10px 12px;
+            border: none;
+            border-radius: 8px;
+            background: var(--azul);
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .pie-pagina {
+            margin-top: 60px;
+            padding: 35px 5%;
+            background: var(--azul);
+            color: #e3eaf5;
+            text-align: center;
+        }
+
+        .pie-pagina h2 {
+            margin: 0 0 10px;
+            color: white;
+            font-size: 20px;
+        }
+
+        .pie-pagina p {
+            margin: 8px 0;
+            color: #e3eaf5;
+            font-size: 13px;
+        }
+
+        .pie-pagina a {
+            color: #ffdc91;
+            text-decoration: none;
+        }
+
+        .pie-pagina a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 1100px) {
+            .contenedor-encabezado {
+                flex-wrap: wrap;
+                padding: 15px 0;
+            }
+
+            nav.navegacion-principal {
+                flex: 1 1 100%;
+            }
+
+            .contenido-portada {
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 760px) {
+            .barra-superior {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .contenedor-encabezado {
+                width: 94%;
+            }
+
+            .marca-texto h1 {
+                font-size: 17px;
+            }
+
+            .marca-texto p {
+                font-size: 8px;
+                letter-spacing: 1px;
+            }
+
+            .boton-menu {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            nav.navegacion-principal {
+                display: none !important;
+                flex: 0 0 100%;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 5px;
+            }
+
+            nav.navegacion-principal.abierto {
+                display: flex !important;
+            }
+
+            nav.navegacion-principal a {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            nav.navegacion-principal a.boton-portal {
+                width: 100%;
+                margin: 5px 0;
+            }
+
+            .contenido-portada {
+                grid-template-columns: 1fr;
+                padding: 50px 0;
+            }
+
+            .texto-portada h2 {
+                font-size: 36px;
+            }
+
+            .visual-portada {
+                min-height: 260px;
+            }
+
+            .orbita-1 {
+                width: 230px;
+                height: 230px;
+            }
+
+            .orbita-2 {
+                width: 185px;
+                height: 185px;
+            }
+
+            .estrella-central {
+                width: 130px;
+                height: 130px;
+                font-size: 80px;
+            }
+
+            .rejilla-accesos {
+                grid-template-columns: 1fr;
+            }
+
+            .seccion-costos {
+                padding: 22px;
+            }
+
+            .seccion-costos h2 {
+                font-size: 23px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="barra-superior">
+        <p>✦ Aurora University | Conocimiento, innovación y futuro</p>
+        <p>📍 Zona 10, Ciudad de Guatemala</p>
+    </div>
+
+    <!-- encabezado -->
+    <header class="encabezado">
+        <div class="contenedor-encabezado">
+
+            <a href="index.html" class="marca">
+                <div class="logo" aria-hidden="true">✦</div>
+
+                <div class="marca-texto">
+                    <h1>AURORA UNIVERSITY</h1>
+                    <p>CONOCIMIENTO · INNOVACIÓN · FUTURO</p>
+                </div>
+            </a>
+
+            <button
+                type="button"
+                class="boton-menu"
+                id="botonMenu"
+                aria-expanded="false"
+                aria-controls="menuPrincipal">
+                ☰ Menú
+            </button>
+
+            <nav class="navegacion-principal" id="menuPrincipal">
+                <a href="index.html" class="enlace-activo">Inicio</a>
+                <a href="nosotros.html">Nosotros</a>
+                <a href="facultades.html">Facultades</a>
+                <a href="campus.html">Campus</a>
+                <a href="calendario.html">Calendario</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="login.html" class="boton-portal">
+                    Portal estudiantil →
+                </a>
+            </nav>
+
+        </div>
+    </header>
+
+    <main>
+
+        <section class="portada">
+            <div class="contenido-portada">
+
+                <div class="texto-portada">
+                    <span class="etiqueta">
+                        TU FUTURO COMIENZA AQUÍ
+                    </span>
+
+                    <h2>
+                        Descubre tu potencial en
+                        <span>Aurora University</span>
+                    </h2>
+
+                    <p>
+                        Explora nuevas oportunidades académicas, desarrolla
+                        tus habilidades y forma parte de una comunidad
+                        universitaria donde el conocimiento y la innovación
+                        se unen para construir el futuro.
+                    </p>
+
+                    <div class="botones-portada">
+                        <a href="facultades.html" class="boton-principal">
+                            Explorar facultades →
+                        </a>
+
+                        <a href="nosotros.html" class="boton-secundario">
+                            Conócenos
+                        </a>
+                    </div>
+                </div>
+
+                <div
+                    class="visual-portada"
+                    role="img"
+                    aria-label="Emblema animado de Aurora University">
+
+                    <div class="orbita orbita-1"></div>
+                    <div class="orbita orbita-2"></div>
+
+                    <div class="punto-luz punto-luz-1"></div>
+                    <div class="punto-luz punto-luz-2"></div>
+
+                    <div class="estrella-central" aria-hidden="true">
+                        ✦
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ACCESOS PRINCIPALES -->
+        <section class="seccion">
+
+            <div class="encabezado-seccion">
+                <h2>Explora nuestra universidad</h2>
+
+                <p>
+                    Encuentra información sobre nuestras áreas académicas,
+                    instalaciones, actividades y servicios universitarios.
+                </p>
+            </div>
+
+            <div class="rejilla-accesos">
+
+                <a href="facultades.html" class="tarjeta-acceso">
+                    <div class="icono-acceso" aria-hidden="true">🎓</div>
+                    <h3>Facultades y carreras</h3>
+                    <p>
+                        Descubre las facultades, conoce sus áreas de estudio
+                        y explora las carreras disponibles.
+                    </p>
+                    <span class="enlace-tarjeta">Ver facultades →</span>
+                </a>
+
+                <a href="campus.html" class="tarjeta-acceso">
+                    <div class="icono-acceso" aria-hidden="true">🏛️</div>
+                    <h3>Conoce el campus</h3>
+                    <p>
+                        Explora los espacios universitarios y conoce las
+                        instalaciones representadas en el proyecto.
+                    </p>
+                    <span class="enlace-tarjeta">Explorar campus →</span>
+                </a>
+
+                <a href="calendario.html" class="tarjeta-acceso">
+                    <div class="icono-acceso" aria-hidden="true">📅</div>
+                    <h3>Calendario académico</h3>
+                    <p>
+                        Consulta fechas de actividades, evaluaciones y
+                        eventos académicos de ejemplo.
+                    </p>
+                    <span class="enlace-tarjeta">Ver calendario →</span>
+                </a>
+
+                <a href="nosotros.html" class="tarjeta-acceso">
+                    <div class="icono-acceso" aria-hidden="true">🌟</div>
+                    <h3>Sobre nosotros</h3>
+                    <p>
+                        Conoce la historia, misión, visión y valores que
+                        representan a Aurora University.
+                    </p>
+                    <span class="enlace-tarjeta">Conócenos →</span>
+                </a>
+
+                <a href="contacto.html" class="tarjeta-acceso">
+                    <div class="icono-acceso" aria-hidden="true">✉️</div>
+                    <h3>Contacto</h3>
+                    <p>
+                        Encuentra los datos de contacto de demostración y
+                        utiliza nuestro formulario de consultas.
+                    </p>
+                    <span class="enlace-tarjeta">Contactar →</span>
+                </a>
+
+                <a href="login.html" class="tarjeta-acceso">
+                    <div class="icono-acceso" aria-hidden="true">💻</div>
+                    <h3>Portal estudiantil</h3>
+                    <p>
+                        Inicia sesión o regístrate para acceder a las
+                        herramientas de la comunidad universitaria.
+                    </p>
+                    <span class="enlace-tarjeta">Ingresar al portal →</span>
+                </a>
+
+            </div>
+        </section>
+
+        
+        <section class="seccion-costos">
+
+            <h2>Información de costos universitarios</h2>
+
+            <p>
+                Consulta una referencia inicial de los costos académicos
+                para organizar tu presupuesto.
+            </p>
+
+            <div class="tabla-contenedor">
+                <table class="tabla-costos">
+
+                    <thead>
+                        <tr>
+                            <th>Concepto</th>
+                            <th>Costo estimado</th>
+                            <th>Frecuencia</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Inscripción</td>
+                            <td><span class="precio">Q 850</span></td>
+                            <td>Por período académico</td>
+                        </tr>
+
+                        <tr>
+                            <td>Servicios administrativos</td>
+                            <td><span class="precio">Q 250</span></td>
+                            <td>Estimación por período</td>
+                        </tr>
+
+                        <tr>
+                            <td>Materiales académicos</td>
+                            <td><span class="precio">Q 1,200</span></td>
+                            <td>Estimación anual</td>
+                        </tr>
+
+                        <tr>
+                            <td>Otros gastos</td>
+                            <td><span class="precio">Q 75</span></td>
+                            <td>Estimación adicional</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+            <a href="contacto.html" class="boton-costos">
+                Solicitar información →
+            </a>
+
+        </section>
+
+    </main>
+
+    <button
+        type="button"
+        class="boton-chat"
+        id="botonChat"
+        aria-label="Abrir asistente virtual"
+        aria-expanded="false">
+        💬
+    </button>
+
+    <section class="ventana-chat" id="ventanaChat" aria-label="Asistente virtual">
+
+        <div class="chat-cabecera">
+            <h3>Asistente Aurora</h3>
+            <p>¿En qué podemos ayudarte?</p>
+        </div>
+
+        <div class="chat-mensajes" id="chatMensajes" aria-live="polite">
+            <div class="mensaje-chat">
+                ¡Hola! 👋 Soy el asistente virtual de Aurora University.
+                Puedes preguntarme por facultades, campus, calendario,
+                contacto o portal estudiantil.
+            </div>
+        </div>
+
+        <form class="chat-formulario" id="formularioChat">
+            <input
+                type="text"
+                id="mensajeUsuario"
+                placeholder="Escribe tu pregunta..."
+                aria-label="Escribe tu pregunta"
+                maxlength="300"
+                required>
+
+            <button type="submit">Enviar</button>
+        </form>
+
+    </section>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="pie-pagina">
+
+        <h2>AURORA UNIVERSITY</h2>
+
+        <p>Conocimiento · Innovación · Futuro</p>
+
+        <p>📍 Zona 10, Ciudad de Guatemala</p>
+
+        <p>
+            © <span id="anioActual"></span> Aurora University.
+        </p>
+
+        <p>
+            <a href="nosotros.html">Nosotros</a> |
+            <a href="facultades.html">Facultades</a> |
+            <a href="contacto.html">Contacto</a> |
+            <a href="login.html">Portal estudiantil</a>
+        </p>
+
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        "use strict";
+
+        // MENÚ PARA CELULARES
+        const botonMenu = document.getElementById("botonMenu");
+        const menuPrincipal = document.getElementById("menuPrincipal");
+
+        botonMenu.addEventListener("click", function () {
+            const abierto = menuPrincipal.classList.toggle("abierto");
+
+            botonMenu.setAttribute("aria-expanded", String(abierto));
+        });
+
+        menuPrincipal.querySelectorAll("a").forEach(function (enlace) {
+            enlace.addEventListener("click", function () {
+                menuPrincipal.classList.remove("abierto");
+                botonMenu.setAttribute("aria-expanded", "false");
+            });
+        });
+
+        document.getElementById("anioActual").textContent =
+            new Date().getFullYear();
+
+        // ABRIR Y CERRAR CHATBOT
+        const botonChat = document.getElementById("botonChat");
+        const ventanaChat = document.getElementById("ventanaChat");
+        const formularioChat = document.getElementById("formularioChat");
+        const mensajeUsuario = document.getElementById("mensajeUsuario");
+        const chatMensajes = document.getElementById("chatMensajes");
+
+        botonChat.addEventListener("click", function () {
+            const abierto = ventanaChat.classList.toggle("abierto");
+
+            botonChat.setAttribute("aria-expanded", String(abierto));
+
+            if (abierto) {
+                mensajeUsuario.focus();
+            }
+        });
+
+        function agregarMensaje(texto, clase) {
+            const mensaje = document.createElement("div");
+
+            mensaje.className = "mensaje-chat";
+            mensaje.textContent = texto;
+
+            if (clase === "usuario") {
+                mensaje.style.marginLeft = "auto";
+                mensaje.style.background = "#fff0cf";
+            }
+
+            chatMensajes.appendChild(mensaje);
+            chatMensajes.scrollTop = chatMensajes.scrollHeight;
+        }
+
+        function responderPregunta(texto) {
+            const pregunta = texto.toLowerCase();
+
+            if (
+                pregunta.includes("facultad") ||
+                pregunta.includes("carrera")
+            ) {
+                return "Puedes conocer las facultades y carreras en la sección Facultades del menú principal.";
+            }
+
+            if (
+                pregunta.includes("campus") ||
+                pregunta.includes("ubicación") ||
+                pregunta.includes("ubicacion")
+            ) {
+                return "Puedes explorar el campus en la sección Campus. La ubicación presentada es Zona 10, Ciudad de Guatemala.";
+            }
+
+            if (
+                pregunta.includes("calendario") ||
+                pregunta.includes("fecha") ||
+                pregunta.includes("examen")
+            ) {
+                return "Visita la sección Calendario para consultar las fechas académicas.";
+            }
+
+            if (
+                pregunta.includes("portal") ||
+                pregunta.includes("iniciar sesión") ||
+                pregunta.includes("iniciar sesion") ||
+                pregunta.includes("registr")
+            ) {
+                return "Selecciona Portal estudiantil para ingresar o crear una cuenta.";
+            }
+
+            if (
+                pregunta.includes("contacto") ||
+                pregunta.includes("correo") ||
+                pregunta.includes("teléfono") ||
+                pregunta.includes("telefono")
+            ) {
+                return "Entra en la sección Contacto para consultar la información disponible y utilizar el formulario.";
+            }
+
+            if (
+                pregunta.includes("costo") ||
+                pregunta.includes("precio") ||
+                pregunta.includes("pago")
+            ) {
+                return "En esta página encontrarás una tabla con costos ilustrativos. Los valores no son tarifas oficiales.";
+            }
+
+            if (
+                pregunta.includes("hola") ||
+                pregunta.includes("buenas")
+            ) {
+                return "¡Hola! 😊 ¿Quieres información sobre carreras, campus, calendario, costos o el portal?";
+            }
+
+            return "Gracias por tu pregunta. Te recomendamos explorar las secciones del menú principal para encontrar información sobre Aurora University.";
+        }
+
+        formularioChat.addEventListener("submit", function (evento) {
+            evento.preventDefault();
+
+            const texto = mensajeUsuario.value.trim();
+
+            if (texto === "") {
+                return;
+            }
+
+            agregarMensaje(texto, "usuario");
+
+            const respuesta = responderPregunta(texto);
+
+            agregarMensaje(respuesta, "asistente");
+
+            mensajeUsuario.value = "";
+            mensajeUsuario.focus();
+        });
+    </script>
+
+</body>
+</html>

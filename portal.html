@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal estudiantil | Aurora University</title>
+    <link rel="stylesheet" href="estilos.css">
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: #f3f6fb;
+            color: #52647d;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        .topbar {
+            padding: 12px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            background: #102849;
+            color: white;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+            text-decoration: none;
+        }
+
+        .brand-icon {
+            width: 45px;
+            height: 45px;
+            display: grid;
+            place-items: center;
+            border-radius: 13px;
+            background: #e6ae4c;
+            color: #102849;
+            font-size: 26px;
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .brand small {
+            color: #dce5f0;
+            letter-spacing: 1px;
+        }
+
+        .logout {
+            padding: 11px 16px;
+            border: 0;
+            border-radius: 8px;
+            background: #e6ae4c;
+            color: #102849;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .welcome {
+            padding: 45px 6%;
+            background: linear-gradient(115deg, #102849, #294d78);
+            color: white;
+        }
+
+        .welcome h2 {
+            margin: 0 0 12px;
+            color: white;
+            font-size: clamp(27px, 4vw, 40px);
+        }
+
+        .welcome p {
+            color: #e1e9f3;
+            line-height: 1.8;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1200px;
+            margin: 35px auto;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 25px;
+            border-radius: 16px;
+            background: white;
+            box-shadow: 0 8px 25px rgba(16,40,73,.06);
+        }
+
+        .avatar {
+            width: 75px;
+            height: 75px;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: #102849;
+            color: #f0bd61;
+            font-size: 32px;
+            font-weight: 900;
+        }
+
+        .profile h3 {
+            margin: 0 0 7px;
+            color: #102849;
+            font-size: 22px;
+        }
+
+        .profile p {
+            margin: 4px 0;
+            font-size: 13px;
+        }
+
+        .section-title {
+            margin: 40px 0 20px;
+            color: #102849;
+            font-size: 25px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .portal-card {
+            padding: 25px;
+            border: 1px solid #e5eaf1;
+            border-radius: 15px;
+            background: white;
+            text-decoration: none;
+            color: #52647d;
+            box-shadow: 0 8px 25px rgba(16,40,73,.05);
+            transition: .25s;
+        }
+
+        .portal-card:hover {
+            transform: translateY(-5px);
+            border-color: #d4a653;
+            box-shadow: 0 13px 30px rgba(16,40,73,.1);
+        }
+
+        .portal-card .icon {
+            font-size: 32px;
+        }
+
+        .portal-card h3 {
+            margin: 14px 0 8px;
+            color: #102849;
+        }
+
+        .portal-card p {
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .description {
+            margin-top: 20px;
+            padding: 22px;
+            border-radius: 13px;
+            background: #fff8e8;
+            line-height: 1.8;
+        }
+
+        footer {
+            margin-top: 60px;
+            padding: 30px;
+            background: #102849;
+            color: #dce5f0;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        @media (max-width: 850px) {
+            .cards { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 550px) {
+            .cards { grid-template-columns: 1fr; }
+            .profile { align-items: flex-start; }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="topbar">
+    <a href="index.html" class="brand">
+        <div class="brand-icon">✦</div>
+        <div>
+            <h1>AURORA UNIVERSITY</h1>
+            <small>PORTAL ESTUDIANTIL</small>
+        </div>
+    </a>
+
+    <button class="logout" onclick="AuroraDB.cerrarSesion()">
+        Cerrar sesión ↗
+    </button>
+</header>
+
+<section class="welcome">
+    <h2 id="welcomeTitle">Bienvenido/a</h2>
+    <p>Este es tu espacio personal dentro de Aurora University.</p>
+</section>
+
+<main class="container">
+
+    <section class="profile">
+        <div class="avatar" id="avatar">A</div>
+
+        <div>
+            <h3 id="studentName">Estudiante</h3>
+            <p id="studentEmail"></p>
+            <p id="studentCareer"></p>
+            <p id="studentFaculty"></p>
+        </div>
+    </section>
+
+    <div class="description" id="studentDescription">
+        Tu perfil universitario.
+    </div>
+
+    <h2 class="section-title">Servicios universitarios</h2>
+
+    <section class="cards">
+
+        <a href="cursos.html" class="portal-card">
+            <div class="icon">📚</div>
+            <h3>Mis cursos</h3>
+            <p>Consulta las asignaturas y actividades académicas.</p>
+        </a>
+
+        <a href="tareas.html" class="portal-card">
+            <div class="icon">📝</div>
+            <h3>Tareas</h3>
+            <p>Revisa y administra tus actividades y entregas.</p>
+        </a>
+
+        <a href="calificaciones.html" class="portal-card">
+            <div class="icon">📊</div>
+            <h3>Calificaciones</h3>
+            <p>Consulta tus resultados académicos.</p>
+        </a>
+
+        <a href="chat.html" class="portal-card">
+            <div class="icon">💬</div>
+            <h3>Mensajes</h3>
+            <p>Comunícate con otros integrantes de la comunidad.</p>
+        </a>
+
+        <a href="comunidad.html" class="portal-card">
+            <div class="icon">🌎</div>
+            <h3>Comunidad</h3>
+            <p>Comparte publicaciones y participa en grupos.</p>
+        </a>
+
+        <a href="pagos.html" class="portal-card">
+            <div class="icon">💳</div>
+            <h3>Finanzas</h3>
+            <p>Consulta tus cuotas y comprobantes de pago de demostración.</p>
+        </a>
+
+        <a href="historial.html" class="portal-card">
+            <div class="icon">📖</div>
+            <h3>Historial académico</h3>
+            <p>Revisa tu trayectoria académica.</p>
+        </a>
+
+        <a href="certificaciones.html" class="portal-card">
+            <div class="icon">🏅</div>
+            <h3>Certificaciones</h3>
+            <p>Participa en evaluaciones y consulta tus certificados.</p>
+        </a>
+
+        <a href="calendario.html" class="portal-card">
+            <div class="icon">📅</div>
+            <h3>Calendario</h3>
+            <p>Consulta las fechas y actividades universitarias.</p>
+        </a>
+
+    </section>
+
+</main>
+
+<footer>
+    AURORA UNIVERSITY · CONOCIMIENTO · INNOVACIÓN · FUTURO
+</footer>
+
+<script src="app.js"></script>
+
+<script>
+    async function cargarPerfil() {
+        await AuroraDB.inicializar();
+
+        const usuario = AuroraDB.obtenerSesion();
+
+        if (!usuario || usuario.rol !== "estudiante") {
+            window.location.href = "login.html";
+            return;
+        }
+
+        document.getElementById("welcomeTitle").textContent =
+            "¡Bienvenido/a, " + usuario.nombre + "!";
+
+        document.getElementById("studentName").textContent =
+            usuario.nombre;
+
+        document.getElementById("studentEmail").textContent =
+            "✉️ " + usuario.correo;
+
+        document.getElementById("studentCareer").textContent =
+            "🎓 Carrera: " + usuario.carrera;
+
+        document.getElementById("studentFaculty").textContent =
+            "🏛️ Facultad: " + usuario.facultad;
+
+        document.getElementById("studentDescription").textContent =
+            usuario.descripcion || "Aún no has agregado una descripción a tu perfil.";
+
+        document.getElementById("avatar").textContent =
+            usuario.nombre.charAt(0).toUpperCase();
+    }
+
+    cargarPerfil().catch(error => {
+        console.error(error);
+        alert("No se pudo cargar tu perfil. Inicia sesión nuevamente.");
+        window.location.href = "login.html";
+    });
+</script>
+
+</body>
+</html>

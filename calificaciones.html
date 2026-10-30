@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calificaciones | Aurora University</title>
+    <link rel="stylesheet" href="estilos.css">
+
+    <style>
+        :root {
+            --azul: #101d3a;
+            --azul2: #233b67;
+            --dorado: #d8ad52;
+            --fondo: #f3f5fa;
+            --texto: #26334b;
+            --verde: #21875a;
+            --rojo: #c74747;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--texto);
+            background: var(--fondo);
+        }
+
+        header {
+            background: linear-gradient(120deg, var(--azul), var(--azul2));
+            color: white;
+            padding: 22px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            box-shadow: 0 4px 15px #101d3a20;
+        }
+
+        .marca {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .escudo {
+            width: 48px;
+            height: 48px;
+            background: var(--dorado);
+            color: var(--azul);
+            border-radius: 13px;
+            display: grid;
+            place-items: center;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        header p {
+            margin: 5px 0 0;
+            color: #dce4f3;
+            font-size: 13px;
+        }
+
+        .volver {
+            background: var(--dorado);
+            color: var(--azul);
+            padding: 12px 17px;
+            border-radius: 9px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: .2s;
+        }
+
+        .volver:hover {
+            background: white;
+            transform: translateY(-2px);
+        }
+
+        main {
+            width: 92%;
+            max-width: 1200px;
+            margin: 30px auto;
+        }
+
+        .bienvenida {
+            background: linear-gradient(115deg, #17294d, #304b7b);
+            color: white;
+            padding: 30px;
+            border-radius: 18px;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bienvenida::after {
+            content: "★";
+            position: absolute;
+            right: 35px;
+            top: -25px;
+            font-size: 150px;
+            color: #ffffff12;
+        }
+
+        .bienvenida h2 {
+            font-size: 29px;
+            margin-top: 0;
+        }
+
+        .bienvenida p {
+            color: #e3eafa;
+            line-height: 1.7;
+            max-width: 700px;
+        }
+
+        .resumen {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 25px;
+        }
+
+        .tarjeta {
+            background: white;
+            padding: 20px;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px #101d3a0b;
+            border-bottom: 4px solid var(--dorado);
+            transition: .2s;
+        }
+
+        .tarjeta:hover {
+            transform: translateY(-4px);
+        }
+
+        .tarjeta .icono {
+            font-size: 26px;
+        }
+
+        .tarjeta h3 {
+            color: var(--azul);
+            font-size: 29px;
+            margin: 12px 0 5px;
+        }
+
+        .tarjeta p {
+            color: #65718a;
+            font-size: 13px;
+            margin: 0;
+        }
+
+        .panel {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px #101d3a0b;
+            margin-bottom: 25px;
+        }
+
+        .panel h2 {
+            color: var(--azul);
+            margin-top: 0;
+        }
+
+        .filtros {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 18px 0;
+        }
+
+        input, select {
+            padding: 12px;
+            border: 1px solid #d8deea;
+            border-radius: 9px;
+            font-size: 14px;
+            background: white;
+            color: var(--texto);
+        }
+
+        .filtros input {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filtros select {
+            min-width: 170px;
+        }
+
+        input:focus, select:focus {
+            outline: 2px solid #d8ad5270;
+            border-color: var(--dorado);
+        }
+
+        .tabla-contenedor {
+            width: 100%;
+            overflow-x: auto;
+            border: 1px solid #e6eaf2;
+            border-radius: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 680px;
+        }
+
+        th {
+            background: var(--azul);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-size: 13px;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #e8ecf3;
+            font-size: 14px;
+        }
+
+        tbody tr:hover {
+            background: #f7f9fd;
+        }
+
+        .nota {
+            font-weight: bold;
+            color: var(--azul);
+        }
+
+        .estado {
+            display: inline-block;
+            padding: 7px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .aprobado {
+            background: #d9f5e6;
+            color: #146b44;
+        }
+
+        .reprobado {
+            background: #ffe0e0;
+            color: #a52b2b;
+        }
+
+        .pendiente {
+            background: #fff0c7;
+            color: #8a6100;
+        }
+
+        .boton {
+            border: none;
+            border-radius: 9px;
+            padding: 12px 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .boton:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.05);
+        }
+
+        .boton-principal {
+            background: var(--azul);
+            color: white;
+        }
+
+        .boton-dorado {
+            background: var(--dorado);
+            color: var(--azul);
+        }
+
+        .grafico {
+            display: grid;
+            gap: 18px;
+            margin-top: 22px;
+        }
+
+        .barra-info {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .barra-fondo {
+            background: #e9edf5;
+            height: 13px;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .barra {
+            height: 100%;
+            background: linear-gradient(90deg, #203a68, var(--dorado));
+            border-radius: 20px;
+            transition: width .5s ease;
+        }
+
+        .nota-aclaratoria {
+            padding: 15px;
+            background: #fff8e8;
+            border: 1px solid #f0dfb4;
+            color: #73561a;
+            border-radius: 10px;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-top: 20px;
+        }
+
+        footer {
+            background: var(--azul);
+            color: #dce4f3;
+            text-align: center;
+            padding: 24px;
+            margin-top: 40px;
+            font-size: 13px;
+        }
+
+        @media (max-width: 850px) {
+            .resumen {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .bienvenida {
+                padding: 22px;
+            }
+
+            .bienvenida h2 {
+                font-size: 23px;
+            }
+
+            .panel {
+                padding: 17px;
+            }
+
+            .resumen {
+                gap: 9px;
+            }
+
+            .tarjeta {
+                padding: 14px;
+            }
+
+            .filtros {
+                flex-direction: column;
+            }
+
+            .filtros input, .filtros select {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="marca">
+        <div class="escudo">A</div>
+        <div>
+            <h1>Aurora University</h1>
+            <p>Portal académico · Calificaciones</p>
+        </div>
+    </div>
+
+    <a href="portal.html" class="volver">← Volver al portal</a>
+</header>
+
+<main>
+    <section class="bienvenida">
+        <h2>Mis calificaciones 🎓</h2>
+        <p>
+            Consulta tus resultados académicos, revisa las notas por curso
+            y conoce tu promedio general. Utiliza esta sección para llevar
+            un seguimiento de tu progreso durante el semestre.
+        </p>
+    </section>
+
+    <section class="resumen">
+        <article class="tarjeta">
+            <span class="icono">📊</span>
+            <h3 id="promedioGeneral">0.00</h3>
+            <p>Promedio general</p>
+        </article>
+
+        <article class="tarjeta">
+            <span class="icono">📚</span>
+            <h3 id="totalCursos">0</h3>
+            <p>Cursos registrados</p>
+        </article>
+
+        <article class="tarjeta">
+            <span class="icono">✅</span>
+            <h3 id="cursosAprobados">0</h3>
+            <p>Cursos aprobados</p>
+        </article>
+
+        <article class="tarjeta">
+            <span class="icono">⏳</span>
+            <h3 id="cursosPendientes">0</h3>
+            <p>Notas pendientes</p>
+        </article>
+    </section>
+
+    <section class="panel">
+        <h2>📋 Historial de notas</h2>
+        <p>Busca un curso o filtra las calificaciones según su estado.</p>
+
+        <div class="filtros">
+            <input
+                type="search"
+                id="buscarCurso"
+                placeholder="Buscar curso..."
+                aria-label="Buscar curso">
+
+            <select id="filtroEstado" aria-label="Filtrar por estado">
+                <option value="">Todos los estados</option>
+                <option value="aprobado">Aprobados</option>
+                <option value="reprobado">Reprobados</option>
+                <option value="pendiente">Pendientes</option>
+            </select>
+
+            <button class="boton boton-dorado" id="descargarCSV">
+                ⬇ Descargar reporte CSV
+            </button>
+        </div>
+
+        <div class="tabla-contenedor">
+            <table id="tablaNotas">
+                <thead>
+                    <tr>
+                        <th>Curso</th>
+                        <th>Primer parcial</th>
+                        <th>Segundo parcial</th>
+                        <th>Proyecto</th>
+                        <th>Zona final</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr data-curso="Programación II"
+                        data-p1="16" data-p2="18" data-proyecto="27"
+                        data-final="25">
+                        <td>Programación II</td>
+                        <td>16 / 20</td>
+                        <td>18 / 20</td>
+                        <td>27 / 30</td>
+                        <td class="nota">25 / 30</td>
+                        <td class="estado-celda"></td>
+                    </tr>
+
+                    <tr data-curso="Matemática"
+                        data-p1="14" data-p2="15" data-proyecto="25"
+                        data-final="24">
+                        <td>Matemática</td>
+                        <td>14 / 20</td>
+                        <td>15 / 20</td>
+                        <td>25 / 30</td>
+                        <td class="nota">24 / 30</td>
+                        <td class="estado-celda"></td>
+                    </tr>
+
+                    <tr data-curso="Física"
+                        data-p1="12" data-p2="14" data-proyecto="24"
+                        data-final="22">
+                        <td>Física</td>
+                        <td>12 / 20</td>
+                        <td>14 / 20</td>
+                        <td>24 / 30</td>
+                        <td class="nota">22 / 30</td>
+                        <td class="estado-celda"></td>
+                    </tr>
+
+                    <tr data-curso="Inglés"
+                        data-p1="18" data-p2="17" data-proyecto="28"
+                        data-final="27">
+                        <td>Inglés</td>
+                        <td>18 / 20</td>
+                        <td>17 / 20</td>
+                        <td>28 / 30</td>
+                        <td class="nota">27 / 30</td>
+                        <td class="estado-celda"></td>
+                    </tr>
+
+                    <tr data-curso="Estadística"
+                        data-p1="15" data-p2="0" data-proyecto="0"
+                        data-final="0" data-pendiente="true">
+                        <td>Estadística</td>
+                        <td>15 / 20</td>
+                        <td>Por publicar</td>
+                        <td>Por publicar</td>
+                        <td class="nota">Por publicar</td>
+                        <td class="estado-celda"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="nota-aclaratoria">
+            <strong>Nota:</strong> las calificaciones mostradas son datos
+            que tu catedrático puede cambiar, debes estar atento a ello.
+        </div>
+    </section>
+
+    <section class="panel">
+        <h2>📈 Rendimiento por curso</h2>
+        <p>La gráfica muestra el porcentaje acumulado de cada curso con notas publicadas.</p>
+        <div class="grafico" id="graficoRendimiento"></div>
+    </section>
+
+    <section class="panel">
+        <h2>ℹ️ ¿Cómo se calcula el promedio?</h2>
+        <p>
+            El promedio general se calcula sumando las calificaciones finales
+            de los cursos que ya tienen notas publicadas y dividiendo el
+            resultado entre la cantidad de cursos con calificación disponible.
+        </p>
+        <p>
+            <strong>Ejemplo:</strong> si tus notas finales son 96, 78, 72 y 90,
+            el promedio será (96 + 78 + 72 + 90) ÷ 4 = 84.
+        </p>
+        <p>
+            La nota mínima de aprobación utilizada en esta demostración es
+            de 61 puntos sobre 100. La institución puede establecer otro criterio.
+        </p>
+    </section>
+</main>
+
+<footer>
+    © 2026 Aurora University · Sistema académico estudiantil
+    <br><br>
+    Excelencia, innovación y conocimiento.
+</footer>
+
+<script>
+    // Verificación básica de sesión.
+    const sesion = sessionStorage.getItem("auroraSesion");
+
+    if (!sesion) {
+        window.location.href = "login.html";
+    }
+
+    const filas = Array.from(
+        document.querySelectorAll("#tablaNotas tbody tr")
+    );
+
+    function obtenerNotaFinal(fila) {
+        return Number(fila.dataset.p1) +
+            Number(fila.dataset.p2) +
+            Number(fila.dataset.proyecto) +
+            Number(fila.dataset.final);
+    }
+
+    function estadoCurso(fila) {
+        if (fila.dataset.pendiente === "true") {
+            return "pendiente";
+        }
+
+        return obtenerNotaFinal(fila) >= 61
+            ? "aprobado"
+            : "reprobado";
+    }
+
+    function mostrarEstado(fila) {
+        const celda = fila.querySelector(".estado-celda");
+        const estado = estadoCurso(fila);
+
+        celda.replaceChildren();
+
+        const etiqueta = document.createElement("span");
+        etiqueta.classList.add("estado", estado);
+
+        if (estado === "aprobado") {
+            etiqueta.textContent = "Aprobado";
+        } else if (estado === "reprobado") {
+            etiqueta.textContent = "Reprobado";
+        } else {
+            etiqueta.textContent = "Pendiente";
+        }
+
+        celda.appendChild(etiqueta);
+    }
+
+    function actualizarResumen() {
+        const conNota = filas.filter(
+            fila => fila.dataset.pendiente !== "true"
+        );
+
+        const aprobados = conNota.filter(
+            fila => estadoCurso(fila) === "aprobado"
+        );
+
+        const pendientes = filas.filter(
+            fila => fila.dataset.pendiente === "true"
+        );
+
+        const suma = conNota.reduce(
+            (total, fila) => total + obtenerNotaFinal(fila),
+            0
+        );
+
+        const promedio = conNota.length ? suma / conNota.length : 0;
+
+        document.getElementById("promedioGeneral").textContent =
+            promedio.toFixed(2);
+
+        document.getElementById("totalCursos").textContent = filas.length;
+        document.getElementById("cursosAprobados").textContent =
+            aprobados.length;
+
+        document.getElementById("cursosPendientes").textContent =
+            pendientes.length;
+    }
+
+    function dibujarGrafico() {
+        const contenedor = document.getElementById("graficoRendimiento");
+        contenedor.replaceChildren();
+
+        filas.forEach(fila => {
+            if (fila.dataset.pendiente === "true") return;
+
+            const nota = obtenerNotaFinal(fila);
+            const filaGrafico = document.createElement("div");
+
+            const informacion = document.createElement("div");
+            informacion.className = "barra-info";
+
+            const nombre = document.createElement("span");
+            nombre.textContent = fila.dataset.curso;
+
+            const valor = document.createElement("strong");
+            valor.textContent = nota + " / 100";
+
+            informacion.appendChild(nombre);
+            informacion.appendChild(valor);
+
+            const fondo = document.createElement("div");
+            fondo.className = "barra-fondo";
+
+            const barra = document.createElement("div");
+            barra.className = "barra";
+            barra.style.width = Math.max(0, Math.min(100, nota)) + "%";
+
+            fondo.appendChild(barra);
+            filaGrafico.appendChild(informacion);
+            filaGrafico.appendChild(fondo);
+            contenedor.appendChild(filaGrafico);
+        });
+    }
+
+    function filtrarNotas() {
+        const texto = document.getElementById("buscarCurso")
+            .value.trim().toLowerCase();
+
+        const estadoSeleccionado =
+            document.getElementById("filtroEstado").value;
+
+        filas.forEach(fila => {
+            const curso = fila.dataset.curso.toLowerCase();
+            const coincideTexto = curso.includes(texto);
+            const coincideEstado =
+                !estadoSeleccionado ||
+                estadoCurso(fila) === estadoSeleccionado;
+
+            fila.style.display =
+                coincideTexto && coincideEstado ? "" : "none";
+        });
+    }
+
+    function descargarCSV() {
+        const encabezado = [
+            "Curso",
+            "Primer parcial",
+            "Segundo parcial",
+            "Proyecto",
+            "Nota final",
+            "Estado"
+        ];
+
+        const datos = [encabezado];
+
+        filas.forEach(fila => {
+            const notaFinal = fila.dataset.pendiente === "true"
+                ? "Pendiente"
+                : obtenerNotaFinal(fila);
+
+            datos.push([
+                fila.dataset.curso,
+                fila.dataset.pendiente === "true"
+                    ? fila.dataset.p1
+                    : fila.dataset.p1,
+                fila.dataset.pendiente === "true"
+                    ? "Pendiente"
+                    : fila.dataset.p2,
+                fila.dataset.pendiente === "true"
+                    ? "Pendiente"
+                    : fila.dataset.proyecto,
+                notaFinal,
+                estadoCurso(fila)
+            ]);
+        });
+
+        const contenido = "\uFEFF" + datos.map(fila =>
+            fila.map(valor =>
+                '"' + String(valor).replace(/"/g, '""') + '"'
+            ).join(";")
+        ).join("\r\n");
+
+        const archivo = new Blob(
+            [contenido],
+            { type: "text/csv;charset=utf-8;" }
+        );
+
+        const url = URL.createObjectURL(archivo);
+        const enlace = document.createElement("a");
+
+        enlace.href = url;
+        enlace.download = "calificaciones_aurora.csv";
+
+        document.body.appendChild(enlace);
+        enlace.click();
+        enlace.remove();
+
+        URL.revokeObjectURL(url);
+    }
+
+    filas.forEach(mostrarEstado);
+
+    document.getElementById("buscarCurso")
+        .addEventListener("input", filtrarNotas);
+
+    document.getElementById("filtroEstado")
+        .addEventListener("change", filtrarNotas);
+
+    document.getElementById("descargarCSV")
+        .addEventListener("click", descargarCSV);
+
+    actualizarResumen();
+    dibujarGrafico();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Universitario | Aurora University</title>
+    <link rel="stylesheet" href="estilos.css">
+
+    <style>
+        :root {
+            --azul: #101d3a;
+            --azul2: #243d6a;
+            --dorado: #d8ad52;
+            --fondo: #f2f5fa;
+            --texto: #26334b;
+            --gris: #738098;
+            --verde: #2c9b68;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--texto);
+            background: var(--fondo);
+        }
+
+        header {
+            background: linear-gradient(120deg, var(--azul), var(--azul2));
+            color: white;
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .marca {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .escudo {
+            width: 46px;
+            height: 46px;
+            background: var(--dorado);
+            color: var(--azul);
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 21px;
+        }
+
+        header p {
+            margin: 5px 0 0;
+            color: #dce4f3;
+            font-size: 13px;
+        }
+
+        .volver {
+            background: var(--dorado);
+            color: var(--azul);
+            padding: 11px 16px;
+            border-radius: 9px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .volver:hover {
+            background: white;
+        }
+
+        main {
+            width: 94%;
+            max-width: 1350px;
+            margin: 25px auto;
+        }
+
+        .introduccion {
+            background: white;
+            border-radius: 15px;
+            padding: 22px 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px #101d3a09;
+        }
+
+        .introduccion h2 {
+            color: var(--azul);
+            margin: 0 0 8px;
+        }
+
+        .introduccion p {
+            color: var(--gris);
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+
+        .chat-contenedor {
+            display: grid;
+            grid-template-columns: 330px minmax(0, 1fr);
+            height: 650px;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 6px 25px #101d3a12;
+        }
+
+        .contactos {
+            border-right: 1px solid #e5e9f1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+
+        .contactos-cabecera {
+            padding: 22px;
+            background: #fbfcff;
+            border-bottom: 1px solid #e5e9f1;
+        }
+
+        .contactos-cabecera h3 {
+            margin: 0 0 15px;
+            color: var(--azul);
+        }
+
+        .buscador {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #dbe1eb;
+            border-radius: 9px;
+            outline: none;
+        }
+
+        .buscador:focus {
+            border-color: var(--dorado);
+        }
+
+        .lista-contactos {
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .contacto {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-bottom: 1px solid #f0f2f7;
+            background: white;
+            text-align: left;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .contacto:hover {
+            background: #f5f7fc;
+        }
+
+        .contacto.activo {
+            background: #edf1fa;
+            border-left: 4px solid var(--dorado);
+        }
+
+        .avatar {
+            flex-shrink: 0;
+            width: 46px;
+            height: 46px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: #e2e9f7;
+            color: var(--azul);
+            font-weight: bold;
+            font-size: 16px;
+            position: relative;
+        }
+
+        .avatar.profesor {
+            background: #fff0cc;
+            color: #765400;
+        }
+
+        .avatar.comunidad {
+            background: #e1f5e9;
+            color: #176b43;
+        }
+
+        .punto-online {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 12px;
+            height: 12px;
+            background: var(--verde);
+            border: 2px solid white;
+            border-radius: 50%;
+        }
+
+        .contacto-info {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .contacto-info strong {
+            display: block;
+            color: var(--azul);
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .contacto-info small {
+            color: var(--gris);
+            font-size: 12px;
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .conversacion {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            min-height: 0;
+        }
+
+        .chat-cabecera {
+            padding: 17px 22px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid #e5e9f1;
+            background: white;
+        }
+
+        .chat-cabecera h3 {
+            margin: 0 0 5px;
+            color: var(--azul);
+            font-size: 16px;
+        }
+
+        .chat-cabecera p {
+            margin: 0;
+            color: var(--gris);
+            font-size: 12px;
+        }
+
+        .mensajes {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            padding: 25px;
+            background-color: #f7f9fd;
+            background-image: radial-gradient(#dce3f0 0.7px, transparent 0.7px);
+            background-size: 17px 17px;
+        }
+
+        .fecha-chat {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .fecha-chat span {
+            display: inline-block;
+            background: #e7ecf5;
+            color: #65718a;
+            font-size: 11px;
+            padding: 7px 12px;
+            border-radius: 20px;
+        }
+
+        .mensaje {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 17px;
+            max-width: 78%;
+            width: fit-content;
+            animation: aparecer .2s ease;
+        }
+
+        .mensaje.recibido {
+            align-items: flex-start;
+        }
+
+        .mensaje.enviado {
+            align-items: flex-end;
+            margin-left: auto;
+        }
+
+        .burbuja {
+            padding: 12px 15px;
+            border-radius: 14px;
+            font-size: 14px;
+            line-height: 1.6;
+            overflow-wrap: anywhere;
+            white-space: pre-wrap;
+            box-shadow: 0 2px 5px #101d3a08;
+        }
+
+        .recibido .burbuja {
+            background: white;
+            color: var(--texto);
+            border-bottom-left-radius: 4px;
+        }
+
+        .enviado .burbuja {
+            background: var(--azul2);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .hora {
+            margin-top: 5px;
+            padding: 0 5px;
+            font-size: 10px;
+            color: var(--gris);
+        }
+
+        .zona-escritura {
+            padding: 17px 20px;
+            border-top: 1px solid #e5e9f1;
+            background: white;
+        }
+
+        .aviso-chat {
+            color: var(--gris);
+            font-size: 11px;
+            margin: 0 0 10px;
+        }
+
+        .formulario-mensaje {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+        }
+
+        #entradaMensaje {
+            flex: 1;
+            resize: none;
+            min-height: 45px;
+            max-height: 130px;
+            border: 1px solid #dbe1eb;
+            border-radius: 12px;
+            padding: 13px;
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+        }
+
+        #entradaMensaje:focus {
+            border-color: var(--dorado);
+        }
+
+        .boton-enviar {
+            height: 45px;
+            padding: 0 19px;
+            background: var(--azul);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .boton-enviar:hover {
+            background: var(--azul2);
+            transform: translateY(-2px);
+        }
+
+        .sin-contactos {
+            padding: 25px;
+            text-align: center;
+            color: var(--gris);
+        }
+
+        .acciones-chat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .boton-texto {
+            background: transparent;
+            border: none;
+            color: #536785;
+            font-size: 12px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .boton-texto:hover {
+            color: var(--azul);
+            text-decoration: underline;
+        }
+
+        .aviso-final {
+            margin-top: 18px;
+            padding: 14px 16px;
+            border-radius: 10px;
+            background: #fff8e8;
+            border: 1px solid #f0dfb4;
+            color: #73561a;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        footer {
+            background: var(--azul);
+            color: #dce4f3;
+            padding: 24px;
+            text-align: center;
+            margin-top: 35px;
+            font-size: 13px;
+        }
+
+        @keyframes aparecer {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 760px) {
+            main {
+                width: 96%;
+                margin: 15px auto;
+            }
+
+            .chat-contenedor {
+                grid-template-columns: 105px minmax(0, 1fr);
+                height: 650px;
+            }
+
+            .contactos-cabecera {
+                padding: 12px 8px;
+            }
+
+            .contactos-cabecera h3 {
+                font-size: 13px;
+                text-align: center;
+            }
+
+            .buscador {
+                padding: 9px 5px;
+                font-size: 11px;
+            }
+
+            .contacto {
+                justify-content: center;
+                padding: 13px 5px;
+            }
+
+            .contacto-info {
+                display: none;
+            }
+
+            .avatar {
+                width: 43px;
+                height: 43px;
+            }
+
+            .chat-cabecera {
+                padding: 14px 10px;
+            }
+
+            .mensajes {
+                padding: 15px 10px;
+            }
+
+            .mensaje {
+                max-width: 92%;
+            }
+
+            .zona-escritura {
+                padding: 12px 8px;
+            }
+
+            #entradaMensaje {
+                min-width: 0;
+                padding: 11px;
+            }
+
+            .boton-enviar {
+                padding: 0 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="marca">
+        <div class="escudo">A</div>
+        <div>
+            <h1>Aurora University</h1>
+            <p>Comunidad universitaria · Mensajería</p>
+        </div>
+    </div>
+
+    <a href="portal.html" class="volver">← Volver al portal</a>
+</header>
+
+<main>
+    <section class="introduccion">
+        <h2>💬 Chat universitario</h2>
+        <p>
+            Comunícate con tus compañeros y profesores, comparte dudas sobre
+            tus cursos y organiza actividades académicas desde un mismo lugar.
+            Selecciona un contacto para comenzar una conversación.
+        </p>
+    </section>
+
+    <section class="chat-contenedor">
+
+        <aside class="contactos">
+            <div class="contactos-cabecera">
+                <h3>Conversaciones</h3>
+                <input
+                    type="search"
+                    id="buscarContacto"
+                    class="buscador"
+                    placeholder="Buscar..."
+                    aria-label="Buscar contactos">
+            </div>
+
+            <div class="lista-contactos" id="listaContactos">
+
+                <button class="contacto activo" data-id="prof1">
+                    <div class="avatar profesor">
+                        MG
+                        <span class="punto-online"></span>
+                    </div>
+                    <div class="contacto-info">
+                        <strong>María García</strong>
+                        <small>Profesora de Matemática</small>
+                    </div>
+                </button>
+
+                <button class="contacto" data-id="prof2">
+                    <div class="avatar profesor">CR</div>
+                    <div class="contacto-info">
+                        <strong>Carlos Ramírez</strong>
+                        <small>Profesor de Programación</small>
+                    </div>
+                </button>
+
+                <button class="contacto" data-id="est1">
+                    <div class="avatar">
+                        AL
+                        <span class="punto-online"></span>
+                    </div>
+                    <div class="contacto-info">
+                        <strong>Andrea López</strong>
+                        <small>Estudiante de Ingeniería</small>
+                    </div>
+                </button>
+
+                <button class="contacto" data-id="est2">
+                    <div class="avatar">JM</div>
+                    <div class="contacto-info">
+                        <strong>José Morales</strong>
+                        <small>Estudiante de Medicina</small>
+                    </div>
+                </button>
+
+                <button class="contacto" data-id="prof3">
+                    <div class="avatar profesor">LP</div>
+                    <div class="contacto-info">
+                        <strong>Laura Pérez</strong>
+                        <small>Profesora de Inglés</small>
+                    </div>
+                </button>
+
+                <button class="contacto" data-id="grupo1">
+                    <div class="avatar comunidad">📚</div>
+                    <div class="contacto-info">
+                        <strong>Grupo de estudio</strong>
+                        <small>Comunidad académica</small>
+                    </div>
+                </button>
+
+            </div>
+        </aside>
+
+        <section class="conversacion">
+            <div class="chat-cabecera">
+                <div class="avatar profesor" id="avatarActivo">MG</div>
+                <div>
+                    <h3 id="nombreActivo">María García</h3>
+                    <p id="detalleActivo">Profesora de Matemática · Contacto de demostración</p>
+                </div>
+            </div>
+
+            <div class="mensajes" id="mensajes">
+                <div class="fecha-chat">
+                    <span>Inicio de la conversación</span>
+                </div>
+            </div>
+
+            <div class="zona-escritura">
+                <p class="aviso-chat">
+                    Consejo: escribe mensajes claros y mantén una comunicación respetuosa.
+                </p>
+
+                <form class="formulario-mensaje" id="formularioMensaje">
+                    <textarea
+                        id="entradaMensaje"
+                        placeholder="Escribe tu mensaje..."
+                        rows="1"
+                        maxlength="1000"
+                        aria-label="Escribe tu mensaje"></textarea>
+
+                    <button class="boton-enviar" type="submit">
+                        Enviar ➤
+                    </button>
+                </form>
+
+                <div class="acciones-chat">
+                    <span class="aviso-chat">Máximo 1000 caracteres por mensaje.</span>
+                    <button class="boton-texto" id="limpiarChat" type="button">
+                        Limpiar conversación
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </section>
+
+    <div class="aviso-final">
+        <strong>Aviso:</strong> los mensajes que envies deben ser respetuosos y manteniendo la integridad y seriedad del asunto.
+    </div>
+</main>
+
+<footer>
+    © 2026 Aurora University · Mensajería universitaria
+    <br><br>
+    Excelencia, innovación y conocimiento.
+</footer>
+
+<script>
+    // Verificación básica de sesión.
+    const sesion = sessionStorage.getItem("auroraSesion");
+
+    if (!sesion) {
+        window.location.href = "login.html";
+    }
+
+    const contactos = {
+        prof1: {
+            nombre: "María García",
+            detalle: "Profesora de Matemática · Contacto de demostración",
+            iniciales: "MG",
+            tipo: "profesor",
+            saludo: "¡Hola! Soy la profesora María García. ¿En qué puedo ayudarte con Matemática?"
+        },
+        prof2: {
+            nombre: "Carlos Ramírez",
+            detalle: "Profesor de Programación · Contacto de demostración",
+            iniciales: "CR",
+            tipo: "profesor",
+            saludo: "¡Hola! Si tienes dudas sobre tu código o los ejercicios de programación, puedes escribirme aquí."
+        },
+        est1: {
+            nombre: "Andrea López",
+            detalle: "Estudiante de Ingeniería · Contacto de demostración",
+            iniciales: "AL",
+            tipo: "",
+            saludo: "¡Hola! ¿Quieres que organicemos una sesión de estudio para los próximos exámenes?"
+        },
+        est2: {
+            nombre: "José Morales",
+            detalle: "Estudiante de Medicina · Contacto de demostración",
+            iniciales: "JM",
+            tipo: "",
+            saludo: "¡Hola! ¿Cómo van tus cursos este semestre?"
+        },
+        prof3: {
+            nombre: "Laura Pérez",
+            detalle: "Profesora de Inglés · Contacto de demostración",
+            iniciales: "LP",
+            tipo: "profesor",
+            saludo: "Hello! Puedes escribirme tus preguntas sobre vocabulario o gramática."
+        },
+        grupo1: {
+            nombre: "Grupo de estudio",
+            detalle: "Comunidad académica · Grupo de demostración",
+            iniciales: "📚",
+            tipo: "comunidad",
+            saludo: "¡Bienvenidos al grupo de estudio! Aquí podemos compartir ideas y organizar nuestras actividades."
+        }
+    };
+
+    const almacenamiento = "auroraChats";
+    let conversaciones = {};
+
+    try {
+        conversaciones = JSON.parse(
+            localStorage.getItem(almacenamiento) || "{}"
+        );
+    } catch (error) {
+        conversaciones = {};
+    }
+
+    let contactoActual = "prof1";
+
+    function guardarConversaciones() {
+        try {
+            localStorage.setItem(
+                almacenamiento,
+                JSON.stringify(conversaciones)
+            );
+            return true;
+        } catch (error) {
+            alert("No se pudo guardar el mensaje en este navegador.");
+            return false;
+        }
+    }
+
+    function obtenerMensajes(id) {
+        if (!conversaciones[id]) {
+            conversaciones[id] = [{
+                tipo: "recibido",
+                texto: contactos[id].saludo,
+                hora: ""
+            }];
+
+            guardarConversaciones();
+        }
+
+        return conversaciones[id];
+    }
+
+    function horaActual() {
+        return new Date().toLocaleTimeString("es-GT", {
+            hour: "2-digit",
+            minute: "2-digit"
+        });
+    }
+
+    function crearMensaje(mensaje) {
+        const contenedor = document.createElement("div");
+        contenedor.className = "mensaje " + mensaje.tipo;
+
+        const burbuja = document.createElement("div");
+        burbuja.className = "burbuja";
+        burbuja.textContent = mensaje.texto;
+
+        const hora = document.createElement("span");
+        hora.className = "hora";
+        hora.textContent = mensaje.hora || "";
+
+        contenedor.appendChild(burbuja);
+        contenedor.appendChild(hora);
+
+        return contenedor;
+    }
+
+    function mostrarConversacion() {
+        const contacto = contactos[contactoActual];
+
+        document.getElementById("nombreActivo").textContent =
+            contacto.nombre;
+
+        document.getElementById("detalleActivo").textContent =
+            contacto.detalle;
+
+        const avatar = document.getElementById("avatarActivo");
+        avatar.className = "avatar " + contacto.tipo;
+        avatar.textContent = contacto.iniciales;
+
+        const contenedor = document.getElementById("mensajes");
+        contenedor.replaceChildren();
+
+        const fecha = document.createElement("div");
+        fecha.className = "fecha-chat";
+
+        const etiqueta = document.createElement("span");
+        etiqueta.textContent = "Historial de conversación";
+
+        fecha.appendChild(etiqueta);
+        contenedor.appendChild(fecha);
+
+        obtenerMensajes(contactoActual).forEach(mensaje => {
+            contenedor.appendChild(crearMensaje(mensaje));
+        });
+
+        contenedor.scrollTop = contenedor.scrollHeight;
+
+        document.querySelectorAll(".contacto").forEach(boton => {
+            boton.classList.toggle(
+                "activo",
+                boton.dataset.id === contactoActual
+            );
+        });
+    }
+
+    document.querySelectorAll(".contacto").forEach(boton => {
+        boton.addEventListener("click", function () {
+            contactoActual = boton.dataset.id;
+            mostrarConversacion();
+        });
+    });
+
+    document.getElementById("buscarContacto")
+        .addEventListener("input", function () {
+            const texto = this.value.trim().toLowerCase();
+
+            document.querySelectorAll(".contacto").forEach(boton => {
+                const id = boton.dataset.id;
+                const contacto = contactos[id];
+
+                const coincide = (
+                    contacto.nombre + " " + contacto.detalle
+                ).toLowerCase().includes(texto);
+
+                boton.style.display = coincide ? "flex" : "none";
+            });
+        });
+
+    document.getElementById("formularioMensaje")
+        .addEventListener("submit", function (evento) {
+            evento.preventDefault();
+
+            const entrada = document.getElementById("entradaMensaje");
+            const texto = entrada.value.trim();
+
+            if (!texto) {
+                alert("Escribe un mensaje antes de enviarlo.");
+                entrada.focus();
+                return;
+            }
+
+            const mensajes = obtenerMensajes(contactoActual);
+
+            mensajes.push({
+                tipo: "enviado",
+                texto: texto,
+                hora: horaActual()
+            });
+
+            if (!guardarConversaciones()) {
+                mensajes.pop();
+                return;
+            }
+
+            entrada.value = "";
+            entrada.style.height = "45px";
+            mostrarConversacion();
+        });
+
+    document.getElementById("entradaMensaje")
+        .addEventListener("keydown", function (evento) {
+            if (evento.key === "Enter" && !evento.shiftKey) {
+                evento.preventDefault();
+                document.getElementById("formularioMensaje")
+                    .requestSubmit();
+            }
+        });
+
+    document.getElementById("entradaMensaje")
+        .addEventListener("input", function () {
+            this.style.height = "45px";
+            this.style.height = Math.min(this.scrollHeight, 130) + "px";
+        });
+
+    document.getElementById("limpiarChat")
+        .addEventListener("click", function () {
+            const confirmar = confirm(
+                "¿Deseas borrar el historial de esta conversación?"
+            );
+
+            if (!confirmar) return;
+
+            const copiaAnterior = conversaciones[contactoActual];
+
+            delete conversaciones[contactoActual];
+
+            if (!guardarConversaciones()) {
+                conversaciones[contactoActual] = copiaAnterior;
+                return;
+            }
+
+            mostrarConversacion();
+        });
+
+    mostrarConversacion();
+</script>
+
+</body>
+</html>

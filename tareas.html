@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tareas | Aurora University</title>
+    <link rel="stylesheet" href="estilos.css">
+
+    <style>
+        :root {
+            --azul: #101d3a;
+            --azul2: #1b315b;
+            --dorado: #d8ad52;
+            --fondo: #f3f5fa;
+            --texto: #26334b;
+            --verde: #21875a;
+            --rojo: #c74747;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--fondo);
+            color: var(--texto);
+        }
+
+        header {
+            background: linear-gradient(120deg, var(--azul), var(--azul2));
+            color: white;
+            padding: 22px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 4px 15px #101d3a25;
+        }
+
+        .marca {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .escudo {
+            width: 48px;
+            height: 48px;
+            border-radius: 13px;
+            background: var(--dorado);
+            color: var(--azul);
+            display: grid;
+            place-items: center;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        header p {
+            margin: 5px 0 0;
+            color: #dce4f3;
+            font-size: 13px;
+        }
+
+        .volver {
+            text-decoration: none;
+            color: var(--azul);
+            background: var(--dorado);
+            padding: 12px 17px;
+            border-radius: 9px;
+            font-weight: bold;
+            transition: .2s;
+        }
+
+        .volver:hover {
+            background: white;
+            transform: translateY(-2px);
+        }
+
+        main {
+            max-width: 1200px;
+            width: 92%;
+            margin: 30px auto;
+        }
+
+        .bienvenida {
+            background: linear-gradient(115deg, #17294d, #304b7b);
+            color: white;
+            padding: 30px;
+            border-radius: 18px;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bienvenida::after {
+            content: "✎";
+            position: absolute;
+            right: 40px;
+            top: -25px;
+            font-size: 150px;
+            color: #ffffff12;
+            transform: rotate(-15deg);
+        }
+
+        .bienvenida h2 {
+            margin-top: 0;
+            font-size: 29px;
+        }
+
+        .bienvenida p {
+            line-height: 1.6;
+            max-width: 650px;
+            color: #e3eafa;
+        }
+
+        .estadisticas {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .estadistica {
+            background: white;
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 4px 15px #101d3a0b;
+            border-bottom: 4px solid var(--dorado);
+            transition: .2s;
+        }
+
+        .estadistica:hover {
+            transform: translateY(-4px);
+        }
+
+        .estadistica .icono {
+            font-size: 25px;
+        }
+
+        .estadistica h3 {
+            font-size: 30px;
+            margin: 12px 0 5px;
+            color: var(--azul);
+        }
+
+        .estadistica p {
+            margin: 0;
+            color: #65718a;
+            font-size: 14px;
+        }
+
+        .panel {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px #101d3a0b;
+            margin-bottom: 25px;
+        }
+
+        .panel h2 {
+            color: var(--azul);
+            margin-top: 0;
+        }
+
+        .filtros {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 14px;
+            margin-top: 20px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d8deea;
+            border-radius: 9px;
+            font-size: 14px;
+            background: white;
+            color: var(--texto);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: 2px solid #d8ad5270;
+            border-color: var(--dorado);
+        }
+
+        .lista-tareas {
+            display: grid;
+            gap: 18px;
+        }
+
+        .tarea {
+            background: white;
+            border-radius: 15px;
+            padding: 23px;
+            border: 1px solid #e7eaf1;
+            border-left: 5px solid var(--dorado);
+            box-shadow: 0 4px 14px #101d3a09;
+            transition: .25s;
+        }
+
+        .tarea:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 9px 23px #101d3a12;
+        }
+
+        .tarea.entregada {
+            border-left-color: var(--verde);
+        }
+
+        .tarea.vencida {
+            border-left-color: var(--rojo);
+        }
+
+        .tarea-cabecera {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tarea h3 {
+            color: var(--azul);
+            margin: 0 0 8px;
+            font-size: 19px;
+        }
+
+        .curso {
+            color: #66738b;
+            font-size: 14px;
+        }
+
+        .etiqueta {
+            padding: 7px 11px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .pendiente {
+            color: #8a6100;
+            background: #fff0c7;
+        }
+
+        .entregada-etiqueta {
+            color: #146b44;
+            background: #d9f5e6;
+        }
+
+        .vencida-etiqueta {
+            color: #a52b2b;
+            background: #ffe0e0;
+        }
+
+        .descripcion {
+            color: #526078;
+            line-height: 1.6;
+            margin: 17px 0;
+        }
+
+        .detalles {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            color: #66738b;
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+        .acciones {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .boton {
+            border: none;
+            border-radius: 9px;
+            padding: 11px 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .boton:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.06);
+        }
+
+        .boton-principal {
+            background: var(--azul);
+            color: white;
+        }
+
+        .boton-dorado {
+            background: var(--dorado);
+            color: var(--azul);
+        }
+
+        .boton-secundario {
+            background: #e9edf5;
+            color: var(--azul);
+        }
+
+        .archivo-nombre {
+            color: #66738b;
+            font-size: 13px;
+            overflow-wrap: anywhere;
+        }
+
+        .sin-resultados {
+            display: none;
+            text-align: center;
+            padding: 35px;
+            color: #66738b;
+            background: white;
+            border-radius: 14px;
+        }
+
+        .nota {
+            background: #fff8e8;
+            border: 1px solid #f0dfb4;
+            color: #73561a;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-top: 20px;
+        }
+
+        footer {
+            text-align: center;
+            background: var(--azul);
+            color: #dce4f3;
+            padding: 24px;
+            margin-top: 40px;
+            font-size: 13px;
+        }
+
+        @media (max-width: 800px) {
+            .estadisticas {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .filtros {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .estadisticas {
+                grid-template-columns: 1fr 1fr;
+                gap: 9px;
+            }
+
+            .estadistica {
+                padding: 14px;
+            }
+
+            .bienvenida {
+                padding: 22px;
+            }
+
+            .bienvenida h2 {
+                font-size: 23px;
+            }
+
+            .panel, .tarea {
+                padding: 17px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="marca">
+        <div class="escudo">A</div>
+        <div>
+            <h1>Aurora University</h1>
+            <p>Portal académico · Tareas y entregas</p>
+        </div>
+    </div>
+
+    <a href="portal.html" class="volver">← Volver al portal</a>
+</header>
+
+<main>
+    <section class="bienvenida">
+        <h2>Mis tareas y actividades 📚</h2>
+        <p>
+            Organiza tus actividades académicas, revisa las fechas de entrega
+            y consulta el estado de tus trabajos. Mantente al día con tus cursos
+            y evita dejar tus entregas para el último momento.
+        </p>
+    </section>
+
+    <section class="estadisticas">
+        <article class="estadistica">
+            <span class="icono">📋</span>
+            <h3 id="totalTareas">0</h3>
+            <p>Tareas disponibles</p>
+        </article>
+
+        <article class="estadistica">
+            <span class="icono">⏳</span>
+            <h3 id="totalPendientes">0</h3>
+            <p>Pendientes</p>
+        </article>
+
+        <article class="estadistica">
+            <span class="icono">✅</span>
+            <h3 id="totalEntregadas">0</h3>
+            <p>Entregadas</p>
+        </article>
+
+        <article class="estadistica">
+            <span class="icono">⚠️</span>
+            <h3 id="totalVencidas">0</h3>
+            <p>Vencidas</p>
+        </article>
+    </section>
+
+    <section class="panel">
+        <h2>🔎 Buscar y filtrar tareas</h2>
+        <p>Encuentra rápidamente una actividad por nombre, curso o estado.</p>
+
+        <div class="filtros">
+            <input
+                type="search"
+                id="buscar"
+                placeholder="Buscar tarea o curso..."
+                aria-label="Buscar tarea o curso">
+
+            <select id="filtroCurso" aria-label="Filtrar por curso">
+                <option value="">Todos los cursos</option>
+                <option value="Programación II">Programación II</option>
+                <option value="Matemática">Matemática</option>
+                <option value="Física">Física</option>
+                <option value="Inglés">Inglés</option>
+                <option value="Estadística">Estadística</option>
+            </select>
+
+            <select id="filtroEstado" aria-label="Filtrar por estado">
+                <option value="">Todos los estados</option>
+                <option value="pendiente">Pendientes</option>
+                <option value="entregada">Entregadas</option>
+                <option value="vencida">Vencidas</option>
+            </select>
+        </div>
+    </section>
+
+    <section>
+        <h2>📝 Actividades asignadas</h2>
+
+        <div class="lista-tareas" id="listaTareas">
+
+            <article class="tarea" data-id="t1"
+                data-curso="Programación II" data-fecha="2026-11-05"
+                data-titulo="Proyecto de programación">
+                <div class="tarea-cabecera">
+                    <div>
+                        <h3>Proyecto de programación</h3>
+                        <span class="curso">💻 Programación II</span>
+                    </div>
+                    <span class="etiqueta pendiente estado">Pendiente</span>
+                </div>
+
+                <p class="descripcion">
+                    Desarrolla una aplicación modular que permita registrar
+                    información, validar datos y presentar resultados mediante
+                    un menú interactivo. Incluye el código fuente y una breve
+                    explicación del funcionamiento.
+                </p>
+
+                <div class="detalles">
+                    <span>📅 Entrega: 5 de noviembre de 2026</span>
+                    <span>⭐ Valor: 15 puntos</span>
+                    <span>👨‍🏫 Docente: Área de programación</span>
+                </div>
+
+                <div class="acciones">
+                    <input type="file" class="archivo" accept=".pdf,.doc,.docx,.zip,.java,.cpp,.txt">
+                    <button class="boton boton-principal entregar">Entregar tarea</button>
+                    <span class="archivo-nombre"></span>
+                </div>
+            </article>
+
+            <article class="tarea" data-id="t2"
+                data-curso="Matemática" data-fecha="2026-11-02"
+                data-titulo="Ejercicios de matrices">
+                <div class="tarea-cabecera">
+                    <div>
+                        <h3>Ejercicios de matrices</h3>
+                        <span class="curso">📐 Matemática</span>
+                    </div>
+                    <span class="etiqueta pendiente estado">Pendiente</span>
+                </div>
+
+                <p class="descripcion">
+                    Resuelve los ejercicios asignados sobre operaciones con
+                    matrices, determinantes y sistemas de ecuaciones. Presenta
+                    el procedimiento completo y verifica tus respuestas.
+                </p>
+
+                <div class="detalles">
+                    <span>📅 Entrega: 2 de noviembre de 2026</span>
+                    <span>⭐ Valor: 10 puntos</span>
+                    <span>📄 Formato recomendado: PDF</span>
+                </div>
+
+                <div class="acciones">
+                    <input type="file" class="archivo" accept=".pdf,.doc,.docx,.jpg,.png">
+                    <button class="boton boton-principal entregar">Entregar tarea</button>
+                    <span class="archivo-nombre"></span>
+                </div>
+            </article>
+
+            <article class="tarea" data-id="t3"
+                data-curso="Física" data-fecha="2026-11-08"
+                data-titulo="Informe de laboratorio">
+                <div class="tarea-cabecera">
+                    <div>
+                        <h3>Informe de laboratorio</h3>
+                        <span class="curso">⚡ Física</span>
+                    </div>
+                    <span class="etiqueta pendiente estado">Pendiente</span>
+                </div>
+
+                <p class="descripcion">
+                    Elabora un informe con el objetivo, materiales, procedimiento,
+                    resultados, cálculos y conclusiones de la práctica de
+                    laboratorio realizada en clase.
+                </p>
+
+                <div class="detalles">
+                    <span>📅 Entrega: 8 de noviembre de 2026</span>
+                    <span>⭐ Valor: 20 puntos</span>
+                    <span>🧪 Actividad de laboratorio</span>
+                </div>
+
+                <div class="acciones">
+                    <input type="file" class="archivo" accept=".pdf,.doc,.docx,.jpg,.png">
+                    <button class="boton boton-principal entregar">Entregar tarea</button>
+                    <span class="archivo-nombre"></span>
+                </div>
+            </article>
+
+            <article class="tarea" data-id="t4"
+                data-curso="Inglés" data-fecha="2026-10-25"
+                data-titulo="Presentación en inglés">
+                <div class="tarea-cabecera">
+                    <div>
+                        <h3>Presentación en inglés</h3>
+                        <span class="curso">🌎 Inglés</span>
+                    </div>
+                    <span class="etiqueta pendiente estado">Pendiente</span>
+                </div>
+
+                <p class="descripcion">
+                    Prepara una presentación breve en inglés sobre un tema
+                    académico. Incluye vocabulario apropiado, una estructura
+                    clara y una conclusión.
+                </p>
+
+                <div class="detalles">
+                    <span>📅 Entrega: 25 de octubre de 2026</span>
+                    <span>⭐ Valor: 10 puntos</span>
+                    <span>🗣️ Actividad oral</span>
+                </div>
+
+                <div class="acciones">
+                    <input type="file" class="archivo" accept=".pdf,.ppt,.pptx,.doc,.docx">
+                    <button class="boton boton-principal entregar">Entregar tarea</button>
+                    <span class="archivo-nombre"></span>
+                </div>
+            </article>
+
+            <article class="tarea" data-id="t5"
+                data-curso="Estadística" data-fecha="2026-11-12"
+                data-titulo="Análisis estadístico">
+                <div class="tarea-cabecera">
+                    <div>
+                        <h3>Análisis estadístico</h3>
+                        <span class="curso">📊 Estadística</span>
+                    </div>
+                    <span class="etiqueta pendiente estado">Pendiente</span>
+                </div>
+
+                <p class="descripcion">
+                    Presenta una tabla de distribución de frecuencias, gráficos
+                    y medidas de tendencia central y dispersión. Agrega una
+                    interpretación de los resultados obtenidos.
+                </p>
+
+                <div class="detalles">
+                    <span>📅 Entrega: 12 de noviembre de 2026</span>
+                    <span>⭐ Valor: 20 puntos</span>
+                    <span>📈 Incluye gráficos</span>
+                </div>
+
+                <div class="acciones">
+                    <input type="file" class="archivo" accept=".pdf,.xlsx,.xls,.doc,.docx">
+                    <button class="boton boton-principal entregar">Entregar tarea</button>
+                    <span class="archivo-nombre"></span>
+                </div>
+            </article>
+
+        </div>
+
+        <div class="sin-resultados" id="sinResultados">
+            <h3>🔍 No se encontraron tareas</h3>
+            <p>Prueba con otro nombre, curso o estado.</p>
+        </div>
+    </section>
+
+    <section class="panel" style="margin-top:25px">
+        <h2>📤 Mis entregas</h2>
+        <p>Aquí puedes consultar los archivos que has seleccionado y marcado como entregados.</p>
+        <div id="misEntregas">
+            <p>Aún no has registrado ninguna entrega.</p>
+        </div>
+
+        <div class="nota">
+            <strong>Importante:</strong> Debes estar atento a las fechas de entrega establecidas por tu catedrático.
+        </div>
+    </section>
+</main>
+
+<footer>
+    © 2026 Aurora University · Portal académico estudiantil
+    <br><br>
+    Excelencia, innovación y conocimiento.
+</footer>
+
+<script>
+    // Verificación básica de sesión de demostración.
+    // Para probar esta página directamente, inicia sesión primero en login.html.
+    const sesion = sessionStorage.getItem("auroraSesion");
+
+    if (!sesion) {
+        window.location.href = "login.html";
+    }
+
+    const tarjetas = Array.from(document.querySelectorAll(".tarea"));
+    const buscar = document.getElementById("buscar");
+    const filtroCurso = document.getElementById("filtroCurso");
+    const filtroEstado = document.getElementById("filtroEstado");
+
+    let entregas = {};
+
+    try {
+        entregas = JSON.parse(localStorage.getItem("auroraEntregas") || "{}");
+    } catch (error) {
+        entregas = {};
+    }
+
+    function fechaLocal(fechaTexto) {
+        const partes = fechaTexto.split("-");
+        return new Date(
+            Number(partes[0]),
+            Number(partes[1]) - 1,
+            Number(partes[2])
+        );
+    }
+
+    function esVencida(tarea) {
+        if (entregas[tarea.dataset.id]) {
+            return false;
+        }
+
+        const hoy = new Date();
+        hoy.setHours(0, 0, 0, 0);
+
+        return fechaLocal(tarea.dataset.fecha) < hoy;
+    }
+
+    function obtenerEstado(tarea) {
+        if (entregas[tarea.dataset.id]) {
+            return "entregada";
+        }
+
+        if (esVencida(tarea)) {
+            return "vencida";
+        }
+
+        return "pendiente";
+    }
+
+    function actualizarTarjeta(tarea) {
+        const estado = obtenerEstado(tarea);
+        const etiqueta = tarea.querySelector(".estado");
+        const boton = tarea.querySelector(".entregar");
+        const archivo = tarea.querySelector(".archivo");
+        const nombre = tarea.querySelector(".archivo-nombre");
+
+        etiqueta.className = "etiqueta estado";
+
+        if (estado === "entregada") {
+            etiqueta.classList.add("entregada-etiqueta");
+            etiqueta.textContent = "Entregada";
+            tarea.classList.add("entregada");
+            tarea.classList.remove("vencida");
+            boton.textContent = "Entrega registrada";
+            boton.disabled = true;
+            boton.style.opacity = "0.65";
+            archivo.disabled = true;
+            nombre.textContent = "📎 " + entregas[tarea.dataset.id].archivo;
+        } else if (estado === "vencida") {
+            etiqueta.classList.add("vencida-etiqueta");
+            etiqueta.textContent = "Vencida";
+            tarea.classList.add("vencida");
+            tarea.classList.remove("entregada");
+            boton.textContent = "Entregar fuera de fecha";
+            boton.disabled = false;
+            boton.style.opacity = "1";
+            archivo.disabled = false;
+            nombre.textContent = "";
+        } else {
+            etiqueta.classList.add("pendiente");
+            etiqueta.textContent = "Pendiente";
+            tarea.classList.remove("entregada", "vencida");
+            boton.textContent = "Entregar tarea";
+            boton.disabled = false;
+            boton.style.opacity = "1";
+            archivo.disabled = false;
+            nombre.textContent = "";
+        }
+    }
+
+    function actualizarEstadisticas() {
+        let pendientes = 0;
+        let entregadas = 0;
+        let vencidas = 0;
+
+        tarjetas.forEach(tarea => {
+            const estado = obtenerEstado(tarea);
+
+            if (estado === "pendiente") pendientes++;
+            if (estado === "entregada") entregadas++;
+            if (estado === "vencida") vencidas++;
+
+            actualizarTarjeta(tarea);
+        });
+
+        document.getElementById("totalTareas").textContent = tarjetas.length;
+        document.getElementById("totalPendientes").textContent = pendientes;
+        document.getElementById("totalEntregadas").textContent = entregadas;
+        document.getElementById("totalVencidas").textContent = vencidas;
+
+        mostrarEntregas();
+    }
+
+    function filtrarTareas() {
+        const texto = buscar.value.trim().toLowerCase();
+        const curso = filtroCurso.value;
+        const estado = filtroEstado.value;
+
+        let visibles = 0;
+
+        tarjetas.forEach(tarea => {
+            const contenido = (
+                tarea.dataset.titulo + " " + tarea.dataset.curso
+            ).toLowerCase();
+
+            const coincideTexto = contenido.includes(texto);
+            const coincideCurso = !curso || tarea.dataset.curso === curso;
+            const coincideEstado = !estado || obtenerEstado(tarea) === estado;
+            const mostrar = coincideTexto && coincideCurso && coincideEstado;
+
+            tarea.style.display = mostrar ? "block" : "none";
+
+            if (mostrar) visibles++;
+        });
+
+        document.getElementById("sinResultados").style.display =
+            visibles === 0 ? "block" : "none";
+    }
+
+    function mostrarEntregas() {
+        const contenedor = document.getElementById("misEntregas");
+        contenedor.replaceChildren();
+
+        const ids = Object.keys(entregas);
+
+        if (ids.length === 0) {
+            const mensaje = document.createElement("p");
+            mensaje.textContent = "Aún no has registrado ninguna entrega.";
+            contenedor.appendChild(mensaje);
+            return;
+        }
+
+        ids.forEach(id => {
+            const tarea = tarjetas.find(t => t.dataset.id === id);
+            if (!tarea) return;
+
+            const elemento = document.createElement("div");
+            elemento.style.padding = "14px 0";
+            elemento.style.borderBottom = "1px solid #e7eaf1";
+
+            const titulo = document.createElement("strong");
+            titulo.textContent = tarea.dataset.titulo;
+
+            const detalle = document.createElement("p");
+            detalle.style.marginBottom = "0";
+            detalle.style.color = "#66738b";
+            detalle.textContent =
+                "Archivo seleccionado: " + entregas[id].archivo +
+                " · Estado: Entrega registrada";
+
+            elemento.appendChild(titulo);
+            elemento.appendChild(detalle);
+            contenedor.appendChild(elemento);
+        });
+    }
+
+    tarjetas.forEach(tarea => {
+        const selector = tarea.querySelector(".archivo");
+        const boton = tarea.querySelector(".entregar");
+        const nombre = tarea.querySelector(".archivo-nombre");
+
+        selector.addEventListener("change", function () {
+            const archivo = selector.files[0];
+
+            if (archivo) {
+                nombre.textContent = "Archivo seleccionado: " + archivo.name;
+            } else {
+                nombre.textContent = "";
+            }
+        });
+
+        boton.addEventListener("click", function () {
+            const archivo = selector.files[0];
+
+            if (!archivo) {
+                alert("Primero selecciona el archivo que deseas entregar.");
+                selector.focus();
+                return;
+            }
+
+            const extensionesPermitidas = [
+                "pdf", "doc", "docx", "zip", "java", "cpp",
+                "txt", "jpg", "png", "ppt", "pptx", "xlsx", "xls"
+            ];
+
+            const partes = archivo.name.split(".");
+            const extension = partes.length > 1
+                ? partes.pop().toLowerCase()
+                : "";
+
+            if (!extensionesPermitidas.includes(extension)) {
+                alert("El tipo de archivo no está permitido.");
+                return;
+            }
+
+            if (archivo.size > 10 * 1024 * 1024) {
+                alert("El archivo supera el límite de 10 MB.");
+                return;
+            }
+
+            const confirmacion = confirm(
+                "¿Deseas registrar como entregada la tarea \"" +
+                tarea.dataset.titulo + "\" con el archivo \"" +
+                archivo.name + "\"?"
+            );
+
+            if (!confirmacion) return;
+
+            entregas[tarea.dataset.id] = {
+                archivo: archivo.name,
+                fechaRegistro: new Date().toISOString()
+            };
+
+            try {
+                localStorage.setItem("auroraEntregas", JSON.stringify(entregas));
+            } catch (error) {
+                alert("No se pudo guardar el registro en este navegador.");
+                delete entregas[tarea.dataset.id];
+                return;
+            }
+
+            actualizarEstadisticas();
+            filtrarTareas();
+
+            alert(
+                "La entrega quedó registrada en esta demostración. " +
+                "Recuerda que el archivo no se ha enviado al docente."
+            );
+        });
+    });
+
+    buscar.addEventListener("input", filtrarTareas);
+    filtroCurso.addEventListener("change", filtrarTareas);
+    filtroEstado.addEventListener("change", filtrarTareas);
+
+    actualizarEstadisticas();
+    filtrarTareas();
+</script>
+
+</body>
+</html>

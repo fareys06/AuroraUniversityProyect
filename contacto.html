@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto | Aurora University</title>
+    <link rel="stylesheet" href="estilos.css">
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: #f3f6fb;
+            color: #52647d;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        .au-top {
+            padding: 11px 5%;
+            display: flex;
+            justify-content: space-between;
+            background: #102849;
+            color: white;
+            font-size: 12px;
+        }
+
+        .au-header {
+            position: relative;
+            z-index: 20;
+            background: white;
+            box-shadow: 0 5px 25px rgba(16,40,73,.08);
+        }
+
+        .au-inner {
+            width: 92%;
+            max-width: 1400px;
+            min-height: 105px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .au-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .au-logo {
+            width: 49px;
+            height: 49px;
+            display: grid;
+            place-items: center;
+            border-radius: 15px;
+            background: #102849;
+            color: #e6ae4c;
+            font-size: 30px;
+        }
+
+        .au-brand h1 {
+            margin: 0;
+            color: #102849;
+            font-size: 21px;
+        }
+
+        .au-brand p {
+            margin: 5px 0 0;
+            color: #8190a6;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+        }
+
+        .au-nav {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .au-nav a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 13px;
+            min-height: 42px;
+            border-radius: 10px;
+            background: transparent !important;
+            color: #102849 !important;
+            text-decoration: none !important;
+            font-size: 13px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .au-nav a:hover,
+        .au-nav a.active {
+            background: #edf2f9 !important;
+        }
+
+        .au-nav a.au-portal {
+            margin-left: 8px;
+            padding: 14px 18px;
+            background: #e6ae4c !important;
+            color: #102849 !important;
+            font-weight: 800;
+        }
+
+        .au-nav a.au-portal:hover {
+            background: #102849 !important;
+            color: white !important;
+        }
+
+        .au-toggle {
+            display: none;
+            padding: 10px 14px;
+            border: 0;
+            border-radius: 9px;
+            background: #102849;
+            color: white;
+            cursor: pointer;
+        }
+
+        .au-hero {
+            position: relative;
+            overflow: hidden;
+            padding: 80px 7%;
+            background: linear-gradient(115deg, #102849, #294d78);
+            color: white;
+        }
+
+        .au-hero::after {
+            content: "✦";
+            position: absolute;
+            right: 9%;
+            top: 15px;
+            color: rgba(240,189,97,.16);
+            font-size: 230px;
+            animation: contactFloat 5s ease-in-out infinite;
+        }
+
+        @keyframes contactFloat {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-18px) rotate(15deg); }
+        }
+
+        .au-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 780px;
+        }
+
+        .au-hero span {
+            color: #f0bd61;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 3px;
+        }
+
+        .au-hero h2 {
+            margin: 17px 0;
+            color: white;
+            font-size: clamp(35px, 5vw, 51px);
+        }
+
+        .au-hero p {
+            color: #e1e9f3;
+            line-height: 1.9;
+            font-size: 16px;
+        }
+
+        .au-container {
+            width: 92%;
+            max-width: 1250px;
+            margin: 55px auto;
+        }
+
+        .section-title {
+            color: #102849;
+            font-size: 29px;
+        }
+
+        .section-description {
+            line-height: 1.8;
+        }
+
+        .contact-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .contact-card {
+            padding: 27px;
+            border: 1px solid #e5eaf1;
+            border-radius: 17px;
+            background: white;
+            box-shadow: 0 10px 28px rgba(16,40,73,.06);
+            transition: .25s;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(16,40,73,.12);
+        }
+
+        .contact-icon {
+            width: 55px;
+            height: 55px;
+            display: grid;
+            place-items: center;
+            border-radius: 15px;
+            background: #fff2d6;
+            font-size: 27px;
+        }
+
+        .contact-card h3 {
+            margin: 18px 0 8px;
+            color: #102849;
+            font-size: 18px;
+        }
+
+        .contact-card p {
+            margin: 0;
+            line-height: 1.8;
+            font-size: 14px;
+            overflow-wrap: anywhere;
+        }
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1.2fr .8fr;
+            gap: 25px;
+            align-items: start;
+            margin-top: 55px;
+        }
+
+        .form-panel,
+        .info-panel {
+            padding: 32px;
+            border: 1px solid #e4eaf2;
+            border-radius: 19px;
+            background: white;
+            box-shadow: 0 10px 30px rgba(16,40,73,.06);
+        }
+
+        .form-panel h2,
+        .info-panel h2 {
+            margin-top: 0;
+            color: #102849;
+        }
+
+        .form-panel > p {
+            line-height: 1.8;
+        }
+
+        .contact-form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 17px;
+            margin-top: 25px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            color: #102849;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #d7e0eb;
+            border-radius: 10px;
+            background: #fbfcfe;
+            color: #102849;
+            font: inherit;
+            font-size: 14px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: 2px solid #e6ae4c;
+            border-color: #d4a653;
+            background: white;
+        }
+
+        .form-group textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        .contact-submit {
+            grid-column: 1 / -1;
+            padding: 15px 20px;
+            border: 0;
+            border-radius: 10px;
+            background: #e6ae4c;
+            color: #102849;
+            font-size: 14px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: .25s;
+        }
+
+        .contact-submit:hover {
+            background: #102849;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .form-message {
+            display: none;
+            grid-column: 1 / -1;
+            padding: 16px;
+            border-radius: 10px;
+            background: #e8f5e9;
+            color: #24612b;
+            line-height: 1.7;
+        }
+
+        .info-list {
+            display: grid;
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 13px;
+        }
+
+        .info-row span {
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            border-radius: 11px;
+            background: #edf2f9;
+            font-size: 20px;
+        }
+
+        .info-row strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #102849;
+        }
+
+        .info-row p {
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.7;
+            overflow-wrap: anywhere;
+        }
+
+        .attention-note {
+            margin-top: 25px;
+            padding: 18px;
+            border-radius: 12px;
+            background: #fff4df;
+            color: #77551e;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .location-section {
+            margin-top: 60px;
+        }
+
+        .location-card {
+            display: grid;
+            grid-template-columns: .9fr 1.1fr;
+            overflow: hidden;
+            border-radius: 19px;
+            background: white;
+            box-shadow: 0 10px 30px rgba(16,40,73,.07);
+        }
+
+        .location-text {
+            padding: 35px;
+        }
+
+        .location-text h3 {
+            color: #102849;
+            font-size: 23px;
+        }
+
+        .location-text p {
+            line-height: 1.8;
+        }
+
+        .location-visual {
+            min-height: 300px;
+            position: relative;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            background:
+                linear-gradient(45deg, transparent 46%, #d0d9e4 47%, #d0d9e4 53%, transparent 54%),
+                linear-gradient(-45deg, transparent 46%, #d0d9e4 47%, #d0d9e4 53%, transparent 54%),
+                #e8eef5;
+            background-size: 90px 90px;
+        }
+
+        .location-pin {
+            width: 90px;
+            height: 90px;
+            display: grid;
+            place-items: center;
+            border: 8px solid rgba(212,166,83,.22);
+            border-radius: 50%;
+            background: #102849;
+            color: #f0bd61;
+            font-size: 40px;
+            box-shadow: 0 10px 25px rgba(16,40,73,.2);
+            animation: pinPulse 2s infinite;
+        }
+
+        @keyframes pinPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        .location-label {
+            position: absolute;
+            bottom: 25px;
+            padding: 10px 16px;
+            border-radius: 9px;
+            background: white;
+            color: #102849;
+            font-size: 13px;
+            font-weight: 800;
+            box-shadow: 0 5px 15px rgba(16,40,73,.1);
+        }
+
+        .faq-section {
+            margin-top: 65px;
+        }
+
+        .faq-list {
+            display: grid;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .faq-item {
+            overflow: hidden;
+            border: 1px solid #e1e8f0;
+            border-radius: 13px;
+            background: white;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 19px 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            border: 0;
+            background: white;
+            color: #102849;
+            text-align: left;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .faq-question:hover {
+            background: #f8fafd;
+        }
+
+        .faq-arrow {
+            color: #bd8a32;
+            font-size: 20px;
+        }
+
+        .faq-answer {
+            display: none;
+            padding: 0 22px 20px;
+            color: #52647d;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .faq-item.open .faq-answer {
+            display: block;
+        }
+
+        .faq-item.open .faq-arrow {
+            transform: rotate(180deg);
+        }
+
+        .au-footer {
+            padding: 40px 5%;
+            background: #102849;
+            color: white;
+            text-align: center;
+        }
+
+        .au-footer h2 { color: white; }
+
+        .au-footer p {
+            color: #dce5f0;
+            font-size: 13px;
+        }
+
+        @media (max-width: 900px) {
+            .contact-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 800px) {
+            .au-toggle { display: block; }
+
+            .au-nav {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .au-nav.open { display: flex; }
+
+            .au-nav a { justify-content: flex-start; }
+
+            .au-nav a.au-portal { margin-left: 0; }
+        }
+
+        @media (max-width: 600px) {
+            .au-top { flex-direction: column; }
+
+            .contact-form {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full,
+            .contact-submit,
+            .form-message {
+                grid-column: auto;
+            }
+
+            .form-panel,
+            .info-panel {
+                padding: 22px;
+            }
+
+            .location-card {
+                grid-template-columns: 1fr;
+            }
+
+            .location-visual { min-height: 250px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="au-top">
+        <span>✦ Aurora University | Conocimiento, innovación y futuro</span>
+        <span>📍 Zona 10, Ciudad de Guatemala</span>
+    </div>
+
+    <header class="au-header">
+        <div class="au-inner">
+
+            <a href="index.html" class="au-brand">
+                <div class="au-logo">✦</div>
+                <div>
+                    <h1>AURORA UNIVERSITY</h1>
+                    <p>CONOCIMIENTO · INNOVACIÓN · FUTURO</p>
+                </div>
+            </a>
+
+            <button class="au-toggle" id="auToggle">☰ Menú</button>
+
+            <nav class="au-nav" id="auNav">
+                <a href="index.html">Inicio</a>
+                <a href="nosotros.html">Nosotros</a>
+                <a href="facultades.html">Facultades</a>
+                <a href="campus.html">Campus</a>
+                <a href="calendario.html">Calendario</a>
+                <a href="contacto.html" class="active">Contacto</a>
+                <a href="login.html" class="au-portal">Portal estudiantil →</a>
+            </nav>
+
+        </div>
+    </header>
+
+    <section class="au-hero">
+        <div class="au-hero-content">
+            <span>ESTAMOS PARA AYUDARTE</span>
+            <h2>Conectemos contigo</h2>
+            <p>
+                En Aurora University queremos acompañarte en cada etapa
+                de tu experiencia académica. Si necesitas información
+                sobre carreras, admisiones o servicios universitarios,
+                nuestro equipo está listo para orientarte.
+            </p>
+        </div>
+    </section>
+
+    <main class="au-container">
+
+        <h2 class="section-title">Canales de atención</h2>
+
+        <p class="section-description">
+            Puedes comunicarte con nosotros mediante los siguientes
+            canales de atención. Selecciona el medio que te resulte
+            más conveniente para realizar tu consulta.
+        </p>
+
+        <section class="contact-cards">
+
+            <article class="contact-card">
+                <div class="contact-icon">📍</div>
+                <h3>Visítanos</h3>
+                <p>
+                    Zona 10, Ciudad de Guatemala, Guatemala.
+                    <br>
+                    Atención presencial en nuestras oficinas.
+                </p>
+            </article>
+
+            <article class="contact-card">
+                <div class="contact-icon">✉️</div>
+                <h3>Correo electrónico</h3>
+                <p>
+                    informacion@aurorauniversity.edu
+                    <br>
+                    Para consultas generales y solicitudes de información.
+                </p>
+            </article>
+
+            <article class="contact-card">
+                <div class="contact-icon">📞</div>
+                <h3>Atención telefónica</h3>
+                <p>
+                    +502 2222-2026
+                    <br>
+                    Lunes a viernes, de 8:00 a. m. a 5:00 p. m.
+                </p>
+            </article>
+
+        </section>
+
+        <!-- FORMULARIO E INFORMACIÓN -->
+
+        <section class="contact-layout">
+
+            <article class="form-panel">
+
+                <h2>Envíanos un mensaje</h2>
+
+                <p>
+                    Completa los siguientes campos para registrar tu consulta.
+                    Los campos marcados son obligatorios.
+                </p>
+
+                <form class="contact-form" id="contactForm">
+
+                    <div class="form-group">
+                        <label for="nombre">Nombre completo *</label>
+                        <input
+                            type="text"
+                            id="nombre"
+                            name="nombre"
+                            placeholder="Ej. María López"
+                            required
+                            minlength="3">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="correo">Correo electrónico *</label>
+                        <input
+                            type="email"
+                            id="correo"
+                            name="correo"
+                            placeholder="nombre@correo.com"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telefono">Teléfono</label>
+                        <input
+                            type="tel"
+                            id="telefono"
+                            name="telefono"
+                            placeholder="+502 0000-0000">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tipo">Tipo de consulta *</label>
+                        <select id="tipo" name="tipo" required>
+                            <option value="">Selecciona una opción</option>
+                            <option>Información sobre carreras</option>
+                            <option>Proceso de admisión</option>
+                            <option>Inscripciones</option>
+                            <option>Servicios estudiantiles</option>
+                            <option>Pagos y cuotas</option>
+                            <option>Actividades universitarias</option>
+                            <option>Otra consulta</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full">
+                        <label for="asunto">Asunto *</label>
+                        <input
+                            type="text"
+                            id="asunto"
+                            name="asunto"
+                            placeholder="Escribe el asunto de tu consulta"
+                            required>
+                    </div>
+
+                    <div class="form-group full">
+                        <label for="mensaje">Tu mensaje *</label>
+                        <textarea
+                            id="mensaje"
+                            name="mensaje"
+                            placeholder="Cuéntanos cómo podemos ayudarte..."
+                            required
+                            minlength="10"></textarea>
+                    </div>
+
+                    <button type="submit" class="contact-submit">
+                        Enviar consulta →
+                    </button>
+
+                    <div
+                        class="form-message"
+                        id="formMessage"
+                        role="status">
+                    </div>
+
+                </form>
+
+            </article>
+
+            <aside class="info-panel">
+
+                <h2>Información de atención</h2>
+
+                <p>
+                    Nuestro equipo de orientación puede ayudarte a resolver
+                    dudas sobre la propuesta académica y los servicios de
+                    Aurora University.
+                </p>
+
+                <div class="info-list">
+
+                    <div class="info-row">
+                        <span>🕒</span>
+                        <div>
+                            <strong>Horario de atención</strong>
+                            <p>
+                                Lunes a viernes: 8:00 a. m. - 5:00 p. m.
+                                <br>
+                                Sábados: 8:00 a. m. - 12:00 p. m.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="info-row">
+                        <span>🎓</span>
+                        <div>
+                            <strong>Admisiones</strong>
+                            <p>Orientación sobre facultades, carreras y proceso de ingreso.</p>
+                        </div>
+                    </div>
+
+                    <div class="info-row">
+                        <span>💻</span>
+                        <div>
+                            <strong>Soporte estudiantil</strong>
+                            <p>Orientación sobre el portal y las herramientas digitales.</p>
+                        </div>
+                    </div>
+
+                    <div class="info-row">
+                        <span>📚</span>
+                        <div>
+                            <strong>Información académica</strong>
+                            <p>Consultas relacionadas con calendarios, cursos y actividades.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </aside>
+
+        </section>
+
+
+        <section class="location-section">
+
+            <h2 class="section-title">¿Dónde nos encontramos?</h2>
+
+            <p class="section-description">
+                Nuestra ubicación de referencia para este proyecto
+                se encuentra en la Zona 10 de la Ciudad de Guatemala.
+            </p>
+
+            <div class="location-card">
+
+                <div class="location-text">
+                    <h3>Aurora University</h3>
+
+                    <p>
+                        📍 Zona 10, Ciudad de Guatemala, Guatemala.
+                    </p>
+
+                    <p>
+                        La ubicación se presenta como referencia ilustrativa
+                        de la institución ficticia. El campus cuenta con
+                        espacios académicos, administrativos y recreativos.
+                    </p>
+
+                    <p>
+                        <strong>Horario:</strong>
+                        Lunes a viernes de 8:00 a. m. a 5:00 p. m.
+                    </p>
+                </div>
+
+                <div class="location-visual">
+                    <div class="location-pin">📍</div>
+                    <div class="location-label">Zona 10 · Ciudad de Guatemala</div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="faq-section">
+
+            <h2 class="section-title">Preguntas frecuentes</h2>
+
+            <p class="section-description">
+                Encuentra respuestas a algunas de las dudas más comunes
+                sobre nuestra propuesta universitaria.
+            </p>
+
+            <div class="faq-list">
+
+                <article class="faq-item">
+                    <button class="faq-question" type="button">
+                        ¿Qué carreras ofrece Aurora University?
+                        <span class="faq-arrow">⌄</span>
+                    </button>
+                    <div class="faq-answer">
+                        Aurora University presenta cinco facultades:
+                        Medicina, Psicología, Humanidades, Ingeniería y
+                        Arquitectura. Cada facultad incluye distintas
+                        opciones de carrera.
+                    </div>
+                </article>
+
+                <article class="faq-item">
+                    <button class="faq-question" type="button">
+                        ¿Cómo puedo conocer el proceso de admisión?
+                        <span class="faq-arrow">⌄</span>
+                    </button>
+                    <div class="faq-answer">
+                        Puedes consultar la sección de facultades y utilizar
+                        este formulario para registrar una consulta relacionada
+                        con el proceso de admisión.
+                    </div>
+                </article>
+
+                <article class="faq-item">
+                    <button class="faq-question" type="button">
+                        ¿Cómo ingreso al portal estudiantil?
+                        <span class="faq-arrow">⌄</span>
+                    </button>
+                    <div class="faq-answer">
+                        Selecciona el botón Portal estudiantil en la parte
+                        superior de la página. Desde allí puedes iniciar sesión
+                        o completar el registro de demostración.
+                    </div>
+                </article>
+
+                <article class="faq-item">
+                    <button class="faq-question" type="button">
+                        ¿Puedo consultar las fechas académicas?
+                        <span class="faq-arrow">⌄</span>
+                    </button>
+                    <div class="faq-answer">
+                        Sí. En la sección Calendario puedes consultar el
+                        calendario mensual y las fechas importantes de los
+                        dos semestres académicos.
+                    </div>
+                </article>
+
+                <article class="faq-item">
+                    <button class="faq-question" type="button">
+                        ¿El formulario envía un correo real?
+                        <span class="faq-arrow">⌄</span>
+                    </button>
+                    <div class="faq-answer">
+                        No. El formulario funciona como demostración
+                        interactiva en JavaScript y muestra una confirmación
+                        en pantalla. Para enviar correos reales sería necesario
+                        conectarlo a un servidor.
+                    </div>
+                </article>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="au-footer">
+        <h2>AURORA UNIVERSITY</h2>
+        <p>Conocimiento · Innovación · Futuro</p>
+        <p>Zona 10, Ciudad de Guatemala</p>
+    </footer>
+
+    <script>
+        // MENÚ RESPONSIVE
+
+        document.getElementById("auToggle").addEventListener("click", function () {
+            document.getElementById("auNav").classList.toggle("open");
+        });
+
+        // FORMULARIO
+
+        const contactForm = document.getElementById("contactForm");
+        const formMessage = document.getElementById("formMessage");
+
+        contactForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            if (!contactForm.checkValidity()) {
+                contactForm.reportValidity();
+                return;
+            }
+
+            const nombre = document.getElementById("nombre").value.trim();
+            const correo = document.getElementById("correo").value.trim();
+            const tipo = document.getElementById("tipo").value;
+
+            formMessage.style.display = "block";
+
+            formMessage.innerHTML = `
+                <strong>¡Consulta registrada correctamente!</strong>
+                <br>
+                Gracias, ${nombre}. Tu mensaje de tipo "${tipo}" quedó
+                registrado en esta demostración.
+                <br>
+                Correo indicado: ${correo}
+            `;
+
+            contactForm.reset();
+            formMessage.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+        });
+
+        document.querySelectorAll(".faq-question").forEach(function (button) {
+            button.addEventListener("click", function () {
+                const item = button.closest(".faq-item");
+                item.classList.toggle("open");
+            });
+        });
+    </script>
+
+</body>
+</html>

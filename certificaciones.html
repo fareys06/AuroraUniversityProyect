@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificaciones | Aurora University</title>
+    <link rel="stylesheet" href="estilos.css">
+
+    <style>
+        :root {
+            --azul: #101d3a;
+            --azul2: #294875;
+            --dorado: #d8ad52;
+            --fondo: #f3f5fa;
+            --texto: #28344b;
+            --gris: #718098;
+            --verde: #218357;
+            --borde: #e1e7f0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--fondo);
+            color: var(--texto);
+        }
+
+        header {
+            background: linear-gradient(120deg, var(--azul), var(--azul2));
+            color: white;
+            padding: 18px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .marca {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .escudo {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--dorado);
+            color: var(--azul);
+            display: grid;
+            place-items: center;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        header h1 {
+            font-size: 21px;
+            margin: 0;
+        }
+
+        header p {
+            font-size: 13px;
+            margin: 5px 0 0;
+            color: #dce5f5;
+        }
+
+        .volver {
+            text-decoration: none;
+            padding: 12px 16px;
+            background: var(--dorado);
+            color: var(--azul);
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        main {
+            width: 94%;
+            max-width: 1200px;
+            margin: 25px auto;
+        }
+
+        .portada {
+            padding: 32px;
+            color: white;
+            border-radius: 17px;
+            background: linear-gradient(120deg, #17294d, #405d8b);
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portada h2 {
+            font-size: 29px;
+            margin: 0 0 12px;
+        }
+
+        .portada p {
+            line-height: 1.7;
+            max-width: 760px;
+            color: #e1e9f6;
+            margin-bottom: 0;
+        }
+
+        .insignia {
+            position: absolute;
+            right: 35px;
+            top: 25px;
+            font-size: 80px;
+            opacity: .8;
+        }
+
+        .resumen {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 25px;
+        }
+
+        .resumen article {
+            background: white;
+            border-radius: 13px;
+            padding: 20px;
+            border-bottom: 4px solid var(--dorado);
+            box-shadow: 0 4px 15px #101d3a0a;
+        }
+
+        .resumen .icono {
+            font-size: 27px;
+        }
+
+        .resumen h3 {
+            color: var(--azul);
+            font-size: 25px;
+            margin: 10px 0 5px;
+        }
+
+        .resumen p {
+            color: var(--gris);
+            font-size: 13px;
+            margin: 0;
+        }
+
+        .titulo-seccion {
+            color: var(--azul);
+            margin: 30px 0 16px;
+            font-size: 22px;
+        }
+
+        .catalogo {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .curso-card {
+            background: white;
+            border: 1px solid var(--borde);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px #101d3a0a;
+            transition: transform .2s, box-shadow .2s;
+        }
+
+        .curso-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px #101d3a12;
+        }
+
+        .curso-cabecera {
+            min-height: 125px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 57px;
+            background: linear-gradient(135deg, #e9eef9, #fff8e7);
+        }
+
+        .curso-contenido {
+            padding: 20px;
+        }
+
+        .curso-contenido h3 {
+            color: var(--azul);
+            margin: 0 0 10px;
+        }
+
+        .curso-contenido p {
+            color: var(--gris);
+            font-size: 13px;
+            line-height: 1.6;
+            min-height: 62px;
+        }
+
+        .etiqueta {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            background: #edf1f8;
+            color: var(--azul);
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .boton {
+            padding: 12px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+            transition: .2s;
+        }
+
+        .boton:hover {
+            transform: translateY(-1px);
+        }
+
+        .boton-azul {
+            background: var(--azul);
+            color: white;
+        }
+
+        .boton-dorado {
+            background: var(--dorado);
+            color: var(--azul);
+        }
+
+        .boton-claro {
+            background: #edf1f8;
+            color: var(--azul);
+        }
+
+        .curso-contenido .boton {
+            width: 100%;
+        }
+
+        .panel {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 25px;
+            box-shadow: 0 4px 15px #101d3a0a;
+        }
+
+        .panel h2 {
+            color: var(--azul);
+            margin-top: 0;
+        }
+
+        .descripcion {
+            color: var(--gris);
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        #zonaCuestionario {
+            display: none;
+        }
+
+        .quiz-cabecera {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid var(--borde);
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-cabecera h2 {
+            margin: 0;
+        }
+
+        .progreso-fondo {
+            height: 9px;
+            border-radius: 20px;
+            background: #e8edf5;
+            overflow: hidden;
+            margin: 15px 0 22px;
+        }
+
+        .progreso {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--azul2), var(--dorado));
+            transition: width .3s;
+        }
+
+        .pregunta {
+            font-size: 19px;
+            line-height: 1.5;
+            color: var(--azul);
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .opciones {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .opcion {
+            padding: 15px;
+            background: #f8f9fc;
+            border: 1px solid var(--borde);
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-align: left;
+            color: var(--texto);
+            transition: .2s;
+        }
+
+        .opcion:hover {
+            border-color: var(--dorado);
+            background: #fffaf0;
+        }
+
+        .opcion.seleccionada {
+            border: 2px solid var(--azul2);
+            background: #edf3ff;
+        }
+
+        .letra {
+            flex-shrink: 0;
+            width: 29px;
+            height: 29px;
+            border-radius: 8px;
+            background: #e8edf5;
+            display: grid;
+            place-items: center;
+            font-weight: bold;
+        }
+
+        .quiz-acciones {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .resultado {
+            display: none;
+            margin-top: 20px;
+            padding: 22px;
+            border-radius: 12px;
+            background: #f4f7fc;
+            border: 1px solid var(--borde);
+        }
+
+        .resultado h3 {
+            font-size: 23px;
+            color: var(--azul);
+            margin-top: 0;
+        }
+
+        .resultado .nota-grande {
+            font-size: 42px;
+            color: var(--azul2);
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .certificado {
+            display: none;
+            margin-top: 25px;
+            padding: 12px;
+            background: #fdfbf5;
+            border: 5px double var(--dorado);
+            border-radius: 5px;
+        }
+
+        .certificado-interior {
+            border: 1px solid #ddc98e;
+            text-align: center;
+            padding: 35px 20px;
+        }
+
+        .certificado .sello {
+            font-size: 48px;
+        }
+
+        .certificado h2 {
+            color: var(--azul);
+            font-family: Georgia, serif;
+            font-size: 30px;
+            margin: 12px 0;
+        }
+
+        .certificado .subtitulo {
+            text-transform: uppercase;
+            color: #9b792a;
+            letter-spacing: 3px;
+            font-size: 12px;
+        }
+
+        .nombre-certificado {
+            font-family: Georgia, serif;
+            color: var(--azul2);
+            font-size: 27px;
+            margin: 20px 0;
+            overflow-wrap: anywhere;
+        }
+
+        .certificado p {
+            line-height: 1.8;
+        }
+
+        .firma {
+            margin: 30px auto 0;
+            padding-top: 10px;
+            max-width: 260px;
+            border-top: 1px solid #aeb6c4;
+            color: var(--gris);
+            font-size: 12px;
+        }
+
+        .lista-certificados {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 13px;
+        }
+
+        .registro-certificado {
+            border: 1px solid var(--borde);
+            border-radius: 11px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .registro-certificado strong {
+            color: var(--azul);
+        }
+
+        .registro-certificado small {
+            display: block;
+            color: var(--gris);
+            margin-top: 5px;
+        }
+
+        .vacio {
+            color: var(--gris);
+            padding: 12px 0;
+            font-size: 13px;
+        }
+
+        .aviso {
+            background: #fff7e5;
+            border: 1px solid #f0dfb4;
+            color: #72551b;
+            border-radius: 9px;
+            padding: 14px;
+            line-height: 1.7;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+
+        footer {
+            background: var(--azul);
+            color: #dce5f5;
+            text-align: center;
+            padding: 25px;
+            margin-top: 30px;
+            font-size: 13px;
+        }
+
+        @media (max-width: 850px) {
+            .catalogo {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .insignia {
+                font-size: 55px;
+                right: 20px;
+            }
+        }
+
+        @media (max-width: 580px) {
+            .portada {
+                padding: 22px;
+            }
+
+            .portada h2 {
+                font-size: 23px;
+            }
+
+            .insignia {
+                display: none;
+            }
+
+            .resumen {
+                grid-template-columns: 1fr;
+            }
+
+            .catalogo,
+            .opciones,
+            .lista-certificados {
+                grid-template-columns: 1fr;
+            }
+
+            .panel {
+                padding: 17px;
+            }
+
+            .certificado-interior {
+                padding: 22px 12px;
+            }
+
+            .certificado h2 {
+                font-size: 23px;
+            }
+
+            .nombre-certificado {
+                font-size: 22px;
+            }
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+
+            #certificado, #certificado * {
+                visibility: visible;
+            }
+
+            #certificado {
+                display: block !important;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                margin: 0;
+                box-shadow: none;
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+
+            .certificado-interior {
+                min-height: 90vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="marca">
+        <div class="escudo">A</div>
+        <div>
+            <h1>Aurora University</h1>
+            <p>Centro de aprendizaje y certificaciones</p>
+        </div>
+    </div>
+
+    <a href="portal.html" class="volver">← Volver al portal</a>
+</header>
+
+<main>
+    <section class="portada">
+        <div class="insignia">🏆</div>
+        <h2>Certificaciones y desafíos</h2>
+        <p>
+            Pon a prueba tus conocimientos con cuestionarios interactivos
+            de cultura general, matemáticas e inglés. Supera cada desafío,
+            consulta tus resultados y obtén un certificado de demostración.
+        </p>
+    </section>
+
+    <section class="resumen">
+        <article>
+            <span class="icono">🧠</span>
+            <h3 id="totalIntentos">0</h3>
+            <p>Cuestionarios completados</p>
+        </article>
+
+        <article>
+            <span class="icono">🏆</span>
+            <h3 id="totalCertificados">0</h3>
+            <p>Certificados obtenidos</p>
+        </article>
+
+        <article>
+            <span class="icono">⭐</span>
+            <h3 id="mejorNota">0%</h3>
+            <p>Mejor puntuación</p>
+        </article>
+    </section>
+
+    <h2 class="titulo-seccion">📚 Selecciona un desafío</h2>
+
+    <section class="catalogo">
+        <article class="curso-card">
+            <div class="curso-cabecera">🌎</div>
+            <div class="curso-contenido">
+                <span class="etiqueta">CULTURA GENERAL</span>
+                <h3>Explorador del conocimiento</h3>
+                <p>
+                    Demuestra tus conocimientos sobre geografía, ciencia,
+                    historia y datos interesantes del mundo.
+                </p>
+                <button class="boton boton-azul" data-quiz="cultura">
+                    Iniciar desafío
+                </button>
+            </div>
+        </article>
+
+        <article class="curso-card">
+            <div class="curso-cabecera">🔢</div>
+            <div class="curso-contenido">
+                <span class="etiqueta">MATEMÁTICAS</span>
+                <h3>Reto matemático</h3>
+                <p>
+                    Resuelve operaciones, ecuaciones sencillas, porcentajes
+                    y problemas de razonamiento numérico.
+                </p>
+                <button class="boton boton-azul" data-quiz="matematicas">
+                    Iniciar desafío
+                </button>
+            </div>
+        </article>
+
+        <article class="curso-card">
+            <div class="curso-cabecera">🇬🇧</div>
+            <div class="curso-contenido">
+                <span class="etiqueta">INGLÉS</span>
+                <h3>English Vocabulary</h3>
+                <p>
+                    Practica vocabulario básico en inglés, traducciones,
+                    expresiones comunes y comprensión de palabras.
+                </p>
+                <button class="boton boton-azul" data-quiz="ingles">
+                    Iniciar desafío
+                </button>
+            </div>
+        </article>
+    </section>
+
+    <section class="panel" id="zonaCuestionario">
+        <div class="quiz-cabecera">
+            <div>
+                <h2 id="tituloQuiz">Cuestionario</h2>
+                <p class="descripcion" id="descripcionQuiz"></p>
+            </div>
+            <span class="etiqueta" id="contadorPregunta">Pregunta 1 de 5</span>
+        </div>
+
+        <div class="progreso-fondo">
+            <div class="progreso" id="progresoQuiz"></div>
+        </div>
+
+        <div id="contenidoPregunta">
+            <div class="pregunta" id="textoPregunta"></div>
+            <div class="opciones" id="opcionesPregunta"></div>
+        </div>
+
+        <div class="quiz-acciones" id="accionesQuiz">
+            <button class="boton boton-claro" id="cancelarQuiz">
+                Salir del cuestionario
+            </button>
+
+            <button class="boton boton-dorado" id="siguientePregunta">
+                Siguiente pregunta →
+            </button>
+        </div>
+
+        <div class="resultado" id="resultadoQuiz">
+            <h3 id="tituloResultado">Resultado</h3>
+            <div class="nota-grande" id="notaResultado">0%</div>
+            <p id="mensajeResultado"></p>
+            <p id="detalleResultado"></p>
+
+            <div class="acciones" style="display:flex;gap:10px;flex-wrap:wrap">
+                <button class="boton boton-azul" id="crearCertificado" style="display:none">
+                    🏆 Generar certificado
+                </button>
+
+                <button class="boton boton-dorado" id="repetirQuiz">
+                    Intentar nuevamente
+                </button>
+            </div>
+        </div>
+
+        <div class="certificado" id="certificado">
+            <div class="certificado-interior">
+                <div class="sello">🎓 🏅</div>
+                <div class="subtitulo">Aurora University</div>
+                <h2>Certificado de participación y logro</h2>
+
+                <p>Se hace constar que</p>
+                <div class="nombre-certificado" id="nombreCertificado">
+                    Estudiante Aurora
+                </div>
+
+                <p>
+                    ha completado satisfactoriamente el desafío de
+                    <strong id="temaCertificado">Cultura General</strong>,
+                    demostrando un resultado de
+                    <strong id="notaCertificado">80%</strong>.
+                </p>
+
+                <p>
+                    Este reconocimiento se otorga como constancia de
+                    finalización del cuestionario educativo.
+                </p>
+
+                <div style="margin-top:18px;color:#9b792a;font-weight:bold">
+                    AURORA UNIVERSITY · APRENDER PARA TRANSFORMAR
+                </div>
+
+                <div class="firma">
+                    Centro de Aprendizaje Digital<br>
+                    <strong>Aurora University</strong>
+                </div>
+
+                <p style="font-size:11px;color:#718098">
+                    Código de demostración: <span id="codigoCertificado"></span>
+                    <br>
+                    Fecha: <span id="fechaCertificado"></span>
+                </p>
+            </div>
+
+            <div class="acciones" style="justify-content:center">
+                <button class="boton boton-azul" id="imprimirCertificado">
+                    🖨 Imprimir / Guardar como PDF
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="panel">
+        <h2>🏅 Mis certificados</h2>
+        <p class="descripcion">
+            Aquí aparecen los certificados generados en este navegador.
+            Puedes volver a abrirlos e imprimirlos.
+        </p>
+        <div class="lista-certificados" id="listaCertificados"></div>
+        <p class="vacio" id="sinCertificados">
+            Todavía no has obtenido certificados. Completa un cuestionario
+            con una puntuación de al menos 80%.
+        </p>
+    </section>
+
+    <div class="aviso">
+        <strong>Información importante:</strong> los cuestionarios y certificados
+        forman parte de un proyecto educativo de demostración. Los certificados
+        no son títulos oficiales, no acreditan estudios universitarios y no
+        sustituyen una certificación institucional.
+    </div>
+</main>
+
+<footer>
+    © 2026 Aurora University · Certificaciones educativas
+    <br><br>
+    El conocimiento abre nuevas oportunidades.
+</footer>
+
+<script>
+    // Verificar que el estudiante haya iniciado sesión.
+    const sesionTexto = sessionStorage.getItem("auroraSesion");
+
+    if (!sesionTexto) {
+        window.location.href = "login.html";
+    }
+
+    let sesion = {};
+
+    try {
+        sesion = JSON.parse(sesionTexto || "{}");
+    } catch (error) {
+        sesion = {};
+    }
+
+    const nombreEstudiante =
+        sesion.nombre ||
+        sesion.nombreCompleto ||
+        sesion.usuario ||
+        "Estudiante Aurora";
+
+    const claveDatos = "auroraCertificaciones_" +
+        String(sesion.usuario || nombreEstudiante).toLowerCase();
+
+    const notaMinima = 80;
+
+    const cuestionarios = {
+        cultura: {
+            titulo: "Explorador del conocimiento",
+            descripcion: "Cultura general: geografía, ciencia e historia.",
+            preguntas: [
+                {
+                    pregunta: "¿Cuál es el planeta más cercano al Sol?",
+                    opciones: ["Venus", "Mercurio", "Marte", "Júpiter"],
+                    correcta: 1
+                },
+                {
+                    pregunta: "¿Cuál es la capital de Guatemala?",
+                    opciones: ["Antigua Guatemala", "Quetzaltenango", "Ciudad de Guatemala", "Petén"],
+                    correcta: 2
+                },
+                {
+                    pregunta: "¿Cuántos continentes se suelen considerar en el modelo de siete continentes?",
+                    opciones: ["Cinco", "Seis", "Siete", "Ocho"],
+                    correcta: 2
+                },
+                {
+                    pregunta: "¿Qué órgano bombea la sangre por el cuerpo humano?",
+                    opciones: ["Pulmón", "Corazón", "Estómago", "Riñón"],
+                    correcta: 1
+                },
+                {
+                    pregunta: "¿Cuál es el resultado de la fotosíntesis para las plantas?",
+                    opciones: [
+                        "Producen azúcares usando luz",
+                        "Transforman oxígeno en hierro",
+                        "Dejan de necesitar agua",
+                        "Producen electricidad directamente"
+                    ],
+                    correcta: 0
+                }
+            ]
+        },
+
+        matematicas: {
+            titulo: "Reto matemático",
+            descripcion: "Operaciones, porcentajes y razonamiento numérico.",
+            preguntas: [
+                {
+                    pregunta: "¿Cuánto es 12 × 8?",
+                    opciones: ["86", "96", "108", "92"],
+                    correcta: 1
+                },
+                {
+                    pregunta: "¿Cuál es el 25% de 200?",
+                    opciones: ["25", "40", "50", "75"],
+                    correcta: 2
+                },
+                {
+                    pregunta: "Resuelve: x + 7 = 15.",
+                    opciones: ["x = 6", "x = 7", "x = 8", "x = 9"],
+                    correcta: 2
+                },
+                {
+                    pregunta: "¿Cuál es el área de un rectángulo de 5 cm por 4 cm?",
+                    opciones: ["9 cm²", "18 cm²", "20 cm²", "25 cm²"],
+                    correcta: 2
+                },
+                {
+                    pregunta: "¿Cuál es el resultado de 3² + 4?",
+                    opciones: ["10", "13", "16", "49"],
+                    correcta: 1
+                }
+            ]
+        },
+
+        ingles: {
+            titulo: "English Vocabulary",
+            descripcion: "Vocabulario básico y expresiones en inglés.",
+            preguntas: [
+                {
+                    pregunta: 'What does "Apple" mean in Spanish?',
+                    opciones: ["Naranja", "Manzana", "Pera", "Uva"],
+                    correcta: 1
+                },
+                {
+                    pregunta: 'Choose the correct translation of "House".',
+                    opciones: ["Escuela", "Calle", "Casa", "Mesa"],
+                    correcta: 2
+                },
+                {
+                    pregunta: 'What is the opposite of "Hot"?',
+                    opciones: ["Warm", "Cold", "Fast", "Tall"],
+                    correcta: 1
+                },
+                {
+                    pregunta: 'Complete: "She ___ a student."',
+                    opciones: ["am", "are", "is", "be"],
+                    correcta: 2
+                },
+                {
+                    pregunta: 'What does "Thank you" mean?',
+                    opciones: ["Por favor", "Buenos días", "Lo siento", "Gracias"],
+                    correcta: 3
+                }
+            ]
+        }
+    };
+
+    let tipoActual = null;
+    let indicePregunta = 0;
+    let respuestas = [];
+    let ultimoResultado = null;
+    let certificados = [];
+    let intentos = [];
+
+    function cargarDatos() {
+        try {
+            const datos = JSON.parse(localStorage.getItem(claveDatos) || "{}");
+
+            certificados = Array.isArray(datos.certificados)
+                ? datos.certificados : [];
+
+            intentos = Array.isArray(datos.intentos)
+                ? datos.intentos : [];
+        } catch (error) {
+            certificados = [];
+            intentos = [];
+        }
+    }
+
+    function guardarDatos() {
+        try {
+            localStorage.setItem(claveDatos, JSON.stringify({
+                certificados: certificados,
+                intentos: intentos
+            }));
+        } catch (error) {
+            alert("No fue posible guardar los datos en el navegador.");
+        }
+    }
+
+    function actualizarResumen() {
+        document.getElementById("totalIntentos").textContent = intentos.length;
+        document.getElementById("totalCertificados").textContent =
+            certificados.length;
+
+        const mejor = intentos.length
+            ? Math.max(...intentos.map(intento => intento.puntuacion))
+            : 0;
+
+        document.getElementById("mejorNota").textContent = mejor + "%";
+    }
+
+    function iniciarCuestionario(tipo) {
+        if (!cuestionarios[tipo]) return;
+
+        tipoActual = tipo;
+        indicePregunta = 0;
+        respuestas = [];
+        ultimoResultado = null;
+
+        document.getElementById("zonaCuestionario").style.display = "block";
+        document.getElementById("tituloQuiz").textContent =
+            cuestionarios[tipo].titulo;
+        document.getElementById("descripcionQuiz").textContent =
+            cuestionarios[tipo].descripcion;
+
+        document.getElementById("contenidoPregunta").style.display = "block";
+        document.getElementById("accionesQuiz").style.display = "flex";
+        document.getElementById("resultadoQuiz").style.display = "none";
+        document.getElementById("certificado").style.display = "none";
+
+        mostrarPregunta();
+
+        document.getElementById("zonaCuestionario").scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }
+
+    function mostrarPregunta() {
+        const preguntas = cuestionarios[tipoActual].preguntas;
+        const pregunta = preguntas[indicePregunta];
+
+        document.getElementById("contadorPregunta").textContent =
+            "Pregunta " + (indicePregunta + 1) + " de " + preguntas.length;
+
+        document.getElementById("progresoQuiz").style.width =
+            (indicePregunta / preguntas.length * 100) + "%";
+
+        document.getElementById("textoPregunta").textContent =
+            pregunta.pregunta;
+
+        const opciones = document.getElementById("opcionesPregunta");
+        opciones.replaceChildren();
+
+        pregunta.opciones.forEach((texto, indice) => {
+            const boton = document.createElement("button");
+            boton.type = "button";
+            boton.className = "opcion";
+
+            const letra = document.createElement("span");
+            letra.className = "letra";
+            letra.textContent = String.fromCharCode(65 + indice);
+
+            const contenido = document.createElement("span");
+            contenido.textContent = texto;
+
+            boton.append(letra, contenido);
+
+            if (respuestas[indicePregunta] === indice) {
+                boton.classList.add("seleccionada");
+            }
+
+            boton.addEventListener("click", function () {
+                respuestas[indicePregunta] = indice;
+
+                opciones.querySelectorAll(".opcion").forEach(elemento => {
+                    elemento.classList.remove("seleccionada");
+                });
+
+                boton.classList.add("seleccionada");
+            });
+
+            opciones.appendChild(boton);
+        });
+
+        document.getElementById("siguientePregunta").textContent =
+            indicePregunta === preguntas.length - 1
+                ? "Finalizar cuestionario ✓"
+                : "Siguiente pregunta →";
+    }
+
+    function finalizarCuestionario() {
+        const preguntas = cuestionarios[tipoActual].preguntas;
+
+        let correctas = 0;
+
+        preguntas.forEach((pregunta, indice) => {
+            if (respuestas[indice] === pregunta.correcta) {
+                correctas++;
+            }
+        });
+
+        const puntuacion = Math.round(correctas / preguntas.length * 100);
+
+        ultimoResultado = {
+            tipo: tipoActual,
+            titulo: cuestionarios[tipoActual].titulo,
+            puntuacion: puntuacion,
+            correctas: correctas,
+            total: preguntas.length,
+            fecha: new Date().toLocaleString("es-GT")
+        };
+
+        intentos.push(ultimoResultado);
+        guardarDatos();
+
+        document.getElementById("contenidoPregunta").style.display = "none";
+        document.getElementById("accionesQuiz").style.display = "none";
+        document.getElementById("resultadoQuiz").style.display = "block";
+        document.getElementById("progresoQuiz").style.width = "100%";
+
+        document.getElementById("tituloResultado").textContent =
+            puntuacion >= notaMinima ? "¡Excelente trabajo!" : "¡Sigue practicando!";
+
+        document.getElementById("notaResultado").textContent = puntuacion + "%";
+
+        document.getElementById("mensajeResultado").textContent =
+            puntuacion >= notaMinima
+                ? "Has alcanzado la puntuación mínima para obtener un certificado de demostración."
+                : "Necesitas al menos " + notaMinima +
+                  "% para generar el certificado. Puedes intentarlo nuevamente.";
+
+        document.getElementById("detalleResultado").textContent =
+            "Respuestas correctas: " + correctas + " de " + preguntas.length + ".";
+
+        document.getElementById("crearCertificado").style.display =
+            puntuacion >= notaMinima ? "inline-block" : "none";
+
+        document.getElementById("certificado").style.display = "none";
+
+        actualizarResumen();
+        renderizarCertificados();
+    }
+
+    function generarCertificado() {
+        if (!ultimoResultado || ultimoResultado.puntuacion < notaMinima) {
+            alert("Debes obtener al menos " + notaMinima + "%.");
+            return;
+        }
+
+        const yaExiste = certificados.find(certificado =>
+            certificado.tipo === ultimoResultado.tipo &&
+            certificado.intentoFecha === ultimoResultado.fecha
+        );
+
+        if (yaExiste) {
+            mostrarCertificado(yaExiste);
+            return;
+        }
+
+        const certificado = {
+            id: "AUR-" + Date.now().toString().slice(-10),
+            tipo: ultimoResultado.tipo,
+            titulo: ultimoResultado.titulo,
+            puntuacion: ultimoResultado.puntuacion,
+            fecha: new Date().toLocaleDateString("es-GT"),
+            intentoFecha: ultimoResultado.fecha,
+            nombre: nombreEstudiante
+        };
+
+        certificados.push(certificado);
+        guardarDatos();
+        actualizarResumen();
+        renderizarCertificados();
+        mostrarCertificado(certificado);
+    }
+
+    function mostrarCertificado(certificado) {
+        document.getElementById("nombreCertificado").textContent =
+            certificado.nombre || nombreEstudiante;
+
+        document.getElementById("temaCertificado").textContent =
+            certificado.titulo;
+
+        document.getElementById("notaCertificado").textContent =
+            certificado.puntuacion + "%";
+
+        document.getElementById("codigoCertificado").textContent =
+            certificado.id;
+
+        document.getElementById("fechaCertificado").textContent =
+            certificado.fecha;
+
+        document.getElementById("certificado").style.display = "block";
+
+        document.getElementById("certificado").scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+    }
+
+    function renderizarCertificados() {
+        const lista = document.getElementById("listaCertificados");
+        lista.replaceChildren();
+
+        document.getElementById("sinCertificados").style.display =
+            certificados.length === 0 ? "block" : "none";
+
+        certificados.forEach(certificado => {
+            const tarjeta = document.createElement("div");
+            tarjeta.className = "registro-certificado";
+
+            const datos = document.createElement("div");
+
+            const titulo = document.createElement("strong");
+            titulo.textContent = "🏅 " + certificado.titulo;
+
+            const detalle = document.createElement("small");
+            detalle.textContent =
+                certificado.puntuacion + "% · " +
+                certificado.fecha + " · " + certificado.id;
+
+            datos.append(titulo, detalle);
+
+            const boton = document.createElement("button");
+            boton.className = "boton boton-claro";
+            boton.type = "button";
+            boton.textContent = "Abrir";
+
+            boton.addEventListener("click", function () {
+                mostrarCertificado(certificado);
+            });
+
+            tarjeta.append(datos, boton);
+            lista.appendChild(tarjeta);
+        });
+    }
+
+    document.querySelectorAll("[data-quiz]").forEach(boton => {
+        boton.addEventListener("click", function () {
+            iniciarCuestionario(boton.dataset.quiz);
+        });
+    });
+
+    document.getElementById("siguientePregunta").addEventListener(
+        "click", function () {
+            if (respuestas[indicePregunta] === undefined) {
+                alert("Selecciona una respuesta antes de continuar.");
+                return;
+            }
+
+            const total = cuestionarios[tipoActual].preguntas.length;
+
+            if (indicePregunta < total - 1) {
+                indicePregunta++;
+                mostrarPregunta();
+            } else {
+                finalizarCuestionario();
+            }
+        }
+    );
+
+    document.getElementById("cancelarQuiz").addEventListener(
+        "click", function () {
+            const confirmar = confirm(
+                "¿Deseas salir del cuestionario? El intento no se guardará."
+            );
+
+            if (!confirmar) return;
+
+            document.getElementById("zonaCuestionario").style.display = "none";
+            tipoActual = null;
+        }
+    );
+
+    document.getElementById("crearCertificado").addEventListener(
+        "click", generarCertificado
+    );
+
+    document.getElementById("repetirQuiz").addEventListener(
+        "click", function () {
+            if (tipoActual) {
+                iniciarCuestionario(tipoActual);
+            }
+        }
+    );
+
+    document.getElementById("imprimirCertificado").addEventListener(
+        "click", function () {
+            window.print();
+        }
+    );
+
+    cargarDatos();
+    actualizarResumen();
+    renderizarCertificados();
+</script>
+
+</body>
+</html>
