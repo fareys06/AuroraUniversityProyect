@@ -312,6 +312,65 @@
             .toolbar input,
             .toolbar select { width: 100%; }
         }
+        
+        
+/* CONTENEDOR DE ACCIONES DE USUARIOS */
+.acciones-usuarios {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 10px 0 15px;
+}
+
+/* BOTÓN DESCARGAR CSV */
+.btn-exportar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 11px 17px;
+
+    background: linear-gradient(135deg, #102b50, #173d69);
+    color: #ffffff;
+
+    border: 1px solid #d6ad52;
+    border-radius: 8px;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    box-shadow: 0 4px 12px rgba(16, 43, 80, 0.16);
+}
+
+.btn-exportar:hover {
+    background: linear-gradient(135deg, #d6ad52, #edc978);
+    color: #102b50;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(16, 43, 80, 0.20);
+}
+
+.btn-exportar:active {
+    transform: scale(0.97);
+}
+
+.icono-descarga {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 20px;
+    height: 20px;
+
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+
+    font-size: 16px;
+    font-weight: bold;
+}
     </style>
 </head>
 
@@ -392,6 +451,14 @@
             <button class="refresh" id="refreshButton">
                 ↻ Actualizar
             </button>
+            
+                <button
+                    type="button"
+                    class="btn-exportar"
+                    onclick="exportarUsuariosCSV()">
+                    <span class="icono-descarga">↓</span>
+                    Descargar usuarios CSV
+                </button>
 
         </div>
 
@@ -420,6 +487,8 @@
             </table>
 
         </div>
+        
+        
 
         <div class="notice">
             <strong>Base de datos local:</strong>
@@ -432,7 +501,6 @@
 
 </main>
 
-<!-- VENTANA DE DETALLES -->
 
 <div class="modal" id="userModal">
     <div class="modal-content">
