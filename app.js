@@ -1851,3 +1851,39 @@ window.auroraFiltrarUsuarios = auroraFiltrarUsuarios;
 console.log(
     "Aurora University: app.js cargado correctamente."
 );
+
+async function exportarUsuariosCSV() {
+    const usuarios = await AuroraDB.obtenerUsuarios();
+
+    if (!usuarios || usuarios.length === 0) {
+        alert("No hay usuarios registrados.");
+        return;
+    }
+
+    const columnas = [
+        "id", "nombre", "apellido", "correo",
+        "rol", "facultad", "carrera"
+    ];
+
+    const filas = [
+        columnas.join(","),
+        ...usuarios.map(usuario =>
+            columnas.map(columna =>
+                `"${String(usuario[columna] ?? "").replace(/"/g, '""')}"`
+            ).join(",")
+        )
+    ];
+
+    const blob = new Blob(["\uFEFF" + filas.join("\n")], {
+        type: "text/csv;charset=utf-8;"
+    });
+
+    const url = URL.createObjectURL(blob);
+    const enlace = document.createElement("a");
+
+    enlace.href = url;
+    enlace.download = "Usuarios_Aurora_University.csv";
+    enlace.click();
+
+    URL.revokeObjectURL(url);
+}
